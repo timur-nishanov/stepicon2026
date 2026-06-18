@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stepicon 2026</title>
+
+  <!-- Inter Display is loaded locally via @font-face (see styles.css / assets/fonts) -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ================= BACKGROUND (built in code, no images) ================= -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop__stripes"></div>   <!-- vertical bands  -->
+    <div class="backdrop__glow"></div>       <!-- purple radial glow -->
+    <div class="backdrop__stars"></div>      <!-- procedural star field -->
+  </div>
+
+  <!-- ============================== HERO ==================================== -->
+  <header class="hero">
+
+    <!-- Independent SVG line layer (purple/green corner). Positioned over the
+         background as its own element so it can be animated separately later. -->
+    <svg class="hero__lines" viewBox="0 0 1440 830" fill="none"
+         preserveAspectRatio="xMidYMin meet" aria-hidden="true"
+         xmlns="http://www.w3.org/2000/svg">
+      <path d="M 362.802 -42.687 L 707.5 302.012" stroke="#A2FF8A" stroke-width="32"/>
+      <path d="M 719.732 -44.687 C 719.734 83.574 719.974 148.093 719.998 270.445 C 720 282.102 715.332 293.32 707.038 301.511 C 698.733 309.714 687.53 314.313 675.858 314.313 L 0 314.313" stroke="#9673FF" stroke-width="32"/>
+      <path d="M 1174.2 786.317 L 732.5 344.619" stroke="#A2FF8A" stroke-width="32"/>
+      <path d="M 720.268 3695.32 C 720.267 3619.29 720.017 606.239 720.001 361.522 C 720 352.273 724.944 344.382 732.962 339.772 L 734.353 338.973 C 741.935 334.615 750.526 332.321 759.271 332.321 L 1440 332.321" stroke="#FFFFFF" stroke-width="32"/>
+    </svg>
+
+    <!-- Top bar: logo + navigation -->
+    <nav class="topbar">
+      <a class="topbar__logo" href="#">
+        <img src="assets/stepik logo.svg" alt="stepik" width="125" height="32" />
+      </a>
+      <ul class="topbar__menu">
+        <li><a href="#">Как это было</a></li>
+        <li><a href="#">О нас</a></li>
+        <li><a href="#">Место проведения</a></li>
+        <li><a href="#">Смотреть трансляцию</a></li>
+      </ul>
+    </nav>
+
+    <!-- Bottom block: title + subtitle + CTA plates -->
+    <div class="hero__content">
+      <div class="hero__title-row">
+        <h1 class="hero__title">Stepicon<br />2026</h1>
+        <p class="hero__subtitle">Место встречи людей, создающих образование</p>
+      </div>
+
+      <div class="hero__cta">
+        <div class="plate plate--place">
+          <span class="plate__label">Место</span>
+          <span class="plate__value">Москва, ул. Вятская, дом 27, строение 42</span>
+        </div>
+        <div class="plate plate--date">
+          <span class="plate__label">Дата</span>
+          <span class="plate__value">18—19.09.2026</span>
+        </div>
+        <a class="plate plate--button" href="#">
+          <span class="plate__value">Подать заявку</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,528 @@
+/* =========================================================================
+   Stepicon 2026 — landing styles
+   Step 1: project skeleton + hero section (static, no animations yet).
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   0. FONTS — Inter Display (local files in assets/fonts)
+   ------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* -------------------------------------------------------------------------
+   1. DESIGN TOKENS (pulled from Figma variables & text styles)
+   Use these everywhere — do not hard-code colours or font sizes in markup.
+   ------------------------------------------------------------------------- */
+:root {
+  /* --- Colours --- */
+  --background-black: #000000;
+  --background-white: #ffffff;
+  --background-purple: #9674ff;
+  --background-green: #a2ff8a;
+  --background-transparent: rgba(255, 255, 255, 0.12); /* #ffffff1f */
+  --background-transparent-1: rgba(255, 255, 255, 0.08); /* #ffffff14 */
+
+  --border-purple: #9673ff;
+  --border-green: #a2ff8a;
+  --border-white: #ffffff;
+
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.5); /* #ffffff80 */
+  --text-tertiary: rgba(255, 255, 255, 0.24); /* #ffffff3d */
+  --text-primary-inverse: #000000;
+  --text-secondary-inverse: rgba(0, 0, 0, 0.5); /* #00000080 */
+
+  /* Hero accent colours used by the procedural background */
+  --glow-purple: rgba(150, 116, 255, 0.45);
+
+  /* --- Typography --- */
+  --font-display: "Inter Display", "Inter", system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+
+  /* Heading / Page (Stepicon 2026) — SemiBold 156 / 1 / -2% */
+  --t-page-size: 156px;
+  --t-page-weight: 600;
+  --t-page-lh: 1;
+  --t-page-ls: -0.02em;
+
+  /* Heading / Section — SemiBold 64 / 1 / 0 */
+  --t-section-size: 64px;
+  --t-section-weight: 600;
+  --t-section-lh: 1;
+  --t-section-ls: 0;
+
+  /* Body / Accent (hero subtitle) — Medium 40 / 1.14 / 0 */
+  --t-accent-size: 40px;
+  --t-accent-weight: 500;
+  --t-accent-lh: 1.14;
+  --t-accent-ls: 0;
+
+  /* Body / Accent-1 (plate value) — Medium 30 / 1.12 / 0 */
+  --t-accent1-size: 30px;
+  --t-accent1-weight: 500;
+  --t-accent1-lh: 1.12;
+  --t-accent1-ls: 0;
+
+  /* Body / Primary (nav links) — Medium 18 / 1.32 / 2% */
+  --t-primary-size: 18px;
+  --t-primary-weight: 500;
+  --t-primary-lh: 1.32;
+  --t-primary-ls: 0.02em;
+
+  /* Body / Caption (plate label) — Medium 18 / 1.2 / 2% */
+  --t-caption-size: 18px;
+  --t-caption-weight: 500;
+  --t-caption-lh: 1.2;
+  --t-caption-ls: 0.02em;
+
+  /* --- Layout --- */
+  --layout-max: 1440px;   /* design canvas width */
+  --layout-pad: 16px;     /* inner padding of hero blocks */
+}
+
+/* -------------------------------------------------------------------------
+   2. RESET / BASE
+   ------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--background-black);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+}
+
+/* -------------------------------------------------------------------------
+   3. BACKGROUND (generated in code — black base + stripes + glow + stars)
+   Fixed full-viewport layer that sits behind all content.
+   ------------------------------------------------------------------------- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--background-black);
+  pointer-events: none;
+}
+
+/* Faint vertical bands */
+.backdrop__stripes {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.018) 0,
+    rgba(255, 255, 255, 0.018) 1px,
+    transparent 1px,
+    transparent 120px
+  );
+}
+
+/* Purple radial glow behind the heading (lower-left of the hero) */
+.backdrop__glow {
+  position: absolute;
+  left: 8%;
+  bottom: 6%;
+  width: 900px;
+  height: 900px;
+  transform: translateY(20%);
+  background: radial-gradient(
+    circle at center,
+    var(--glow-purple) 0%,
+    rgba(150, 116, 255, 0.12) 35%,
+    transparent 70%
+  );
+  filter: blur(20px);
+}
+
+/* Procedural star field: one tiny dot multiplied across the viewport
+   with a generated box-shadow list (random points). */
+.backdrop__stars {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  margin-left: -720px; /* anchor the 1440-wide star map to canvas centre */
+  border-radius: 50%;
+  background: transparent;
+  box-shadow:
+    243px 327px 0 0 #fff,
+    1029px 974px 0 0 #fff,
+    1048px 662px 0 0 #fff,
+    210px 905px 0 0 #fff,
+    457px 916px 0 0 #fff,
+    1230px 636px 0 0 #fff,
+    1139px 430px 0 0 #fff,
+    1172px 560px 0 0 #fff,
+    1005px 769px 0 0 #fff,
+    1201px 451px 0 0 #fff,
+    491px 2px 0 0 #fff,
+    1257px 82px 0 0 #fff,
+    226px 294px 0 0 #fff,
+    200px 460px 0 0 #fff,
+    23px 834px 0 0 #fff,
+    1403px 502px 0 0 #fff,
+    1391px 321px 0 0 #fff,
+    430px 406px 0 0 #fff,
+    515px 356px 0 0 #fff,
+    730px 824px 0 0 #fff,
+    770px 763px 0 0 #fff,
+    1051px 653px 0 0 #fff,
+    156px 740px 0 0 #fff,
+    697px 91px 0 0 #fff,
+    1141px 550px 0 0 #fff,
+    598px 294px 0 0 #fff,
+    936px 144px 0 0 #fff,
+    1320px 720px 0 0 #fff,
+    1182px 316px 0 0 #fff,
+    50px 868px 0 0 #fff,
+    755px 372px 0 0 #fff,
+    944px 432px 0 0 #fff,
+    185px 408px 0 0 #fff,
+    1199px 567px 0 0 #fff,
+    1020px 888px 0 0 #fff,
+    238px 435px 0 0 #fff,
+    1037px 821px 0 0 #fff,
+    1229px 896px 0 0 #fff,
+    1005px 407px 0 0 #fff,
+    1074px 264px 0 0 #fff,
+    860px 577px 0 0 #fff,
+    981px 525px 0 0 #fff,
+    1060px 824px 0 0 #fff,
+    51px 589px 0 0 #fff,
+    459px 784px 0 0 #fff,
+    264px 837px 0 0 #fff,
+    100px 985px 0 0 #fff,
+    1071px 908px 0 0 #fff,
+    1373px 105px 0 0 #fff,
+    1274px 439px 0 0 #fff,
+    962px 145px 0 0 #fff,
+    987px 905px 0 0 #fff,
+    468px 870px 0 0 #fff,
+    249px 641px 0 0 #fff,
+    1435px 467px 0 0 #fff,
+    1380px 480px 0 0 #fff,
+    1117px 257px 0 0 #fff,
+    1146px 411px 0 0 #fff,
+    1371px 315px 0 0 #fff,
+    1122px 818px 0 0 #fff,
+    1324px 513px 0 0 #fff,
+    1430px 490px 0 0 #fff,
+    823px 443px 0 0 #fff,
+    414px 301px 0 0 #fff,
+    550px 9px 0 0 #fff,
+    67px 153px 0 0 #fff,
+    1342px 903px 0 0 #fff,
+    1223px 983px 0 0 #fff,
+    938px 822px 0 0 #fff,
+    1070px 949px 0 0 #fff,
+    1002px 368px 0 0 #fff,
+    409px 266px 0 0 #fff,
+    1418px 497px 0 0 #fff,
+    955px 523px 0 0 #fff,
+    1018px 827px 0 0 #fff,
+    889px 571px 0 0 #fff,
+    1359px 929px 0 0 #fff,
+    68px 851px 0 0 #fff,
+    594px 324px 0 0 #fff,
+    937px 938px 0 0 #fff,
+    201px 448px 0 0 #fff,
+    1411px 733px 0 0 #fff,
+    1055px 265px 0 0 #fff,
+    927px 944px 0 0 #fff,
+    374px 990px 0 0 #fff,
+    871px 862px 0 0 #fff,
+    981px 962px 0 0 #fff,
+    131px 664px 0 0 #fff,
+    545px 924px 0 0 #fff,
+    1020px 379px 0 0 #fff,
+    197px 199px 0 0 #fff,
+    842px 149px 0 0 #fff,
+    920px 938px 0 0 #fff,
+    28px 94px 0 0 #fff,
+    0px 462px 0 0 #fff,
+    1189px 559px 0 0 #fff,
+    170px 624px 0 0 #fff,
+    407px 253px 0 0 #fff,
+    247px 635px 0 0 #fff,
+    91px 769px 0 0 #fff,
+    1119px 979px 0 0 #fff,
+    549px 684px 0 0 #fff,
+    1301px 365px 0 0 #fff,
+    316px 5px 0 0 #fff,
+    641px 680px 0 0 #fff,
+    1194px 588px 0 0 #fff,
+    1007px 706px 0 0 #fff,
+    276px 558px 0 0 #fff,
+    456px 484px 0 0 #fff,
+    1204px 134px 0 0 #fff,
+    1224px 897px 0 0 #fff,
+    1418px 516px 0 0 #fff,
+    595px 86px 0 0 #fff,
+    855px 684px 0 0 #fff,
+    327px 957px 0 0 #fff,
+    277px 802px 0 0 #fff,
+    1200px 313px 0 0 #fff,
+    1039px 421px 0 0 #fff,
+    799px 827px 0 0 #fff,
+    304px 532px 0 0 #fff,
+    402px 385px 0 0 #fff,
+    28px 981px 0 0 #fff,
+    217px 398px 0 0 #fff,
+    150px 52px 0 0 #fff,
+    710px 661px 0 0 #fff,
+    723px 956px 0 0 #fff,
+    52px 26px 0 0 #fff,
+    1045px 487px 0 0 #fff,
+    671px 699px 0 0 #fff,
+    621px 460px 0 0 #fff,
+    667px 935px 0 0 #fff,
+    248px 509px 0 0 #fff,
+    955px 585px 0 0 #fff,
+    1266px 824px 0 0 #fff,
+    349px 157px 0 0 #fff,
+    1210px 532px 0 0 #fff,
+    423px 444px 0 0 #fff,
+    1276px 344px 0 0 #fff,
+    939px 612px 0 0 #fff,
+    477px 694px 0 0 #fff,
+    142px 560px 0 0 #fff,
+    817px 34px 0 0 #fff,
+    400px 662px 0 0 #fff,
+    355px 46px 0 0 #fff,
+    1327px 557px 0 0 #fff,
+    98px 462px 0 0 #fff,
+    1312px 193px 0 0 #fff,
+    990px 728px 0 0 #fff,
+    1389px 898px 0 0 #fff,
+    41px 132px 0 0 #fff,
+    1322px 542px 0 0 #fff,
+    447px 804px 0 0 #fff,
+    1058px 916px 0 0 #fff,
+    282px 164px 0 0 #fff,
+    1354px 864px 0 0 #fff,
+    380px 399px 0 0 #fff,
+    558px 435px 0 0 #fff,
+    1091px 424px 0 0 #fff,
+    161px 392px 0 0 #fff,
+    624px 191px 0 0 #fff,
+    704px 178px 0 0 #fff,
+    539px 475px 0 0 #fff,
+    1019px 798px 0 0 #fff,
+    851px 294px 0 0 #fff,
+    957px 181px 0 0 #fff,
+    667px 531px 0 0 #fff,
+    987px 455px 0 0 #fff,
+    245px 539px 0 0 #fff,
+    1074px 815px 0 0 #fff,
+    560px 835px 0 0 #fff;
+}
+
+/* -------------------------------------------------------------------------
+   4. HERO
+   ------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: var(--layout-max);
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* topbar at the top, content at the bottom */
+}
+
+/* Independent SVG line layer (purple/green corner) */
+.hero__lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 1;          /* above background, behind hero content */
+  pointer-events: none;
+  overflow: hidden;    /* clip the long vertical line to the hero region */
+}
+
+/* --- Top bar (logo + menu) --- */
+.topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--layout-pad);
+}
+
+.topbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  font-size: var(--t-primary-size);
+  font-weight: var(--t-primary-weight);
+  line-height: var(--t-primary-lh);
+  letter-spacing: var(--t-primary-ls);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.topbar__menu a:hover {
+  color: var(--text-primary);
+}
+
+/* --- Hero content (title + subtitle + CTA) --- */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-bottom: 0;
+}
+
+.hero__title-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 83px;
+  padding: 0 var(--layout-pad);
+}
+
+.hero__title {
+  margin: 0;
+  width: 696px;
+  flex: 0 0 auto;
+  font-size: var(--t-page-size);
+  font-weight: var(--t-page-weight);
+  line-height: var(--t-page-lh);
+  letter-spacing: var(--t-page-ls);
+  color: var(--text-primary);
+}
+
+.hero__subtitle {
+  margin: 0 0 6px;
+  width: 592px;
+  flex: 0 0 auto;
+  font-size: var(--t-accent-size);
+  font-weight: var(--t-accent-weight);
+  line-height: var(--t-accent-lh);
+  letter-spacing: var(--t-accent-ls);
+  color: var(--text-primary);
+}
+
+/* --- CTA plates (place / date / button) --- */
+.hero__cta {
+  display: flex;
+  gap: 8px;
+  padding: 0 var(--layout-pad);
+}
+
+.plate {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 148px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.plate--place {
+  background-color: var(--background-purple);
+}
+
+.plate--date {
+  background-color: var(--background-white);
+}
+
+.plate--button {
+  background-color: var(--background-green);
+  justify-content: flex-end;
+}
+
+.plate__label {
+  font-size: var(--t-caption-size);
+  font-weight: var(--t-caption-weight);
+  line-height: var(--t-caption-lh);
+  letter-spacing: var(--t-caption-ls);
+  color: var(--text-secondary-inverse);
+  white-space: nowrap;
+}
+
+.plate__value {
+  font-size: var(--t-accent1-size);
+  font-weight: var(--t-accent1-weight);
+  line-height: var(--t-accent1-lh);
+  letter-spacing: var(--t-accent1-ls);
+  color: var(--text-primary-inverse);
+}
+
+/* -------------------------------------------------------------------------
+   5. RESPONSIVE — desktop is the source of truth; smaller screens just
+   stack blocks vertically without breaking.
+   ------------------------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .hero__title { font-size: clamp(64px, 12vw, 156px); width: auto; }
+  .hero__title-row { flex-wrap: wrap; gap: 32px; }
+  .hero__subtitle { width: auto; font-size: clamp(24px, 3.5vw, 40px); }
+}
+
+@media (max-width: 760px) {
+  .topbar { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .topbar__menu { flex-wrap: wrap; gap: 16px 24px; }
+  .hero__cta { flex-direction: column; }
+  .plate { height: auto; min-height: 120px; }
+}
