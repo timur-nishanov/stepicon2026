@@ -8,9 +8,58 @@
    ------------------------------------------------------------------------- */
 @font-face {
   font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-ExtraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
   src: url("assets/fonts/InterDisplay-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 @font-face {
@@ -22,6 +71,13 @@
 }
 @font-face {
   font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
   src: url("assets/fonts/InterDisplay-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
@@ -29,9 +85,51 @@
 }
 @font-face {
   font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
   src: url("assets/fonts/InterDisplay-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Display";
+  src: url("assets/fonts/InterDisplay-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -188,188 +286,20 @@ img {
   filter: blur(20px);
 }
 
-/* Procedural star field: one tiny dot multiplied across the viewport
-   with a generated box-shadow list (random points). */
+/* Star field — separate positioned layer (transparent PNG asset) sitting
+   over the dark base. Kept as its own element so a scroll parallax can be
+   applied later (move it freely with transform). */
 .backdrop__stars {
   position: absolute;
-  top: 0;
-  left: 50%;
-  width: 1px;
-  height: 1px;
-  margin-left: -720px; /* anchor the 1440-wide star map to canvas centre */
-  border-radius: 50%;
-  background: transparent;
-  box-shadow:
-    243px 327px 0 0 #fff,
-    1029px 974px 0 0 #fff,
-    1048px 662px 0 0 #fff,
-    210px 905px 0 0 #fff,
-    457px 916px 0 0 #fff,
-    1230px 636px 0 0 #fff,
-    1139px 430px 0 0 #fff,
-    1172px 560px 0 0 #fff,
-    1005px 769px 0 0 #fff,
-    1201px 451px 0 0 #fff,
-    491px 2px 0 0 #fff,
-    1257px 82px 0 0 #fff,
-    226px 294px 0 0 #fff,
-    200px 460px 0 0 #fff,
-    23px 834px 0 0 #fff,
-    1403px 502px 0 0 #fff,
-    1391px 321px 0 0 #fff,
-    430px 406px 0 0 #fff,
-    515px 356px 0 0 #fff,
-    730px 824px 0 0 #fff,
-    770px 763px 0 0 #fff,
-    1051px 653px 0 0 #fff,
-    156px 740px 0 0 #fff,
-    697px 91px 0 0 #fff,
-    1141px 550px 0 0 #fff,
-    598px 294px 0 0 #fff,
-    936px 144px 0 0 #fff,
-    1320px 720px 0 0 #fff,
-    1182px 316px 0 0 #fff,
-    50px 868px 0 0 #fff,
-    755px 372px 0 0 #fff,
-    944px 432px 0 0 #fff,
-    185px 408px 0 0 #fff,
-    1199px 567px 0 0 #fff,
-    1020px 888px 0 0 #fff,
-    238px 435px 0 0 #fff,
-    1037px 821px 0 0 #fff,
-    1229px 896px 0 0 #fff,
-    1005px 407px 0 0 #fff,
-    1074px 264px 0 0 #fff,
-    860px 577px 0 0 #fff,
-    981px 525px 0 0 #fff,
-    1060px 824px 0 0 #fff,
-    51px 589px 0 0 #fff,
-    459px 784px 0 0 #fff,
-    264px 837px 0 0 #fff,
-    100px 985px 0 0 #fff,
-    1071px 908px 0 0 #fff,
-    1373px 105px 0 0 #fff,
-    1274px 439px 0 0 #fff,
-    962px 145px 0 0 #fff,
-    987px 905px 0 0 #fff,
-    468px 870px 0 0 #fff,
-    249px 641px 0 0 #fff,
-    1435px 467px 0 0 #fff,
-    1380px 480px 0 0 #fff,
-    1117px 257px 0 0 #fff,
-    1146px 411px 0 0 #fff,
-    1371px 315px 0 0 #fff,
-    1122px 818px 0 0 #fff,
-    1324px 513px 0 0 #fff,
-    1430px 490px 0 0 #fff,
-    823px 443px 0 0 #fff,
-    414px 301px 0 0 #fff,
-    550px 9px 0 0 #fff,
-    67px 153px 0 0 #fff,
-    1342px 903px 0 0 #fff,
-    1223px 983px 0 0 #fff,
-    938px 822px 0 0 #fff,
-    1070px 949px 0 0 #fff,
-    1002px 368px 0 0 #fff,
-    409px 266px 0 0 #fff,
-    1418px 497px 0 0 #fff,
-    955px 523px 0 0 #fff,
-    1018px 827px 0 0 #fff,
-    889px 571px 0 0 #fff,
-    1359px 929px 0 0 #fff,
-    68px 851px 0 0 #fff,
-    594px 324px 0 0 #fff,
-    937px 938px 0 0 #fff,
-    201px 448px 0 0 #fff,
-    1411px 733px 0 0 #fff,
-    1055px 265px 0 0 #fff,
-    927px 944px 0 0 #fff,
-    374px 990px 0 0 #fff,
-    871px 862px 0 0 #fff,
-    981px 962px 0 0 #fff,
-    131px 664px 0 0 #fff,
-    545px 924px 0 0 #fff,
-    1020px 379px 0 0 #fff,
-    197px 199px 0 0 #fff,
-    842px 149px 0 0 #fff,
-    920px 938px 0 0 #fff,
-    28px 94px 0 0 #fff,
-    0px 462px 0 0 #fff,
-    1189px 559px 0 0 #fff,
-    170px 624px 0 0 #fff,
-    407px 253px 0 0 #fff,
-    247px 635px 0 0 #fff,
-    91px 769px 0 0 #fff,
-    1119px 979px 0 0 #fff,
-    549px 684px 0 0 #fff,
-    1301px 365px 0 0 #fff,
-    316px 5px 0 0 #fff,
-    641px 680px 0 0 #fff,
-    1194px 588px 0 0 #fff,
-    1007px 706px 0 0 #fff,
-    276px 558px 0 0 #fff,
-    456px 484px 0 0 #fff,
-    1204px 134px 0 0 #fff,
-    1224px 897px 0 0 #fff,
-    1418px 516px 0 0 #fff,
-    595px 86px 0 0 #fff,
-    855px 684px 0 0 #fff,
-    327px 957px 0 0 #fff,
-    277px 802px 0 0 #fff,
-    1200px 313px 0 0 #fff,
-    1039px 421px 0 0 #fff,
-    799px 827px 0 0 #fff,
-    304px 532px 0 0 #fff,
-    402px 385px 0 0 #fff,
-    28px 981px 0 0 #fff,
-    217px 398px 0 0 #fff,
-    150px 52px 0 0 #fff,
-    710px 661px 0 0 #fff,
-    723px 956px 0 0 #fff,
-    52px 26px 0 0 #fff,
-    1045px 487px 0 0 #fff,
-    671px 699px 0 0 #fff,
-    621px 460px 0 0 #fff,
-    667px 935px 0 0 #fff,
-    248px 509px 0 0 #fff,
-    955px 585px 0 0 #fff,
-    1266px 824px 0 0 #fff,
-    349px 157px 0 0 #fff,
-    1210px 532px 0 0 #fff,
-    423px 444px 0 0 #fff,
-    1276px 344px 0 0 #fff,
-    939px 612px 0 0 #fff,
-    477px 694px 0 0 #fff,
-    142px 560px 0 0 #fff,
-    817px 34px 0 0 #fff,
-    400px 662px 0 0 #fff,
-    355px 46px 0 0 #fff,
-    1327px 557px 0 0 #fff,
-    98px 462px 0 0 #fff,
-    1312px 193px 0 0 #fff,
-    990px 728px 0 0 #fff,
-    1389px 898px 0 0 #fff,
-    41px 132px 0 0 #fff,
-    1322px 542px 0 0 #fff,
-    447px 804px 0 0 #fff,
-    1058px 916px 0 0 #fff,
-    282px 164px 0 0 #fff,
-    1354px 864px 0 0 #fff,
-    380px 399px 0 0 #fff,
-    558px 435px 0 0 #fff,
-    1091px 424px 0 0 #fff,
-    161px 392px 0 0 #fff,
-    624px 191px 0 0 #fff,
-    704px 178px 0 0 #fff,
-    539px 475px 0 0 #fff,
-    1019px 798px 0 0 #fff,
-    851px 294px 0 0 #fff,
-    957px 181px 0 0 #fff,
-    667px 531px 0 0 #fff,
-    987px 455px 0 0 #fff,
-    245px 539px 0 0 #fff,
-    1074px 815px 0 0 #fff,
-    560px 835px 0 0 #fff;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  background-image: url("assets/Stars 1.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  will-change: transform;
 }
 
 /* -------------------------------------------------------------------------
@@ -378,8 +308,7 @@ img {
 .hero {
   position: relative;
   z-index: 1;
-  max-width: var(--layout-max);
-  margin: 0 auto;
+  width: 100%;            /* edge-to-edge — no centring container / max-width */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -467,7 +396,7 @@ img {
 .hero__cta {
   display: flex;
   gap: 8px;
-  padding: 0 var(--layout-pad);
+  /* full-bleed: plates span the whole viewport width, no side gutters */
 }
 
 .plate {
