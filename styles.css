@@ -432,7 +432,8 @@ img {
 .hero__tag {
   position: absolute;
   right: 0;
-  bottom: 200px;          /* sits just above the CTA row (16px gutter + 148 plate + 36 gap) */
+  top: 50%;
+  transform: translateY(-50%); /* vertically centred on the right edge */
   z-index: 2;
   background-color: var(--background-white);
   padding: 16px 8px;
