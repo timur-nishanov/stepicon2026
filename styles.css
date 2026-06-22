@@ -356,6 +356,9 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* On screens wider than the 1440 mockup, pull the right-aligned menu inward
+     so it (and the subtitle below) don't drift onto the lines. 0 at <=1440. */
+  padding-right: clamp(0px, (100vw - 1440px) * 0.7, 480px);
 }
 
 .topbar__menu {
@@ -387,13 +390,16 @@ img {
   align-items: flex-end;
   justify-content: space-between; /* title hugs left, subtitle hugs right */
   gap: 32px;
+  /* match the topbar: keep the subtitle from drifting onto the lines on
+     screens wider than the 1440 mockup. 0 at <=1440. */
+  padding-right: clamp(0px, (100vw - 1440px) * 0.7, 480px);
 }
 
 .hero__title {
   margin: 0;
-  width: 696px;
+  max-width: 100%;
   flex: 0 0 auto;
-  font-size: var(--t-page-size);
+  font-size: clamp(52px, 10.8vw, var(--t-page-size)); /* fluid, caps at the token */
   font-weight: var(--t-page-weight);
   line-height: var(--t-page-lh);
   letter-spacing: var(--t-page-ls);
@@ -404,8 +410,9 @@ img {
 .hero__subtitle {
   margin: 0 0 6px;
   width: 592px;
+  max-width: 100%;
   flex: 0 0 auto;
-  font-size: var(--t-accent-size);
+  font-size: clamp(22px, 2.78vw, var(--t-accent-size)); /* fluid, caps at the token */
   font-weight: var(--t-accent-weight);
   line-height: var(--t-accent-lh);
   letter-spacing: var(--t-accent-ls);
@@ -423,7 +430,7 @@ img {
 .plate {
   flex: 1 1 0;
   min-width: 0;
-  height: 148px;
+  min-height: 148px; /* grows if text wraps at narrow widths instead of clipping */
   padding: 20px 24px;
   display: flex;
   flex-direction: column;
@@ -492,19 +499,80 @@ img {
 }
 
 /* -------------------------------------------------------------------------
-   5. RESPONSIVE — desktop is the source of truth; smaller screens just
-   stack blocks vertically without breaking.
+   5. RESPONSIVE
+   Breakpoints: wide (>1440, handled by the clamp pulls above) · desktop ·
+   small desktop (<=1280) · tablet (<=1024) · mobile (<=768) · small (<=480).
+   Title/subtitle sizes are already fluid (clamp); the queries handle layout.
    ------------------------------------------------------------------------- */
-@media (max-width: 1100px) {
-  .hero__title { font-size: clamp(64px, 12vw, 156px); width: auto; }
-  .hero__title-row { flex-wrap: wrap; gap: 32px; }
-  .hero__subtitle { width: auto; font-size: clamp(24px, 3.5vw, 40px); }
+
+/* Small desktop */
+@media (max-width: 1280px) {
+  .hero__content {
+    gap: 32px;
+  }
+  .topbar__menu {
+    gap: 28px;
+  }
 }
 
-@media (max-width: 760px) {
-  .topbar { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .topbar__menu { flex-wrap: wrap; gap: 16px 24px; }
-  .hero__cta { flex-direction: column; }
-  .plate { height: auto; min-height: 120px; }
-  .hero__tag { display: none; }
+/* Tablet — stack the title and subtitle, drop the side tag */
+@media (max-width: 1024px) {
+  .hero__title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .hero__subtitle {
+    width: auto;
+    max-width: 620px;
+  }
+  .topbar__menu {
+    gap: 22px;
+  }
+  .plate__value {
+    font-size: 24px; /* narrower 3-col plates: keep the address readable */
+  }
+  .hero__tag {
+    display: none;
+  }
+}
+
+/* Mobile — single column throughout */
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .topbar__menu {
+    flex-wrap: wrap;
+    gap: 12px 20px;
+  }
+  .hero__content {
+    gap: 28px;
+  }
+  .hero__cta {
+    flex-direction: column;
+  }
+  .plate {
+    min-height: 116px;
+  }
+  .plate__value {
+    font-size: var(--t-accent1-size); /* full-width plates: restore full size */
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .topbar__menu {
+    font-size: 16px;
+    gap: 10px 16px;
+  }
+  .hero__content {
+    gap: 22px;
+  }
+  .plate {
+    padding: 16px 18px;
+    min-height: 104px;
+  }
 }
