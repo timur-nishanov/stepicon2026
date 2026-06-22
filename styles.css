@@ -199,6 +199,12 @@
   --t-caption-lh: 1.2;
   --t-caption-ls: 0.02em;
 
+  /* Tag (vertical "10 лет конференции") — SemiBold 16 / 1.32 / 2% */
+  --t-tag-size: 16px;
+  --t-tag-weight: 600;
+  --t-tag-lh: 1.32;
+  --t-tag-ls: 0.02em;
+
   /* --- Layout --- */
   --layout-max: 1440px;   /* design canvas width */
   --layout-pad: 16px;     /* inner padding of hero blocks */
@@ -366,7 +372,8 @@ img {
 .hero__title-row {
   display: flex;
   align-items: flex-end;
-  gap: 83px;
+  justify-content: space-between; /* title hugs left, subtitle hugs right */
+  gap: 32px;
   padding: 0 var(--layout-pad);
 }
 
@@ -439,6 +446,36 @@ img {
   color: var(--text-primary-inverse);
 }
 
+/* --- Vertical tag ("10 лет конференции") pinned to the right edge --- */
+.hero__tag {
+  position: absolute;
+  right: 0;
+  bottom: 184px;          /* aligns just above the CTA row (tracks bottom content) */
+  z-index: 2;
+  background-color: var(--background-white);
+  padding: 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero__tag-text {
+  margin: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);  /* read bottom-to-top */
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-size: var(--t-tag-size);
+  font-weight: var(--t-tag-weight);
+  line-height: var(--t-tag-lh);
+  letter-spacing: var(--t-tag-ls);
+  color: var(--text-primary-inverse);
+}
+
+.hero__tag-accent {
+  color: var(--border-purple);
+}
+
 /* -------------------------------------------------------------------------
    5. RESPONSIVE — desktop is the source of truth; smaller screens just
    stack blocks vertically without breaking.
@@ -454,4 +491,5 @@ img {
   .topbar__menu { flex-wrap: wrap; gap: 16px 24px; }
   .hero__cta { flex-direction: column; }
   .plate { height: auto; min-height: 120px; }
+  .hero__tag { display: none; }
 }
