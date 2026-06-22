@@ -434,10 +434,8 @@ img {
 .hero__tag {
   position: absolute;
   right: 0;
-  /* top aligned with the white line where it meets the right edge.
-     The line layer scales with viewport width (viewBox 1440), and the white
-     path ends at y=332.321, so the line sits at 332.321/1440 of the width. */
-  top: calc(100vw * 332.321 / 1440);
+  top: 50%;
+  transform: translateY(-50%); /* vertically centred on the right edge */
   z-index: 2;
   background-color: var(--background-white);
   padding: 16px 8px;
