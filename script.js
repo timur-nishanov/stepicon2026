@@ -62,9 +62,15 @@
       },
     });
 
-    /* --- About (block 2): centre line draws down with the scroll ----------
-       The tip follows the scroll (scrub), so scrolling back retracts it. */
-    if (document.querySelector(".about__line")) {
+    /* --- About: line draw + photo parallax (desktop/tablet only) ----------
+       Below 769px the section is a stacked layout (line hidden, photos in a
+       grid), so these scroll effects are scoped with matchMedia and cleaned
+       up automatically on resize. */
+    gsap.matchMedia().add("(min-width: 769px)", function () {
+      if (!document.querySelector(".about__line")) return;
+
+      // Centre line draws down with the scroll; the tip follows (scrub),
+      // so scrolling back retracts it.
       gsap.fromTo(
         ".about__line",
         { scaleY: 0 },
@@ -80,9 +86,8 @@
         }
       );
 
-      /* --- About photos: light parallax (centred on the design position) ---
-         fromTo +v -> -v so mid-block matches the mockup, with drift around.
-         Each photo is triggered by its own block. */
+      // Photos: light parallax (fromTo +v -> -v so mid-block matches the
+      // mockup, with drift around). Each photo is triggered by its own block.
       [
         [".about__photo--1", 14],
         [".about__photo--2", 22],
@@ -109,7 +114,7 @@
           }
         );
       });
-    }
+    });
   }
 
   /* --- Lines: prepare the "drawing" effect --------------------------------

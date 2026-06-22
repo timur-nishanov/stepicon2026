@@ -456,7 +456,7 @@ img {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px; /* title/subtitle sit ~20px lower, closer to the plates */
 }
 
 .hero__title-row {
@@ -630,6 +630,42 @@ img {
   }
   .plate__value {
     font-size: var(--t-accent1-size); /* full-width plates: restore full size */
+  }
+
+  /* About: drop the scattered absolute layout for a stacked one */
+  .about {
+    padding-bottom: 48px;
+  }
+  .about__block {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 36px 0;
+  }
+  .about__line {
+    display: none; /* spine doesn't fit the stacked layout */
+  }
+  .about__text {
+    position: static;
+    transform: none;
+    width: 100%;
+    grid-column: 1 / -1;
+    order: -1;          /* text above the photos */
+    margin: 0 0 6px;
+  }
+  .about__text--2 {
+    width: 100%;
+  }
+  .about__photo {
+    position: static;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5; /* uniform portrait crop on mobile */
+  }
+  .about__photo--6 {
+    grid-column: 1 / -1; /* the wide landscape photo spans both columns */
+    aspect-ratio: 3 / 2;
   }
 }
 
