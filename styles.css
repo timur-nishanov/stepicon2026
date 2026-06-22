@@ -427,6 +427,17 @@ img {
   stroke: var(--border-white);
 }
 
+/* Hide the hero lines before the draw animation runs, so they don't flash
+   in fully while GSAP is still loading. Each path is shorter than 2000, so a
+   2000 dash + offset fully hides it; GSAP then sets the exact length and
+   draws to 0. Reduced-motion users skip the animation, so keep them visible. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__line {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+  }
+}
+
 /* --- Top bar (logo + menu) --- */
 .topbar {
   position: relative;
