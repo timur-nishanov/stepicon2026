@@ -284,6 +284,7 @@ img {
   height: 110%;
   z-index: 100;          /* above all hero content */
   pointer-events: none;  /* never intercepts clicks */
+  mix-blend-mode: difference; /* dots invert over whatever is beneath them */
   background-image: url("assets/Stars 1.png");
   background-repeat: no-repeat;
   background-position: center top;
@@ -435,7 +436,7 @@ img {
   position: absolute;
   right: 0;
   top: 50%;
-  transform: translateY(-50%); /* vertically centred on the right edge */
+  transform: translateY(calc(-50% - 50px)); /* centred, then lifted 50px */
   z-index: 2;
   background-color: var(--background-white);
   padding: 16px 8px;
