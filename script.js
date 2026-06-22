@@ -30,9 +30,25 @@
     repeat: -1,
   });
 
-  /* --- Stars: light scroll parallax --------------------------------------- */
-  if (window.ScrollTrigger) {
+  /* --- Smooth scroll (Lenis) synced with ScrollTrigger --------------------
+     Lenis smooths the scroll position; ScrollTrigger reads from it, so any
+     scroll-driven animation (the parallax below) becomes buttery and modern.
+     Pattern per Lenis docs: drive lenis.raf from GSAP's ticker. */
+  if (window.Lenis && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
+
+    var lenis = new Lenis({
+      lerp: 0.1,         // interpolation: lower = smoother/floatier
+      smoothWheel: true,
+    });
+
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function (time) {
+      lenis.raf(time * 1000); // GSAP ticker is in seconds, Lenis wants ms
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    /* --- Stars: light scroll parallax ------------------------------------- */
     gsap.to(".stars__layer", {
       y: function () {
         return -window.innerHeight * 0.08; // light drift over the full scroll
@@ -41,7 +57,7 @@
       scrollTrigger: {
         start: 0,
         end: "max",
-        scrub: 0.5,
+        scrub: true, // tracks the already-smoothed Lenis scroll (no double lag)
         invalidateOnRefresh: true,
       },
     });
