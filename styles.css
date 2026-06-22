@@ -356,9 +356,6 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* On screens wider than the 1440 mockup, pull the right-aligned menu inward
-     so it (and the subtitle below) don't drift onto the lines. 0 at <=1440. */
-  padding-right: clamp(0px, (100vw - 1440px) * 0.35, 280px);
 }
 
 .topbar__menu {
@@ -390,9 +387,6 @@ img {
   align-items: flex-end;
   justify-content: space-between; /* title hugs left, subtitle hugs right */
   gap: 32px;
-  /* match the topbar: keep the subtitle from drifting onto the lines on
-     screens wider than the 1440 mockup. 0 at <=1440. */
-  padding-right: clamp(0px, (100vw - 1440px) * 0.35, 280px);
 }
 
 .hero__title {
