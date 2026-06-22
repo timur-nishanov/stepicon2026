@@ -156,9 +156,6 @@
   --text-primary-inverse: #000000;
   --text-secondary-inverse: rgba(0, 0, 0, 0.5); /* #00000080 */
 
-  /* Hero accent colours used by the procedural background */
-  --glow-purple: rgba(150, 116, 255, 0.45);
-
   /* --- Typography --- */
   --font-display: "Inter Display", "Inter", system-ui, -apple-system,
     "Segoe UI", Roboto, sans-serif;
@@ -231,6 +228,7 @@ body {
   color: var(--text-primary);
   font-family: var(--font-display);
   -webkit-font-smoothing: antialiased;
+  font-synthesis: none; /* never fake-bold a weight that's a real Inter Display face */
   overflow-x: hidden;
 }
 
@@ -250,7 +248,7 @@ img {
 }
 
 /* -------------------------------------------------------------------------
-   3. BACKGROUND (generated in code — black base + stripes + glow + stars)
+   3. BACKGROUND (generated in code — black base + stripes + stars)
    Fixed full-viewport layer that sits behind all content.
    ------------------------------------------------------------------------- */
 .backdrop {
@@ -275,23 +273,6 @@ img {
   );
 }
 
-/* Purple radial glow behind the heading (lower-left of the hero) */
-.backdrop__glow {
-  position: absolute;
-  left: 8%;
-  bottom: 6%;
-  width: 900px;
-  height: 900px;
-  transform: translateY(20%);
-  background: radial-gradient(
-    circle at center,
-    var(--glow-purple) 0%,
-    rgba(150, 116, 255, 0.12) 35%,
-    transparent 70%
-  );
-  filter: blur(20px);
-}
-
 /* Star field — separate positioned layer (transparent PNG asset) sitting
    over the dark base. Kept as its own element so a scroll parallax can be
    applied later (move it freely with transform). */
@@ -314,21 +295,25 @@ img {
 .hero {
   position: relative;
   z-index: 1;
+  isolation: isolate;     /* keep the title/subtitle blend within the hero */
   width: 100%;            /* edge-to-edge — no centring container / max-width */
   min-height: 100vh;
+  padding: var(--layout-pad); /* 16px gutter around the whole hero */
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* topbar at the top, content at the bottom */
 }
 
-/* Independent SVG line layer (purple/green corner) */
+/* Independent SVG line layer (purple/green corner).
+   No z-index: it paints first (it's first in the DOM) so the title/subtitle
+   above it can blend against it. The background gutter does not inset it —
+   it spans the full hero width. */
 .hero__lines {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 1;          /* above background, behind hero content */
   pointer-events: none;
   overflow: hidden;    /* clip the long vertical line to the hero region */
 }
@@ -336,11 +321,9 @@ img {
 /* --- Top bar (logo + menu) --- */
 .topbar {
   position: relative;
-  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--layout-pad);
 }
 
 .topbar__menu {
@@ -362,11 +345,9 @@ img {
 /* --- Hero content (title + subtitle + CTA) --- */
 .hero__content {
   position: relative;
-  z-index: 2;
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding-bottom: 0;
 }
 
 .hero__title-row {
@@ -374,7 +355,6 @@ img {
   align-items: flex-end;
   justify-content: space-between; /* title hugs left, subtitle hugs right */
   gap: 32px;
-  padding: 0 var(--layout-pad);
 }
 
 .hero__title {
@@ -386,6 +366,7 @@ img {
   line-height: var(--t-page-lh);
   letter-spacing: var(--t-page-ls);
   color: var(--text-primary);
+  mix-blend-mode: difference; /* inverts where it overlaps the line layer */
 }
 
 .hero__subtitle {
@@ -397,13 +378,14 @@ img {
   line-height: var(--t-accent-lh);
   letter-spacing: var(--t-accent-ls);
   color: var(--text-primary);
+  mix-blend-mode: difference; /* inverts where it overlaps the line layer */
 }
 
 /* --- CTA plates (place / date / button) --- */
 .hero__cta {
   display: flex;
   gap: 8px;
-  /* full-bleed: plates span the whole viewport width, no side gutters */
+  /* spans the full content width; the 16px gutter comes from the hero padding */
 }
 
 .plate {
@@ -450,7 +432,7 @@ img {
 .hero__tag {
   position: absolute;
   right: 0;
-  bottom: 184px;          /* aligns just above the CTA row (tracks bottom content) */
+  bottom: 200px;          /* sits just above the CTA row (16px gutter + 148 plate + 36 gap) */
   z-index: 2;
   background-color: var(--background-white);
   padding: 16px 8px;
