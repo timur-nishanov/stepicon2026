@@ -273,15 +273,17 @@ img {
   );
 }
 
-/* Star field — separate positioned layer (transparent PNG asset) sitting
-   over the dark base. Kept as its own element so a scroll parallax can be
-   applied later (move it freely with transform). */
-.backdrop__stars {
-  position: absolute;
+/* Star field — separate layer (transparent PNG asset). Sits ON TOP of
+   everything and is non-interactive, so it never blocks clicks. Kept as its
+   own element so a scroll parallax can be applied later (move it with transform). */
+.stars {
+  position: fixed;
   top: -5%;
   left: -5%;
   width: 110%;
   height: 110%;
+  z-index: 100;          /* above all hero content */
+  pointer-events: none;  /* never intercepts clicks */
   background-image: url("assets/Stars 1.png");
   background-repeat: no-repeat;
   background-position: center top;
@@ -432,8 +434,10 @@ img {
 .hero__tag {
   position: absolute;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%); /* vertically centred on the right edge */
+  /* top aligned with the white line where it meets the right edge.
+     The line layer scales with viewport width (viewBox 1440), and the white
+     path ends at y=332.321, so the line sits at 332.321/1440 of the width. */
+  top: calc(100vw * 332.321 / 1440);
   z-index: 2;
   background-color: var(--background-white);
   padding: 16px 8px;
