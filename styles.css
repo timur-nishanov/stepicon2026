@@ -274,17 +274,25 @@ img {
 }
 
 /* Star field — separate layer (transparent PNG asset). Sits ON TOP of
-   everything and is non-interactive, so it never blocks clicks. Kept as its
-   own element so a scroll parallax can be applied later (move it with transform). */
+   everything and is non-interactive, so it never blocks clicks.
+   Outer .stars is a fixed clip locked to the viewport (always on screen);
+   the inner .stars__layer holds the image and is oversized so it can drift
+   (idle) and take a light scroll parallax later without revealing an edge. */
 .stars {
   position: fixed;
-  top: -5%;
-  left: -5%;
-  width: 110%;
-  height: 110%;
+  inset: 0;
   z-index: 100;          /* above all hero content */
   pointer-events: none;  /* never intercepts clicks */
+  overflow: hidden;      /* keeps the oversized layer clipped to the viewport */
   mix-blend-mode: difference; /* dots invert over whatever is beneath them */
+}
+
+.stars__layer {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
   background-image: url("assets/Stars 1.png");
   background-repeat: no-repeat;
   background-position: center top;

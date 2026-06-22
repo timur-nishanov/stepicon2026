@@ -1,7 +1,7 @@
 // Stepicon 2026 — hero intro animation.
-// Plays once on first page load. Background, stars and header appear
-// immediately; the title, subtitle and CTA plates fade/rise in, then the
-// SVG lines draw themselves on along their paths.
+// Plays once on first page load. Background and header appear immediately;
+// the title, subtitle and CTA plates reveal in, then the SVG lines draw on,
+// and the star field gets a gentle, continuous idle drift.
 // (This script lives at the end of <body>, so the DOM is already parsed.)
 
 (function () {
@@ -15,35 +15,60 @@
     return;
   }
 
-  // Prepare the "drawing" effect: dash each line by its own length and hide it
-  // (do this up front, before first paint, so the lines don't flash in).
+  /* --- Stars: gentle, never-ending idle drift -----------------------------
+     The layer is oversized, so this drift never reveals an edge. A scroll
+     parallax can be added later on the same .stars__layer using `y` (px);
+     it will compose with the xPercent/yPercent/scale used here, and the
+     fixed, overflow-hidden .stars wrapper keeps it on screen at all times. */
+  gsap.to(".stars__layer", {
+    xPercent: 2,
+    yPercent: -3,
+    scale: 1.05,
+    duration: 18,
+    ease: "sine.inOut",
+    yoyo: true,
+    repeat: -1,
+  });
+
+  /* --- Lines: prepare the "drawing" effect --------------------------------
+     Dash each line by its own length and hide it up front (before first
+     paint) so the lines don't flash in. */
   var lines = gsap.utils.toArray(".hero__lines path");
   lines.forEach(function (path) {
     var length = path.getTotalLength();
     gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
   });
 
+  /* --- Intro timeline ----------------------------------------------------- */
   gsap
-    .timeline({ defaults: { ease: "power2.out" } })
-    // Title: short rise + fade-in
-    .from(".hero__title", { y: 30, autoAlpha: 0, duration: 0.7 })
-    // Subtitle: same move, slightly after the title
-    .from(".hero__subtitle", { y: 24, autoAlpha: 0, duration: 0.6 }, "-=0.35")
-    // CTA plates: gentle staggered cascade
+    .timeline({ defaults: { ease: "expo.out" } })
+    // Title: a long, smooth rise + fade-in
+    .from(".hero__title", { y: 64, autoAlpha: 0, duration: 1.2 })
+    // Subtitle: same move, overlapping the tail of the title
+    .from(".hero__subtitle", { y: 40, autoAlpha: 0, duration: 1.0 }, "-=0.85")
+    // CTA plates: staggered cascade rising from their base
     .from(
       ".hero__cta .plate",
-      { y: 24, autoAlpha: 0, duration: 0.5, stagger: 0.12 },
-      "-=0.2"
+      {
+        y: 56,
+        autoAlpha: 0,
+        scale: 0.96,
+        transformOrigin: "50% 100%",
+        duration: 0.9,
+        stagger: 0.16,
+        ease: "power3.out",
+      },
+      "-=0.6"
     )
-    // Lines: draw on along their paths, once the text is in
+    // Lines: draw on slowly and smoothly, once the text is in
     .to(
       lines,
       {
         strokeDashoffset: 0,
-        duration: 1.1,
+        duration: 1.7,
         ease: "power2.inOut",
-        stagger: 0.2,
+        stagger: 0.28,
       },
-      "-=0.2"
+      "-=0.4"
     );
 })();
