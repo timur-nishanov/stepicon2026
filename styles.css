@@ -289,15 +289,20 @@ img {
 
 .stars__layer {
   position: absolute;
-  top: -10%;
-  left: -10%;
-  width: 120%;
-  height: 120%;
+  top: -15%;
+  left: -15%;
+  width: 130%;
+  height: 130%;
   background-image: url("assets/Stars 1.png");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
   will-change: transform;
+}
+
+/* TEMP: scroll room to preview the star parallax (safe to remove later) */
+.scroll-demo {
+  height: 130vh;
 }
 
 /* -------------------------------------------------------------------------

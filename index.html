@@ -73,6 +73,9 @@
     </div>
   </header>
 
+  <!-- TEMP: extra scroll room to preview the star parallax (safe to remove) -->
+  <section class="scroll-demo" aria-hidden="true"></section>
+
   <!-- Star layer on top of everything; non-interactive.
        Outer = fixed clip (always covers the viewport); inner = oversized
        image that drifts (idle) and will take a light scroll parallax later. -->
@@ -81,6 +84,7 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

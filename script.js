@@ -16,10 +16,10 @@
   }
 
   /* --- Stars: gentle, never-ending idle drift -----------------------------
-     The layer is oversized, so this drift never reveals an edge. A scroll
-     parallax can be added later on the same .stars__layer using `y` (px);
-     it will compose with the xPercent/yPercent/scale used here, and the
-     fixed, overflow-hidden .stars wrapper keeps it on screen at all times. */
+     The layer is oversized, so this drift never reveals an edge. This uses
+     xPercent/yPercent/scale; the scroll parallax below uses `y` (px) on the
+     same element, so the two compose without fighting. The fixed,
+     overflow-hidden .stars wrapper keeps the field on screen at all times. */
   gsap.to(".stars__layer", {
     xPercent: 2,
     yPercent: -3,
@@ -29,6 +29,23 @@
     yoyo: true,
     repeat: -1,
   });
+
+  /* --- Stars: light scroll parallax --------------------------------------- */
+  if (window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(".stars__layer", {
+      y: function () {
+        return -window.innerHeight * 0.08; // light drift over the full scroll
+      },
+      ease: "none",
+      scrollTrigger: {
+        start: 0,
+        end: "max",
+        scrub: 0.5,
+        invalidateOnRefresh: true,
+      },
+    });
+  }
 
   /* --- Lines: prepare the "drawing" effect --------------------------------
      Dash each line by its own length and hide it up front (before first
