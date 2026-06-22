@@ -303,26 +303,27 @@ img {
 /* TEMP marker removed — block 2 now provides the scroll length */
 
 /* -------------------------------------------------------------------------
-   6. ABOUT (block 2) — scattered photos + a centred line drawn by scroll.
-   The 1408x900 mockup layout is kept via aspect-ratio + percentage positions
-   so it scales with the viewport. Text has no entrance (just scrolled to).
+   6. ABOUT — scattered photos + a centred spine line drawn by scroll.
+   Each block keeps the 1408x900 mockup via aspect-ratio + % positions so it
+   scales. Layering is by DOM order (line first, photos, then text); the
+   section is isolated so the text difference-blend stays within it.
    ------------------------------------------------------------------------- */
 .about {
   position: relative;
   z-index: 1;            /* above the fixed backdrop */
+  isolation: isolate;    /* contain the text difference-blend to this section */
   width: 100%;
   padding: 0 var(--layout-pad);
 }
 
 .about__block {
   position: relative;
-  isolation: isolate;        /* contain the text difference-blend to this block */
   width: 100%;
   aspect-ratio: 1408 / 900;  /* preserve the mockup layout while scaling */
 }
 
-/* Centre spine line — GSAP draws it with scaleY on scroll (visible by default
-   so it still shows without JS / reduced motion). */
+/* Centre spine line — spans the whole section; GSAP draws it with scaleY on
+   scroll (visible by default so it still shows without JS / reduced motion). */
 .about__line {
   position: absolute;
   left: 50%;
@@ -337,14 +338,12 @@ img {
   margin-left: calc(100vw * -16 / 1440);
   background-color: var(--border-white);
   transform-origin: top center;
-  z-index: 1;
 }
 
 .about__photo {
   position: absolute;
   border-radius: 32px;
   overflow: hidden;
-  z-index: 1;
 }
 .about__photo img {
   width: 100%;
@@ -352,10 +351,15 @@ img {
   object-fit: cover;
   display: block;
 }
+/* Block 1 */
 .about__photo--1 { left: 0;      top: 8.11%;  width: 21.38%; height: 40.56%; }
 .about__photo--2 { left: 84.30%; top: 12.11%; width: 15.70%; height: 29.78%; }
 .about__photo--3 { left: 20.10%; top: 56.00%; width: 14.49%; height: 27.56%; }
-.about__photo--4 { left: 61.79%; top: 54.56%; width: 19.67%; height: 37.33%; }
+.about__photo--4 { left: 69.00%; top: 54.56%; width: 19.67%; height: 37.33%; }
+/* Block 2 */
+.about__photo--5 { left: 0;      top: 1.78%;  width: 21.38%; height: 40.56%; }
+.about__photo--6 { left: 71.66%; top: 8.89%;  width: 28.34%; height: 29.56%; }
+.about__photo--7 { left: 60.16%; top: 65.78%; width: 17.12%; height: 32.44%; }
 
 .about__text {
   position: absolute;
@@ -371,7 +375,11 @@ img {
   letter-spacing: var(--t-section-ls);
   color: var(--text-primary);
   mix-blend-mode: difference; /* inverts where it overlaps photos / the line */
-  z-index: 2;
+}
+
+.about__text--2 {
+  top: 66%;
+  width: min(933px, 90%);
 }
 
 /* -------------------------------------------------------------------------
