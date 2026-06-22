@@ -301,7 +301,9 @@ img {
   isolation: isolate;     /* keep the title/subtitle blend within the hero */
   width: 100%;            /* edge-to-edge — no centring container / max-width */
   min-height: 100vh;
-  padding: var(--layout-pad); /* 16px gutter around the whole hero */
+  padding: var(--layout-pad) var(--layout-pad) 0; /* 16px gutter top/sides */
+  border-bottom: var(--layout-pad) solid transparent; /* 16px bottom gutter, sits outside the clip */
+  overflow: hidden;       /* clip the line layer to the plates (no green diagonal poking out) */
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* topbar at the top, content at the bottom */
