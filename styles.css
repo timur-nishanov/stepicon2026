@@ -300,9 +300,73 @@ img {
   will-change: transform;
 }
 
-/* TEMP: scroll room to preview the star parallax (safe to remove later) */
-.scroll-demo {
-  height: 130vh;
+/* TEMP marker removed — block 2 now provides the scroll length */
+
+/* -------------------------------------------------------------------------
+   6. ABOUT (block 2) — scattered photos + a centred line drawn by scroll.
+   The 1408x900 mockup layout is kept via aspect-ratio + percentage positions
+   so it scales with the viewport. Text has no entrance (just scrolled to).
+   ------------------------------------------------------------------------- */
+.about {
+  position: relative;
+  z-index: 1;            /* above the fixed backdrop */
+  width: 100%;
+  padding: 0 var(--layout-pad);
+}
+
+.about__block {
+  position: relative;
+  isolation: isolate;        /* contain the text difference-blend to this block */
+  width: 100%;
+  aspect-ratio: 1408 / 900;  /* preserve the mockup layout while scaling */
+}
+
+/* Centre spine line — GSAP draws it with scaleY on scroll (visible by default
+   so it still shows without JS / reduced motion). */
+.about__line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  margin-left: -1px;
+  background-color: var(--border-white);
+  transform-origin: top center;
+  z-index: 1;
+}
+
+.about__photo {
+  position: absolute;
+  border-radius: 32px;
+  overflow: hidden;
+  z-index: 1;
+}
+.about__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about__photo--1 { left: 0;      top: 8.11%;  width: 21.38%; height: 40.56%; }
+.about__photo--2 { left: 84.30%; top: 12.11%; width: 15.70%; height: 29.78%; }
+.about__photo--3 { left: 20.10%; top: 56.00%; width: 14.49%; height: 27.56%; }
+.about__photo--4 { left: 61.79%; top: 54.56%; width: 19.67%; height: 37.33%; }
+
+.about__text {
+  position: absolute;
+  left: 50%;
+  top: 64.56%;
+  transform: translate(-50%, -100%);
+  width: min(743px, 86%);
+  margin: 0;
+  text-align: center;
+  font-size: clamp(28px, 4.44vw, var(--t-section-size));
+  font-weight: var(--t-section-weight);
+  line-height: var(--t-section-lh);
+  letter-spacing: var(--t-section-ls);
+  color: var(--text-primary);
+  mix-blend-mode: difference; /* inverts where it overlaps photos / the line */
+  z-index: 2;
 }
 
 /* -------------------------------------------------------------------------

@@ -61,6 +61,49 @@
         invalidateOnRefresh: true,
       },
     });
+
+    /* --- About (block 2): centre line draws down with the scroll ----------
+       The tip follows the scroll (scrub), so scrolling back retracts it. */
+    if (document.querySelector(".about__line")) {
+      gsap.fromTo(
+        ".about__line",
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".about",
+            start: "top 85%",
+            end: "bottom 75%",
+            scrub: true,
+          },
+        }
+      );
+
+      /* --- About photos: light parallax (centred on the design position) ---
+         fromTo +v -> -v so mid-section matches the mockup, with drift around. */
+      [
+        [".about__photo--1", 8],
+        [".about__photo--2", 14],
+        [".about__photo--3", -10],
+        [".about__photo--4", 6],
+      ].forEach(function (item) {
+        gsap.fromTo(
+          item[0],
+          { yPercent: item[1] },
+          {
+            yPercent: -item[1],
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".about",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      });
+    }
   }
 
   /* --- Lines: prepare the "drawing" effect --------------------------------
