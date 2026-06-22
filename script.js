@@ -73,8 +73,8 @@
           ease: "none",
           scrollTrigger: {
             trigger: ".about",
-            start: "top 85%",
-            end: "bottom 75%",
+            start: "top bottom", // begin as the section appears (no entry gap)
+            end: "bottom 80%",
             scrub: true,
           },
         }

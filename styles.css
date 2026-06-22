@@ -326,12 +326,15 @@ img {
 .about__line {
   position: absolute;
   left: 50%;
-  top: 0;
+  /* start at the bottom of the hero's white plate (close the gutter gap):
+     the section sits 16px below the plate, so reach up by the gutter + a
+     couple px into the (white) plate so there's no black seam. */
+  top: calc(-1 * var(--layout-pad) - 2px);
+  height: calc(100% + var(--layout-pad) + 2px);
   /* match the hero SVG line thickness: stroke-width 32 in a 1440 viewBox
      rendered full-width => 32 * 100vw / 1440 (scales with the viewport too) */
   width: calc(100vw * 32 / 1440);
   margin-left: calc(100vw * -16 / 1440);
-  height: 100%;
   background-color: var(--border-white);
   transform-origin: top center;
   z-index: 1;
