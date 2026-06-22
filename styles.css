@@ -323,6 +323,20 @@ img {
   overflow: hidden;    /* clip the long vertical line to the hero region */
 }
 
+/* Line strokes (colours from the Figma variables) */
+.hero__line {
+  fill: none;
+}
+.hero__line--purple {
+  stroke: var(--border-purple);
+}
+.hero__line--green {
+  stroke: var(--border-green);
+}
+.hero__line--white {
+  stroke: var(--border-white);
+}
+
 /* --- Top bar (logo + menu) --- */
 .topbar {
   position: relative;
