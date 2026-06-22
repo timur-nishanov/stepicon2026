@@ -313,7 +313,7 @@ img {
   z-index: 1;            /* above the fixed backdrop */
   isolation: isolate;    /* contain the text difference-blend to this section */
   width: 100%;
-  padding: 0 var(--layout-pad);
+  padding: 0 var(--layout-pad) 6vw; /* bottom room for the lowered photo */
 }
 
 .about__block {
@@ -359,7 +359,7 @@ img {
 /* Block 2 */
 .about__photo--5 { left: 0;      top: 1.78%;  width: 21.38%; height: 40.56%; }
 .about__photo--6 { left: 71.66%; top: 8.89%;  width: 28.34%; height: 29.56%; }
-.about__photo--7 { left: 60.16%; top: 65.78%; width: 17.12%; height: 32.44%; }
+.about__photo--7 { left: 60.16%; top: 71.00%; width: 17.12%; height: 32.44%; }
 
 .about__text {
   position: absolute;

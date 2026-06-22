@@ -84,13 +84,13 @@
          fromTo +v -> -v so mid-block matches the mockup, with drift around.
          Each photo is triggered by its own block. */
       [
-        [".about__photo--1", 8],
-        [".about__photo--2", 14],
-        [".about__photo--3", -10],
-        [".about__photo--4", 6],
-        [".about__photo--5", 9],
-        [".about__photo--6", -12],
-        [".about__photo--7", 7],
+        [".about__photo--1", 14],
+        [".about__photo--2", 22],
+        [".about__photo--3", -17],
+        [".about__photo--4", 11],
+        [".about__photo--5", 15],
+        [".about__photo--6", -20],
+        [".about__photo--7", 12],
       ].forEach(function (item) {
         var el = document.querySelector(item[0]);
         if (!el) return;
