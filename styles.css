@@ -327,9 +327,11 @@ img {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 2px;
+  /* match the hero SVG line thickness: stroke-width 32 in a 1440 viewBox
+     rendered full-width => 32 * 100vw / 1440 (scales with the viewport too) */
+  width: calc(100vw * 32 / 1440);
+  margin-left: calc(100vw * -16 / 1440);
   height: 100%;
-  margin-left: -1px;
   background-color: var(--border-white);
   transform-origin: top center;
   z-index: 1;
