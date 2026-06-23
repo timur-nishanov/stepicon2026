@@ -1,9 +1,37 @@
-// Stepicon 2026 — hero intro animation.
-// Plays once on first page load. Background and header appear immediately;
-// the title, subtitle and CTA plates reveal in, then the SVG lines draw on,
-// and the star field gets a gentle, continuous idle drift.
+// Stepicon 2026 — interactions.
 // (This script lives at the end of <body>, so the DOM is already parsed.)
 
+/* --- Mobile burger menu (always runs, independent of GSAP/reduced-motion) --- */
+(function () {
+  var burger = document.querySelector(".topbar__burger");
+  var menu = document.getElementById("menu");
+  if (!burger || !menu) return;
+  var closeBtn = menu.querySelector(".menu__close");
+
+  function setOpen(open) {
+    menu.classList.toggle("menu--open", open);
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    document.documentElement.classList.toggle("menu-open", open);
+    // pause/resume smooth scroll if Lenis is running
+    if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
+  }
+
+  burger.addEventListener("click", function () { setOpen(true); });
+  if (closeBtn) closeBtn.addEventListener("click", function () { setOpen(false); });
+  // close when a menu link is tapped
+  menu.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () { setOpen(false); });
+  });
+  // close on Escape
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") setOpen(false);
+  });
+})();
+
+// Hero intro animation: plays once on load (title/subtitle/plates reveal,
+// lines draw on, stars drift), plus scroll parallax and the scroll-driven
+// section lines.
 (function () {
   if (typeof window.gsap === "undefined") return;
 
@@ -41,6 +69,7 @@
       lerp: 0.1,         // interpolation: lower = smoother/floatier
       smoothWheel: true,
     });
+    window.__lenis = lenis; // exposed so the burger menu can pause/resume scroll
 
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(function (time) {

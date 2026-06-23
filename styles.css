@@ -695,6 +695,28 @@ img {
 }
 
 /* -------------------------------------------------------------------------
+   8. BURGER + MOBILE MENU (shown only on mobile)
+   ------------------------------------------------------------------------- */
+.topbar__burger {
+  display: none; /* desktop uses the inline nav */
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.menu {
+  display: none; /* only mounted on mobile (see media query) */
+}
+
+/* lock background scroll while the menu is open */
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+
+/* -------------------------------------------------------------------------
    5. RESPONSIVE
    Breakpoints: wide (>1440, handled by the clamp pulls above) · desktop ·
    small desktop (<=1280) · tablet (<=1024) · mobile (<=768) · small (<=480).
@@ -743,15 +765,16 @@ img {
 
 /* Mobile — single column throughout */
 @media (max-width: 768px) {
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
+  /* topbar: logo + burger (nav moves into the fullscreen menu) */
   .topbar__menu {
-    flex-wrap: wrap;
-    gap: 12px 18px;
-    font-size: 16px;
+    display: none;
+  }
+  .topbar__burger {
+    display: block;
+  }
+  /* hero lines clutter the small screen — hide them */
+  .hero__lines {
+    display: none;
   }
   .hero__content {
     gap: 28px;
@@ -832,14 +855,86 @@ img {
   .flow-spacer {
     display: none;
   }
+
+  /* --- Fullscreen mobile menu --- */
+  .menu {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 200; /* above the star layer (z 100) */
+    background-color: var(--background-black);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .menu.menu--open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .menu__inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+  .menu__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .menu__close {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    line-height: 0;
+  }
+  .menu__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 56px;
+  }
+  .menu__nav a {
+    font-size: var(--t-accent1-size);
+    font-weight: var(--t-accent1-weight);
+    line-height: var(--t-accent1-lh);
+    color: var(--text-primary);
+  }
+  .menu__cta {
+    margin-top: auto; /* pin the buttons to the bottom */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .menu__btn {
+    height: 72px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: var(--t-primary-size);
+    font-weight: var(--t-primary-weight);
+    line-height: var(--t-primary-lh);
+    letter-spacing: var(--t-primary-ls);
+  }
+  .menu__btn--white {
+    background-color: var(--background-white);
+    color: var(--text-primary-inverse);
+  }
+  .menu__btn--ghost {
+    background-color: var(--background-transparent);
+    color: var(--text-primary);
+  }
+  .menu__btn-icon {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 /* Small phones */
 @media (max-width: 480px) {
-  .topbar__menu {
-    font-size: 16px;
-    gap: 10px 16px;
-  }
   .hero__content {
     gap: 22px;
   }

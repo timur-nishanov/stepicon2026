@@ -35,13 +35,16 @@
         <img src="assets/stepik logo.svg" alt="stepik" width="125" height="32" />
       </a>
       <ul class="topbar__menu">
-        <li><a href="#">О Stepicon</a></li>
+        <li><a href="#">О Stepicon</a></li>
         <li><a href="#">Что будет</a></li>
         <li><a href="#">Программа</a></li>
-        <li><a href="#">О нас</a></li>
+        <li><a href="#">О нас</a></li>
         <li><a href="#">Тарифы</a></li>
         <li><a href="#">FAQ</a></li>
       </ul>
+      <button class="topbar__burger" type="button" aria-label="Открыть меню" aria-controls="menu" aria-expanded="false">
+        <img src="assets/burger-open.svg" alt="" width="32" height="32" />
+      </button>
     </nav>
 
     <!-- Bottom block: title + subtitle + CTA plates -->
@@ -54,7 +57,7 @@
       <div class="hero__cta">
         <div class="plate plate--place">
           <span class="plate__label">Место</span>
-          <span class="plate__value">Школа 21. Москва, ул. Вятская дом 27, строение 42</span>
+          <span class="plate__value">Школа 21. Москва, ул. Вятская дом 27, строение 42</span>
         </div>
         <div class="plate plate--date">
           <span class="plate__label">Дата</span>
@@ -85,7 +88,7 @@
       <div class="about__photo about__photo--2"><img src="assets/IMG 2.png" alt="" /></div>
       <div class="about__photo about__photo--1"><img src="assets/IMG 1.png" alt="" /></div>
 
-      <h2 class="about__text">Stepicon — ежегодная встреча Stepik для тех, кто создаёт, развивает и продвигает онлайн-образование</h2>
+      <h2 class="about__text">Stepicon — ежегодная встреча Stepik для тех, кто создаёт, развивает и продвигает онлайн-образование</h2>
     </div>
 
     <div class="about__block">
@@ -93,7 +96,7 @@
       <div class="about__photo about__photo--6"><img src="assets/IMG 6.png" alt="" /></div>
       <div class="about__photo about__photo--5"><img src="assets/IMG 5.png" alt="" /></div>
 
-      <h2 class="about__text about__text--2">Здесь собираются авторы курсов, образовательные проекты, компании, преподаватели, методисты, маркетологи, партнёры и команда Stepik</h2>
+      <h2 class="about__text about__text--2">Здесь собираются авторы курсов, образовательные проекты, компании, преподаватели, методисты, маркетологи, партнёры и команда Stepik</h2>
     </div>
   </section>
 
@@ -111,7 +114,7 @@
 
       <div class="points__card points__card--purple">
         <span class="points__num">700+</span>
-        <span class="points__label">участников за все годы</span>
+        <span class="points__label">участников за все годы</span>
       </div>
       <div class="points__card points__card--green">
         <span class="points__num">с 2016</span>
@@ -119,7 +122,7 @@
       </div>
       <div class="points__card points__card--white">
         <span class="points__num">15+</span>
-        <span class="points__label">докладов, воркшопов и дискуссий</span>
+        <span class="points__label">докладов, воркшопов и дискуссий</span>
       </div>
     </div>
   </section>
@@ -133,6 +136,35 @@
        image that drifts (idle) and will take a light scroll parallax later. -->
   <div class="stars" aria-hidden="true">
     <div class="stars__layer"></div>
+  </div>
+
+  <!-- Mobile fullscreen menu (opened from the burger) -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__inner">
+      <div class="menu__header">
+        <a class="menu__logo" href="#">
+          <img src="assets/stepik logo.svg" alt="stepik" width="125" height="32" />
+        </a>
+        <button class="menu__close" type="button" aria-label="Закрыть меню">
+          <img src="assets/burger-close.svg" alt="" width="32" height="32" />
+        </button>
+      </div>
+      <nav class="menu__nav">
+        <a href="#">О&nbsp;Stepicon</a>
+        <a href="#">Что будет</a>
+        <a href="#">Программа</a>
+        <a href="#">О&nbsp;нас</a>
+        <a href="#">Тарифы</a>
+        <a href="#">FAQ</a>
+      </nav>
+      <div class="menu__cta">
+        <a class="menu__btn menu__btn--white" href="#">Подать заявку</a>
+        <a class="menu__btn menu__btn--ghost" href="#">Подписаться на&nbsp;новости</a>
+        <a class="menu__btn menu__btn--ghost" href="#">
+          <img class="menu__btn-icon" src="assets/pin map.svg" alt="" width="28" height="28" />Маршрут
+        </a>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
