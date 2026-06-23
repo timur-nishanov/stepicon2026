@@ -679,6 +679,7 @@ img {
   flex: 1 1 0;
   min-width: 0;
   max-width: calc(50% - 40px); /* a lone card stays left-aligned, not full width */
+  min-height: clamp(260px, 24vw, 346px); /* push the author down — bigger gap under the title */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -707,7 +708,6 @@ img {
   flex: 0 0 auto;
   width: clamp(96px, 9.2vw, 132px);
   aspect-ratio: 132 / 154;
-  border-radius: 8px;
   overflow: hidden;
 }
 .talk__photo img {
@@ -740,9 +740,8 @@ img {
   display: flex;
   align-items: center;
   gap: 24px;
-  margin-top: clamp(40px, 5vw, 72px);
+  margin-top: 0; /* sits flush against the bottom edge of the last event */
   padding: clamp(24px, 2.8vw, 40px);
-  border-radius: 24px;
   background-color: var(--background-white);
 }
 .program-banner__text {
