@@ -179,21 +179,22 @@
           scrollTrigger: {
             trigger: ".points",
             start: "top 55%", // continue seamlessly from the About spine
-            end: "top -28%", // very long range => slow, CONSTANT draw (tight scrub,
-            scrub: true, // no smoothing lag => no acceleration, no half-drawn bug)
+            end: "center 40%", // finish while the section is centred & readable
+            scrub: true,
           },
         })
-        // white spine continues down (quick — it just extends the existing line)
+        // white spine continues down at the SAME calm pace as the About spine
+        // (long duration => no speed jump => no acceleration at the bottom)
         .to(
           ".points__line--white",
-          { strokeDashoffset: 0, ease: "none", duration: 0.2 },
+          { strokeDashoffset: 0, ease: "none", duration: 0.55 },
           0
         )
-        // ...then purple & green emerge and reach the cards over a long, slow tail
+        // ...and before it reaches its card, purple & green emerge from it
         .to(
           [".points__line--purple", ".points__line--green"],
-          { strokeDashoffset: 0, ease: "none", duration: 0.8 },
-          0.2
+          { strokeDashoffset: 0, ease: "none", duration: 0.6 },
+          0.4
         );
 
       // Cards drive up from off-screen, one by one, tied to scroll so they
@@ -207,8 +208,8 @@
         stagger: 0.15,
         scrollTrigger: {
           trigger: ".points",
-          start: "top 85%",
-          end: "top 0%", // settle (top at viewport top) just before the branches finish
+          start: "top 80%",
+          end: "center 40%", // settle in sync with the lines
           scrub: true,
           invalidateOnRefresh: true,
         },
