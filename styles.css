@@ -779,6 +779,13 @@ html.menu-open body {
   .hero__content {
     gap: 28px;
   }
+  /* big, edge-to-edge display title like the mockup */
+  .hero__title {
+    font-size: clamp(64px, 19vw, 104px);
+  }
+  .hero__title-row {
+    gap: 16px;
+  }
   .hero__cta {
     flex-direction: column;
   }
@@ -894,6 +901,7 @@ html.menu-open body {
     flex-direction: column;
     gap: 24px;
     margin-top: 56px;
+    margin-bottom: 56px; /* guaranteed gap so nav never collides with the CTA buttons */
   }
   .menu__nav a {
     font-size: var(--t-accent1-size);
