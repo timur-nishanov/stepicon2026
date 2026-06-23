@@ -127,7 +127,7 @@
             trigger: ".about",
             start: "top 55%", // constant draw speed (range == line height): the
             end: "bottom 55%", // tip parks at a fixed screen point, no acceleration
-            scrub: true,
+            scrub: 1, // smoothing so the draw glides instead of snapping per frame
           },
         }
       );
@@ -180,7 +180,7 @@
             trigger: ".points",
             start: "top 55%", // continue seamlessly from the About spine
             end: "center 40%", // finish while the section is centred & readable
-            scrub: true,
+            scrub: 1, // smoothing so the branches glide on, not snap
           },
         })
         // white spine continues down...
@@ -207,7 +207,7 @@
           trigger: ".points",
           start: "top 80%",
           end: "center 40%", // settle while centred, same as the lines
-          scrub: true,
+          scrub: 1, // smoothing so cards glide up, not snap
           invalidateOnRefresh: true,
         },
       });

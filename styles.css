@@ -441,6 +441,18 @@ img {
 .about__text--2 .about__tunnel::before { background-color: var(--background-purple); }
 .about__text--2 .about__tunnel::after  { background-color: var(--background-green); }
 
+/* Desktop/tablet: stretch the spine's journey so the scroll-drawn line has a
+   longer, calmer path (more empty road between blocks, not a rushed draw). */
+@media (min-width: 769px) {
+  .about {
+    padding-top: 14vh;
+    padding-bottom: 18vh;
+  }
+  .about__block:first-child {
+    margin-bottom: 16vh; /* open road between the two statements */
+  }
+}
+
 .about__text--2 {
   top: 66%;
   width: min(933px, 90%);
@@ -718,11 +730,11 @@ img {
 }
 .talk__glow {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: -28px;
+  right: -28px; /* pushed into the top-right corner */
   width: 136px;
   height: 162px;
+  border-radius: 50%; /* soft ellipse */
   opacity: 0.48;
   filter: blur(32px);
   pointer-events: none;
@@ -735,7 +747,7 @@ img {
 }
 .talk__icon {
   position: relative; /* above the glow */
-  width: 62%;
+  width: 84%;
   height: auto;
   display: block;
 }
@@ -844,8 +856,8 @@ img {
   background-color: var(--background-transparent); /* same as the banner */
 }
 .partners__item img {
-  max-width: 60%;
-  max-height: 34%;
+  max-width: 76%;
+  max-height: 48%;
   width: auto;
   height: auto;
   object-fit: contain;
