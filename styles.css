@@ -441,15 +441,14 @@ img {
 .about__text--2 .about__tunnel::before { background-color: var(--background-purple); }
 .about__text--2 .about__tunnel::after  { background-color: var(--background-green); }
 
-/* Desktop/tablet: stretch the spine's journey so the scroll-drawn line has a
-   longer, calmer path (more empty road between blocks, not a rushed draw). */
+/* Desktop/tablet: give the spine a longer, balanced journey — equal stretches
+   of open road between the two blocks and on to the Points section. */
 @media (min-width: 769px) {
   .about {
-    padding-top: 14vh;
-    padding-bottom: 18vh;
+    padding-bottom: 16vh; /* road from the 2nd block down to Points */
   }
   .about__block:first-child {
-    margin-bottom: 16vh; /* open road between the two statements */
+    margin-bottom: 16vh; /* equal road between the two statements */
   }
 }
 

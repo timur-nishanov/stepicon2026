@@ -127,7 +127,7 @@
             trigger: ".about",
             start: "top 55%", // constant draw speed (range == line height): the
             end: "bottom 55%", // tip parks at a fixed screen point, no acceleration
-            scrub: 1, // smoothing so the draw glides instead of snapping per frame
+            scrub: true, // tight follow (Lenis already smooths); distance gives the calm feel
           },
         }
       );
@@ -180,7 +180,7 @@
             trigger: ".points",
             start: "top 55%", // continue seamlessly from the About spine
             end: "center 40%", // finish while the section is centred & readable
-            scrub: 1, // smoothing so the branches glide on, not snap
+            scrub: true,
           },
         })
         // white spine continues down...
@@ -205,9 +205,9 @@
         stagger: 0.16,
         scrollTrigger: {
           trigger: ".points",
-          start: "top 80%",
+          start: "top 55%", // arrive together with the spine (not before it)
           end: "center 40%", // settle while centred, same as the lines
-          scrub: 1, // smoothing so cards glide up, not snap
+          scrub: true,
           invalidateOnRefresh: true,
         },
       });
