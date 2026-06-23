@@ -413,8 +413,9 @@ img {
 .about__tunnel {
   position: absolute;
   left: 50%;
-  top: -0.35em;
-  bottom: -0.35em;
+  /* extend 80px past the text each side: a 40px mouth + a 40px gap to the text */
+  top: -80px;
+  bottom: -80px;
   transform: translateX(-50%);
   width: calc(100vw * 36 / 1440); /* a touch wider than the 32 spine */
   background-color: var(--background-black);
@@ -425,16 +426,15 @@ img {
   content: "";
   position: absolute;
   left: 50%;
+  transform: translateX(-50%);
   width: calc(100vw * 48 / 1440);
-  height: calc(100vw * 16 / 1440);
+  height: 40px; /* mouth block height */
 }
 .about__tunnel::before {
-  top: 0;
-  transform: translate(-50%, -50%); /* entry mouth */
+  top: 0; /* entry mouth — 40px tall, 40px above the text */
 }
 .about__tunnel::after {
-  bottom: 0;
-  transform: translate(-50%, 50%); /* exit mouth */
+  bottom: 0; /* exit mouth — 40px tall, 40px below the text */
 }
 .about__text--1 .about__tunnel::before { background-color: var(--background-green); }
 .about__text--1 .about__tunnel::after  { background-color: var(--background-purple); }
