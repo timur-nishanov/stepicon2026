@@ -300,6 +300,20 @@ img {
   will-change: transform;
 }
 
+/* The star image is denser at the top; mirror a copy so the dense part also
+   fills the bottom (more even field). The pseudo rides the layer's drift &
+   parallax and just adds its own vertical flip. */
+.stars__layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/Stars 1.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  transform: scaleY(-1);
+}
+
 /* TEMP marker removed — block 2 now provides the scroll length */
 
 /* -------------------------------------------------------------------------
