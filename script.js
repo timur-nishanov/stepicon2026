@@ -196,20 +196,21 @@
           0.4
         );
 
-      // Cards rise in once, gently, one by one. A one-time (non-scrub) reveal
-      // that plays once and self-destructs — so a layout refresh can never
-      // restart it (that restart was the flicker).
+      // Cards drive up from off-screen, one by one, tied to scroll so they
+      // also retreat on the way back up. A long trigger range (top 80% ->
+      // centre 40%) keeps it smooth and lets the branches visibly reach them.
       gsap.from(".points__card", {
         y: function () {
-          return window.innerHeight * 0.28;
+          return window.innerHeight * 0.45;
         },
-        ease: "power2.out",
-        duration: 1.1,
-        stagger: 0.14,
+        ease: "none",
+        stagger: 0.15,
         scrollTrigger: {
           trigger: ".points",
-          start: "top 65%",
-          once: true, // play exactly once; never re-fire on refresh
+          start: "top 80%",
+          end: "center 40%",
+          scrub: true,
+          invalidateOnRefresh: true,
         },
       });
     });
