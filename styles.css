@@ -441,14 +441,15 @@ img {
 .about__text--2 .about__tunnel::before { background-color: var(--background-purple); }
 .about__text--2 .about__tunnel::after  { background-color: var(--background-green); }
 
-/* Desktop/tablet: give the spine a longer, balanced journey — equal stretches
-   of open road between the two blocks and on to the Points section. */
+/* Desktop/tablet: give the spine a long, calm journey — open road from the
+   hero into the first block, between the two blocks, and on to Points. */
 @media (min-width: 769px) {
   .about {
-    padding-bottom: 16vh; /* road from the 2nd block down to Points */
+    padding-top: 20vh;    /* longer road from the hero down to the 1st block */
+    padding-bottom: 18vh; /* road from the 2nd block down to Points */
   }
   .about__block:first-child {
-    margin-bottom: 16vh; /* equal road between the two statements */
+    margin-bottom: 20vh;  /* road between the two statements */
   }
 }
 

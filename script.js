@@ -196,17 +196,18 @@
           0.4
         );
 
-      // Cards drive up from off-screen, one by one (no fade; gentle slide)
+      // Cards drive up from off-screen, one by one (no fade; gentle slide).
+      // Shorter travel + a longer scroll range => calmer, less "flying in".
       gsap.from(".points__card", {
         y: function () {
-          return window.innerHeight * 0.55;
+          return window.innerHeight * 0.3;
         },
         ease: "none",
-        stagger: 0.16,
+        stagger: 0.12,
         scrollTrigger: {
           trigger: ".points",
-          start: "top 55%", // arrive together with the spine (not before it)
-          end: "center 40%", // settle while centred, same as the lines
+          start: "top 55%", // arrive together with the spine / branches
+          end: "center 40%", // settle in sync with the lines
           scrub: true,
           invalidateOnRefresh: true,
         },
