@@ -479,6 +479,7 @@ img {
   font-weight: var(--t-bignum-weight);
   line-height: var(--t-bignum-lh);
   letter-spacing: var(--t-bignum-ls);
+  white-space: nowrap; /* keep "с 2016" on one line */
 }
 .points__label {
   font-size: clamp(18px, 2.08vw, var(--t-accent1-size));
@@ -710,6 +711,14 @@ img {
   }
 }
 
+/* Below the 1440 mockup width the stat number (e.g. "с 2016") no longer fits
+   the narrow cards at the design ratio — scale it down so it stays on one line. */
+@media (max-width: 1439px) and (min-width: 769px) {
+  .points__num {
+    font-size: 6.8vw;
+  }
+}
+
 /* Tablet — stack the title and subtitle, drop the side tag */
 @media (max-width: 1024px) {
   .hero__title-row {
@@ -741,7 +750,8 @@ img {
   }
   .topbar__menu {
     flex-wrap: wrap;
-    gap: 12px 20px;
+    gap: 12px 18px;
+    font-size: 16px;
   }
   .hero__content {
     gap: 28px;
@@ -753,7 +763,7 @@ img {
     min-height: 116px;
   }
   .plate__value {
-    font-size: var(--t-accent1-size); /* full-width plates: restore full size */
+    font-size: clamp(20px, 5.8vw, 26px); /* long address fits without clipping */
   }
 
   /* About: drop the scattered absolute layout for a stacked one */
@@ -777,6 +787,7 @@ img {
     grid-column: 1 / -1;
     order: -2;          /* text first, above the photos */
     margin: 0 0 6px;
+    font-size: clamp(24px, 6.4vw, 34px); /* readable for the long statement */
   }
   .about__text--2 {
     width: 100%;
@@ -808,9 +819,13 @@ img {
     position: static;
     width: 100%;
     aspect-ratio: auto;   /* size to content instead of a tall empty box */
-    gap: 40px;
-    border-width: 8px;
+    gap: 32px;
+    /* thicker borders to match the desktop frame proportions */
+    border-width: clamp(14px, 6vw, 24px);
     padding: 24px;
+  }
+  .points__num {
+    font-size: clamp(48px, 13vw, 72px); /* full-width cards: bigger, readable */
   }
 
   /* no scroll animation here on mobile, so the spacer isn't needed */
