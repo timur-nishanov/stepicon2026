@@ -79,8 +79,8 @@
           ease: "none",
           scrollTrigger: {
             trigger: ".about",
-            start: "top 55%", // start later (section already in view), so the
-            end: "bottom bottom", // line is full right as Points enters (seamless handoff)
+            start: "top 55%", // constant draw speed (range == line height): the
+            end: "bottom 55%", // tip parks at a fixed screen point, no acceleration
             scrub: true,
           },
         }
@@ -132,8 +132,8 @@
         .timeline({
           scrollTrigger: {
             trigger: ".points",
-            start: "top bottom", // continue seamlessly from the About spine
-            end: "center 40%",
+            start: "top 55%", // continue seamlessly from the About spine
+            end: "bottom 30%",
             scrub: true,
           },
         })
@@ -148,19 +148,23 @@
           [".points__line--purple", ".points__line--green"],
           { strokeDashoffset: 0, ease: "none", duration: 0.5 },
           0.35
-        )
-        // cards rise up to meet the lines, one by one, near the end
-        .from(
-          ".points__card",
-          {
-            yPercent: 20,
-            autoAlpha: 0,
-            ease: "power2.out",
-            stagger: 0.14,
-            duration: 0.45,
-          },
-          0.55
         );
+
+      // Cards drive up from off-screen, one by one (no fade; long range = gentle)
+      gsap.from(".points__card", {
+        y: function () {
+          return window.innerHeight * 0.8;
+        },
+        ease: "none",
+        stagger: 0.16,
+        scrollTrigger: {
+          trigger: ".points",
+          start: "top 60%",
+          end: "bottom 25%",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
     });
   }
 
