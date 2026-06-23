@@ -1012,7 +1012,15 @@ img {
 }
 
 .plate--place {
+  position: relative; /* anchor for the school logo */
   background-color: var(--background-purple);
+}
+.plate__logo {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: clamp(40px, 3.2vw, 46px);
+  height: auto;
 }
 
 .plate--date {

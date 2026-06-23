@@ -179,21 +179,21 @@
           scrollTrigger: {
             trigger: ".points",
             start: "top 55%", // continue seamlessly from the About spine
-            end: "top -12%", // long range = calm draw; top only just leaves view,
-            scrub: true, // so the purple branch is still catchable while drawing
+            end: "top -20%", // long range => slow draw; green still connects on
+            scrub: 1.5, // screen, purple just past the top. Smoothing glides flicks
           },
         })
         // white spine continues down (quick — it just extends the existing line)
         .to(
           ".points__line--white",
-          { strokeDashoffset: 0, ease: "none", duration: 0.3 },
+          { strokeDashoffset: 0, ease: "none", duration: 0.2 },
           0
         )
         // ...then purple & green emerge and reach the cards over a long, slow tail
         .to(
           [".points__line--purple", ".points__line--green"],
-          { strokeDashoffset: 0, ease: "none", duration: 0.7 },
-          0.3
+          { strokeDashoffset: 0, ease: "none", duration: 0.8 },
+          0.2
         );
 
       // Cards drive up from off-screen, one by one, tied to scroll so they
