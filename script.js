@@ -80,7 +80,7 @@
           scrollTrigger: {
             trigger: ".about",
             start: "top 55%", // start later (section already in view), so the
-            end: "bottom 50%", // tail trails instead of rushing to the bottom
+            end: "bottom bottom", // line is full right as Points enters (seamless handoff)
             scrub: true,
           },
         }
@@ -130,19 +130,36 @@
 
       gsap
         .timeline({
-          defaults: { ease: "none" },
           scrollTrigger: {
             trigger: ".points",
-            start: "top 80%",
-            end: "center 65%",
+            start: "top bottom", // continue seamlessly from the About spine
+            end: "center 40%",
             scrub: true,
           },
         })
-        .to(".points__line--white", { strokeDashoffset: 0, duration: 1 })
+        // white spine continues down...
+        .to(
+          ".points__line--white",
+          { strokeDashoffset: 0, ease: "none", duration: 0.55 },
+          0
+        )
+        // ...and before it reaches its card, purple & green emerge from it
         .to(
           [".points__line--purple", ".points__line--green"],
-          { strokeDashoffset: 0, duration: 1 },
-          ">-0.15"
+          { strokeDashoffset: 0, ease: "none", duration: 0.5 },
+          0.35
+        )
+        // cards rise up to meet the lines, one by one, near the end
+        .from(
+          ".points__card",
+          {
+            yPercent: 20,
+            autoAlpha: 0,
+            ease: "power2.out",
+            stagger: 0.14,
+            duration: 0.45,
+          },
+          0.55
         );
     });
   }
