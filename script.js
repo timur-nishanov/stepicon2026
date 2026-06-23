@@ -252,6 +252,17 @@
         scrollTrigger: { trigger: ".program__table", start: "top 82%" },
       });
     }
+
+    /* --- Partners: gentle title reveal (marquee itself is CSS) ------------ */
+    if (document.querySelector(".partners")) {
+      gsap.from(".partners__title", {
+        y: 32,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".partners", start: "top 80%" },
+      });
+    }
   }
 
   /* --- Lines: prepare the "drawing" effect --------------------------------

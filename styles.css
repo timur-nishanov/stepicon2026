@@ -704,16 +704,39 @@ img {
   align-items: flex-end;
   gap: 20px;
 }
+/* Speaker placeholder: dark tile, a soft coloured glow, a person silhouette */
 .talk__photo {
+  position: relative;
   flex: 0 0 auto;
   width: clamp(96px, 9.2vw, 132px);
   aspect-ratio: 132 / 154;
   overflow: hidden;
+  background-color: var(--background-transparent-1);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
-.talk__photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.talk__glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 136px;
+  height: 162px;
+  opacity: 0.48;
+  filter: blur(32px);
+  pointer-events: none;
+}
+.talk__photo--green .talk__glow {
+  background-color: var(--background-green);
+}
+.talk__photo--purple .talk__glow {
+  background-color: var(--background-purple);
+}
+.talk__icon {
+  position: relative; /* above the glow */
+  width: 62%;
+  height: auto;
   display: block;
 }
 .talk__person {
@@ -722,16 +745,10 @@ img {
   gap: 9px;
   min-width: 0;
 }
-.talk__name {
-  font-size: clamp(18px, 1.67vw, var(--t-primaccent-size));
-  font-weight: var(--t-primaccent-weight);
-  line-height: 1;
-  color: var(--text-primary);
-}
-.talk__role {
+.talk__tba {
   font-size: clamp(16px, 1.67vw, var(--t-primaccent-size));
   font-weight: var(--t-primaccent-weight);
-  line-height: 1.1;
+  line-height: 1.2;
   color: var(--text-tertiary);
 }
 
@@ -784,6 +801,61 @@ img {
   width: clamp(28px, 2.5vw, 36px);
   height: clamp(28px, 2.5vw, 36px);
   flex: 0 0 auto;
+}
+
+/* -------------------------------------------------------------------------
+   7d. PARTNERS — title + a slow logo marquee on rounded plates
+   ------------------------------------------------------------------------- */
+.partners {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(64px, 7vw, 120px) 0;
+  overflow: hidden; /* clip the off-screen part of the track */
+}
+.partners__title {
+  margin: 0 0 clamp(32px, 4vw, 56px);
+  text-align: center;
+  font-size: clamp(34px, 5.6vw, var(--t-tabs-size));
+  font-weight: var(--t-tabs-weight);
+  line-height: var(--t-tabs-lh);
+  letter-spacing: var(--t-tabs-ls);
+  color: var(--text-primary);
+}
+.partners__marquee {
+  width: 100%;
+  overflow: hidden;
+}
+.partners__track {
+  display: flex;
+  width: max-content;
+  gap: clamp(12px, 1.4vw, 20px);
+  animation: partners-scroll 50s linear infinite; /* slow drift */
+}
+.partners__item {
+  flex: 0 0 auto;
+  width: clamp(200px, 24vw, 360px);
+  height: clamp(96px, 10vw, 152px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px; /* fully rounded plate */
+  background-color: var(--background-transparent); /* same as the banner */
+}
+.partners__item img {
+  max-width: 60%;
+  max-height: 34%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+@keyframes partners-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* one full set; the dup makes it seamless */
+}
+@media (prefers-reduced-motion: reduce) {
+  .partners__track { animation: none; }
 }
 
 /* -------------------------------------------------------------------------
