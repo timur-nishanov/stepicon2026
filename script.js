@@ -133,7 +133,7 @@
           scrollTrigger: {
             trigger: ".points",
             start: "top 55%", // continue seamlessly from the About spine
-            end: "bottom 30%",
+            end: "bottom 55%",
             scrub: true,
           },
         })
@@ -160,7 +160,7 @@
         scrollTrigger: {
           trigger: ".points",
           start: "top 60%",
-          end: "bottom 25%",
+          end: "bottom 45%",
           scrub: true,
           invalidateOnRefresh: true,
         },

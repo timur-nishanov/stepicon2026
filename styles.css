@@ -414,6 +414,11 @@ img {
   width: 100%;
 }
 
+/* TEMP: scroll room below the last section so its scroll animations finish */
+.flow-spacer {
+  height: 70vh;
+}
+
 .points__inner {
   position: relative;
   width: 100%;
