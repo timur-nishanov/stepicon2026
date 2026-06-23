@@ -133,7 +133,7 @@
           scrollTrigger: {
             trigger: ".points",
             start: "top 55%", // continue seamlessly from the About spine
-            end: "bottom 55%",
+            end: "center 40%", // finish while the section is centred & readable
             scrub: true,
           },
         })
@@ -146,21 +146,21 @@
         // ...and before it reaches its card, purple & green emerge from it
         .to(
           [".points__line--purple", ".points__line--green"],
-          { strokeDashoffset: 0, ease: "none", duration: 0.5 },
-          0.35
+          { strokeDashoffset: 0, ease: "none", duration: 0.6 },
+          0.4
         );
 
-      // Cards drive up from off-screen, one by one (no fade; long range = gentle)
+      // Cards drive up from off-screen, one by one (no fade; gentle slide)
       gsap.from(".points__card", {
         y: function () {
-          return window.innerHeight * 0.8;
+          return window.innerHeight * 0.55;
         },
         ease: "none",
         stagger: 0.16,
         scrollTrigger: {
           trigger: ".points",
-          start: "top 60%",
-          end: "bottom 45%",
+          start: "top 80%",
+          end: "center 40%", // settle while centred, same as the lines
           scrub: true,
           invalidateOnRefresh: true,
         },

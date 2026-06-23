@@ -416,7 +416,7 @@ img {
 
 /* TEMP: scroll room below the last section so its scroll animations finish */
 .flow-spacer {
-  height: 70vh;
+  height: 40vh;
 }
 
 .points__inner {
