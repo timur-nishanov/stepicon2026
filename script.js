@@ -179,8 +179,8 @@
           scrollTrigger: {
             trigger: ".points",
             start: "top 55%", // continue seamlessly from the About spine
-            end: "center 40%", // finish while the section is centred & readable
-            scrub: true,
+            end: "top 12%", // finish while the section TOP is still on screen —
+            scrub: true, // so the purple branch (at the very top) stays visible
           },
         })
         // white spine continues down...
@@ -208,7 +208,7 @@
         scrollTrigger: {
           trigger: ".points",
           start: "top 80%",
-          end: "center 40%",
+          end: "top 12%", // settle in sync with the branches, top still in view
           scrub: true,
           invalidateOnRefresh: true,
         },
