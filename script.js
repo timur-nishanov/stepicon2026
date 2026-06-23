@@ -79,8 +79,8 @@
           ease: "none",
           scrollTrigger: {
             trigger: ".about",
-            start: "top bottom", // begin as the section appears (no entry gap)
-            end: "bottom 80%",
+            start: "top 55%", // start later (section already in view), so the
+            end: "bottom 50%", // tail trails instead of rushing to the bottom
             scrub: true,
           },
         }
