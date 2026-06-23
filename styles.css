@@ -849,8 +849,9 @@ img {
 }
 .partners__item {
   flex: 0 0 auto;
-  width: clamp(200px, 24vw, 360px);
-  height: clamp(96px, 10vw, 152px);
+  /* 340×200 at the 1440 base (340/1440 ≈ 23.6vw), scaled down responsively */
+  width: clamp(208px, 23.6vw, 340px);
+  aspect-ratio: 340 / 200;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1150,6 +1151,15 @@ html.menu-open body {
   }
   /* hero lines clutter the small screen — hide them */
   .hero__lines {
+    display: none;
+  }
+  /* Stars: on tall phone screens the mirrored copy reads as an obvious
+     top/bottom symmetry. Drop it and centre the field for a natural sky. */
+  .stars__layer {
+    background-position: center center;
+    background-size: cover;
+  }
+  .stars__layer::after {
     display: none;
   }
   .hero__content {
