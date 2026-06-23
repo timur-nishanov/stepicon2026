@@ -980,7 +980,7 @@ html.menu-open body {
     display: flex;
     flex-direction: column;
     gap: clamp(14px, 3.4vw, 20px);
-    margin-top: clamp(20px, 5vw, 36px); /* sits high, just under the logo row */
+    margin-top: clamp(36px, 9vw, 52px); /* gap below the logo row */
   }
   .menu__nav a {
     font-size: clamp(24px, 6.4vw, 30px);
