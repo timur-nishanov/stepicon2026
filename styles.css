@@ -172,6 +172,12 @@
   --t-section-lh: 1;
   --t-section-ls: 0;
 
+  /* Heading / Accent (big numbers) — SemiBold 124 / 1 / -2% */
+  --t-bignum-size: 124px;
+  --t-bignum-weight: 600;
+  --t-bignum-lh: 1;
+  --t-bignum-ls: -0.02em;
+
   /* Body / Accent (hero subtitle) — Medium 40 / 1.14 / 0 */
   --t-accent-size: 40px;
   --t-accent-weight: 500;
@@ -394,6 +400,94 @@ img {
 .about__text--2 {
   top: 66%;
   width: min(933px, 90%);
+}
+
+/* -------------------------------------------------------------------------
+   7. POINTS (stats) — three outlined cards; lines branch from the white
+   spine to the cards and draw on scroll. Full-bleed; the 1440x871 mockup is
+   kept via aspect-ratio + % positions. Card borders/line strokes scale with
+   the viewport (32 in a 1440 canvas => 32 * 100vw / 1440), matching the SVG.
+   ------------------------------------------------------------------------- */
+.points {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.points__inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1440 / 871;
+}
+
+.points__lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.points__line {
+  fill: none;
+}
+.points__line--white {
+  stroke: var(--border-white);
+}
+.points__line--purple {
+  stroke: var(--border-purple);
+}
+.points__line--green {
+  stroke: var(--border-green);
+}
+
+.points__card {
+  position: absolute;
+  width: 31.875%; /* 459 / 1440 */
+  aspect-ratio: 459 / 360;
+  box-sizing: border-box;
+  background-color: var(--background-black);
+  border: calc(100vw * 32 / 1440) solid;
+  padding: calc(100vw * 32 / 1440);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--text-primary);
+}
+.points__card--purple {
+  left: 3.33%;
+  top: 19.29%;
+  border-color: var(--border-purple);
+}
+.points__card--green {
+  left: 64.79%;
+  top: 35.25%;
+  border-color: var(--border-green);
+}
+.points__card--white {
+  left: 31.94%;
+  top: 54.99%;
+  border-color: var(--border-white);
+}
+
+.points__num {
+  font-size: clamp(48px, 8.6vw, var(--t-bignum-size));
+  font-weight: var(--t-bignum-weight);
+  line-height: var(--t-bignum-lh);
+  letter-spacing: var(--t-bignum-ls);
+}
+.points__label {
+  font-size: clamp(18px, 2.08vw, var(--t-accent1-size));
+  font-weight: var(--t-accent1-weight);
+  line-height: var(--t-accent1-lh);
+  letter-spacing: var(--t-accent1-ls);
+}
+
+/* hide the point lines before they draw (avoid a flash); reduced motion keeps them */
+@media (prefers-reduced-motion: no-preference) {
+  .points__line {
+    stroke-dasharray: 3000;
+    stroke-dashoffset: 3000;
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -691,6 +785,24 @@ img {
   .about__photo--6 {
     grid-column: 1 / -1; /* the wide landscape photo spans both columns */
     aspect-ratio: 3 / 2;
+  }
+
+  /* Points: stack the cards, drop the connector lines */
+  .points__inner {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 16px;
+  }
+  .points__lines {
+    display: none;
+  }
+  .points__card {
+    position: static;
+    width: 100%;
+    border-width: 8px;
+    padding: 24px;
   }
 }
 

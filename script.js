@@ -115,6 +115,36 @@
         );
       });
     });
+
+    /* --- Points: lines branch out of the white spine on scroll ------------
+       White spine draws first, then the purple/green branches emerge from it
+       and reach the cards, then stay (scrubbed; desktop/tablet only). */
+    gsap.matchMedia().add("(min-width: 769px)", function () {
+      var pLines = gsap.utils.toArray(".points__line");
+      if (!pLines.length) return;
+
+      pLines.forEach(function (path) {
+        var length = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+      });
+
+      gsap
+        .timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: ".points",
+            start: "top 80%",
+            end: "center 65%",
+            scrub: true,
+          },
+        })
+        .to(".points__line--white", { strokeDashoffset: 0, duration: 1 })
+        .to(
+          [".points__line--purple", ".points__line--green"],
+          { strokeDashoffset: 0, duration: 1 },
+          ">-0.15"
+        );
+    });
   }
 
   /* --- Lines: prepare the "drawing" effect --------------------------------
