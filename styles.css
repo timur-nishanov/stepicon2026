@@ -514,8 +514,6 @@ img {
   flex-direction: column;
   justify-content: space-between;
   color: var(--text-primary);
-  will-change: transform; /* own compositor layer — no flicker under the blend layer */
-  backface-visibility: hidden;
 }
 .points__card--purple {
   left: 3.33%;

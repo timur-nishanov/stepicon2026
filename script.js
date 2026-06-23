@@ -196,21 +196,20 @@
           0.4
         );
 
-      // Cards drive up from off-screen, one by one (no fade; gentle slide).
-      // Shorter travel + a longer scroll range => calmer, less "flying in".
+      // Cards rise in once, gently, one by one. A one-time (non-scrub) reveal
+      // that plays once and self-destructs — so a layout refresh can never
+      // restart it (that restart was the flicker).
       gsap.from(".points__card", {
         y: function () {
-          return window.innerHeight * 0.3;
+          return window.innerHeight * 0.28;
         },
-        ease: "none",
-        force3D: true, // GPU transform — stops the per-frame flicker
-        stagger: 0.12,
+        ease: "power2.out",
+        duration: 1.1,
+        stagger: 0.14,
         scrollTrigger: {
           trigger: ".points",
-          start: "top 55%", // arrive together with the spine / branches
-          end: "center 40%", // settle in sync with the lines
-          scrub: true,
-          invalidateOnRefresh: true,
+          start: "top 65%",
+          once: true, // play exactly once; never re-fire on refresh
         },
       });
     });
