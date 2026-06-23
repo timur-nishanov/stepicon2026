@@ -272,17 +272,9 @@ img {
   pointer-events: none;
 }
 
-/* Faint vertical bands */
+/* (vertical bands removed — the canvas is plain black behind the star layer) */
 .backdrop__stripes {
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.018) 0,
-    rgba(255, 255, 255, 0.018) 1px,
-    transparent 1px,
-    transparent 120px
-  );
+  display: none;
 }
 
 /* Star field — separate layer (transparent PNG asset). Sits ON TOP of
@@ -507,11 +499,10 @@ img {
    ------------------------------------------------------------------------- */
 .themes {
   position: relative;
-  z-index: 101;          /* sit above the fixed star layer (z 100) — no star noise here */
+  z-index: 1;            /* above the fixed backdrop; the star layer floats over it */
   width: 100%;
   box-sizing: border-box;
   padding: clamp(64px, 9vw, 128px) var(--layout-pad);
-  background-color: var(--background-black); /* solid: hides backdrop stripes through the cards */
 }
 
 .themes__title {
