@@ -775,7 +775,7 @@ img {
     transform: none;
     width: 100%;
     grid-column: 1 / -1;
-    order: -1;          /* text above the photos */
+    order: -2;          /* text first, above the photos */
     margin: 0 0 6px;
   }
   .about__text--2 {
@@ -789,6 +789,7 @@ img {
   }
   .about__photo--6 {
     grid-column: 1 / -1; /* the wide landscape photo spans both columns */
+    order: -1;           /* and sits above the two square photos */
     aspect-ratio: 3 / 2;
   }
 
@@ -806,8 +807,15 @@ img {
   .points__card {
     position: static;
     width: 100%;
+    aspect-ratio: auto;   /* size to content instead of a tall empty box */
+    gap: 40px;
     border-width: 8px;
     padding: 24px;
+  }
+
+  /* no scroll animation here on mobile, so the spacer isn't needed */
+  .flow-spacer {
+    display: none;
   }
 }
 
