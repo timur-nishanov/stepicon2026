@@ -203,6 +203,7 @@
           return window.innerHeight * 0.3;
         },
         ease: "none",
+        force3D: true, // GPU transform — stops the per-frame flicker
         stagger: 0.12,
         scrollTrigger: {
           trigger: ".points",

@@ -468,6 +468,7 @@ img {
   position: relative;
   z-index: 1;
   width: 100%;
+  padding-bottom: clamp(80px, 12vh, 200px); /* breathing room before "О чём будет" */
 }
 
 /* TEMP: scroll room below the last section so its scroll animations finish */
@@ -513,6 +514,8 @@ img {
   flex-direction: column;
   justify-content: space-between;
   color: var(--text-primary);
+  will-change: transform; /* own compositor layer — no flicker under the blend layer */
+  backface-visibility: hidden;
 }
 .points__card--purple {
   left: 3.33%;
@@ -823,7 +826,8 @@ img {
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  padding: clamp(64px, 7vw, 120px) 0;
+  /* a bit more lead-in from Program above */
+  padding: clamp(96px, 10vw, 176px) 0 clamp(64px, 7vw, 120px);
   overflow: hidden; /* clip the off-screen part of the track */
 }
 .partners__title {
