@@ -29,6 +29,23 @@
   });
 })();
 
+/* --- Program day switcher (visual toggle only; data swaps later) --------- */
+(function () {
+  var sw = document.querySelector(".switcher");
+  if (!sw) return;
+  var btns = sw.querySelectorAll(".switcher__btn");
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      btns.forEach(function (b) {
+        b.classList.remove("switcher__btn--active");
+        b.setAttribute("aria-selected", "false");
+      });
+      btn.classList.add("switcher__btn--active");
+      btn.setAttribute("aria-selected", "true");
+    });
+  });
+})();
+
 // Hero intro animation: plays once on load (title/subtitle/plates reveal,
 // lines draw on, stars drift), plus scroll parallax and the scroll-driven
 // section lines.
@@ -214,6 +231,25 @@
         ease: "power2.out",
         stagger: 0.1,
         scrollTrigger: { trigger: ".themes__grid", start: "top 82%" },
+      });
+    }
+
+    /* --- Program: gentle one-time reveal (title, then rows) --------------- */
+    if (document.querySelector(".program")) {
+      gsap.from(".program__title", {
+        y: 32,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".program", start: "top 78%" },
+      });
+      gsap.from(".program__row", {
+        y: 32,
+        autoAlpha: 0,
+        duration: 0.55,
+        ease: "power2.out",
+        stagger: 0.1,
+        scrollTrigger: { trigger: ".program__table", start: "top 82%" },
       });
     }
   }

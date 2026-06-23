@@ -196,6 +196,18 @@
   --t-accent1-lh: 1.12;
   --t-accent1-ls: 0;
 
+  /* Body / Accent-2 (talk titles, time) — SemiBold 32 / 1.12 / 1% */
+  --t-accent2-size: 32px;
+  --t-accent2-weight: 600;
+  --t-accent2-lh: 1.12;
+  --t-accent2-ls: 0.01em;
+
+  /* Body / Primary-accent (speaker name/role) — Medium 24 / 1 / 0 */
+  --t-primaccent-size: 24px;
+  --t-primaccent-weight: 500;
+  --t-primaccent-lh: 1;
+  --t-primaccent-ls: 0;
+
   /* Body / Primary (nav links) — Medium 18 / 1.32 / 2% */
   --t-primary-size: 18px;
   --t-primary-weight: 500;
@@ -392,8 +404,42 @@ img {
   line-height: var(--t-section-lh);
   letter-spacing: var(--t-section-ls);
   color: var(--text-primary);
-  mix-blend-mode: difference; /* inverts where it overlaps photos / the line */
+  isolation: isolate; /* scope the tunnel's z-index to this element */
 }
+
+/* "Tunnel": a black strip masks the spine line behind the text (so the line
+   no longer dirties the words), with a coloured block at the entry and exit
+   so the line reads as going into a tunnel and coming back out. */
+.about__tunnel {
+  position: absolute;
+  left: 50%;
+  top: -0.35em;
+  bottom: -0.35em;
+  transform: translateX(-50%);
+  width: calc(100vw * 36 / 1440); /* a touch wider than the 32 spine */
+  background-color: var(--background-black);
+  z-index: -1; /* behind the glyphs, above the spine line */
+}
+.about__tunnel::before,
+.about__tunnel::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: calc(100vw * 48 / 1440);
+  height: calc(100vw * 16 / 1440);
+}
+.about__tunnel::before {
+  top: 0;
+  transform: translate(-50%, -50%); /* entry mouth */
+}
+.about__tunnel::after {
+  bottom: 0;
+  transform: translate(-50%, 50%); /* exit mouth */
+}
+.about__text--1 .about__tunnel::before { background-color: var(--background-green); }
+.about__text--1 .about__tunnel::after  { background-color: var(--background-purple); }
+.about__text--2 .about__tunnel::before { background-color: var(--background-purple); }
+.about__text--2 .about__tunnel::after  { background-color: var(--background-green); }
 
 .about__text--2 {
   top: 66%;
@@ -550,6 +596,195 @@ img {
   line-height: var(--t-accent1-lh);
   letter-spacing: var(--t-accent1-ls);
   color: var(--text-primary);
+}
+
+/* -------------------------------------------------------------------------
+   7c. PROGRAM (schedule) — title, day switcher, table of talks
+   ------------------------------------------------------------------------- */
+.program {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(64px, 7vw, 120px) var(--layout-pad);
+}
+
+.program__title {
+  margin: 0 0 clamp(32px, 4vw, 56px);
+  font-size: clamp(40px, 8.6vw, 124px); /* Heading/Accent — SemiBold 124 / 1 */
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+/* --- Day switcher (pill) --- */
+.switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 8px;
+  border-radius: 9999px;
+  background-color: var(--background-transparent);
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+.switcher__btn {
+  border: 0;
+  cursor: pointer;
+  padding: clamp(14px, 2.2vw, 32px) clamp(24px, 3vw, 44px);
+  border-radius: 9999px;
+  background-color: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.08vw, var(--t-accent1-size));
+  font-weight: var(--t-accent1-weight);
+  line-height: var(--t-accent1-lh);
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.switcher__btn--active {
+  background-color: var(--background-white);
+  color: var(--text-primary-inverse);
+}
+
+/* --- Table of talks --- */
+.program__table {
+  display: flex;
+  flex-direction: column;
+}
+.program__row {
+  display: flex;
+  gap: clamp(24px, 5.4vw, 78px);
+  align-items: flex-start;
+  padding: 32px 0 40px;
+  border-bottom: 2px solid var(--border-white);
+}
+.program__row:first-child {
+  padding-top: 0;
+}
+.program__time {
+  flex: 0 0 auto;
+  width: clamp(64px, 8vw, 89px);
+  font-size: clamp(24px, 2.2vw, var(--t-accent2-size));
+  font-weight: var(--t-accent2-weight);
+  line-height: var(--t-accent2-lh);
+  letter-spacing: var(--t-accent2-ls);
+  color: var(--text-primary);
+}
+.program__items {
+  flex: 1 1 auto;
+  display: flex;
+  gap: clamp(24px, 5.5vw, 80px);
+}
+.talk {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: calc(50% - 40px); /* a lone card stays left-aligned, not full width */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+.talk__title {
+  margin: 0;
+  font-size: clamp(20px, 2.2vw, var(--t-accent2-size));
+  font-weight: var(--t-accent2-weight);
+  line-height: var(--t-accent2-lh);
+  letter-spacing: var(--t-accent2-ls);
+  color: var(--text-primary);
+}
+.talk__title--solo {
+  align-self: center; /* single-line rows centre the title against the time */
+}
+.program__row--single {
+  align-items: center;
+}
+.talk__author {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+.talk__photo {
+  flex: 0 0 auto;
+  width: clamp(96px, 9.2vw, 132px);
+  aspect-ratio: 132 / 154;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.talk__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.talk__person {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+.talk__name {
+  font-size: clamp(18px, 1.67vw, var(--t-primaccent-size));
+  font-weight: var(--t-primaccent-weight);
+  line-height: 1;
+  color: var(--text-primary);
+}
+.talk__role {
+  font-size: clamp(16px, 1.67vw, var(--t-primaccent-size));
+  font-weight: var(--t-primaccent-weight);
+  line-height: 1.1;
+  color: var(--text-tertiary);
+}
+
+/* --- "Watch online" banner --- */
+.program-banner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: clamp(40px, 5vw, 72px);
+  padding: clamp(24px, 2.8vw, 40px);
+  border-radius: 24px;
+  background-color: var(--background-white);
+}
+.program-banner__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.program-banner__title {
+  margin: 0;
+  font-size: clamp(24px, 3vw, var(--t-accent-size));
+  font-weight: var(--t-accent-weight);
+  line-height: var(--t-accent-lh);
+  color: var(--text-primary-inverse);
+}
+.program-banner__sub {
+  margin: 0;
+  font-size: clamp(16px, 1.7vw, 24px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary-inverse);
+}
+.program-banner__btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  height: clamp(64px, 6.8vw, 98px);
+  padding: 0 clamp(28px, 3vw, 44px);
+  border-radius: 9999px;
+  background-color: var(--background-purple);
+  color: var(--text-primary);
+  font-size: clamp(18px, 2.08vw, var(--t-accent1-size));
+  font-weight: var(--t-accent1-weight);
+  line-height: var(--t-accent1-lh);
+  white-space: nowrap;
+}
+.program-banner__icon {
+  width: clamp(28px, 2.5vw, 36px);
+  height: clamp(28px, 2.5vw, 36px);
+  flex: 0 0 auto;
 }
 
 /* -------------------------------------------------------------------------
@@ -866,6 +1101,9 @@ html.menu-open body {
   .about__line {
     display: none; /* spine doesn't fit the stacked layout */
   }
+  .about__tunnel {
+    display: none; /* no spine on mobile, so no tunnel masking needed */
+  }
   .about__text {
     position: static;
     transform: none;
@@ -926,6 +1164,40 @@ html.menu-open body {
   }
   .theme-card__text {
     font-size: clamp(20px, 5.6vw, 26px);
+  }
+
+  /* Program: stack the time over the talks, and talks one under another */
+  .program__row {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 0 28px;
+  }
+  .program__row--single {
+    align-items: flex-start;
+  }
+  .program__time {
+    width: auto;
+  }
+  .program__items {
+    flex-direction: column;
+    gap: 28px;
+    width: 100%;
+  }
+  .talk {
+    gap: 20px;
+    max-width: none; /* full width when stacked */
+  }
+  .talk__title--solo {
+    align-self: flex-start;
+  }
+  /* Banner: stack text above a full-width button */
+  .program-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .program-banner__btn {
+    justify-content: center;
   }
 
   /* no scroll animation here on mobile, so the spacer isn't needed */

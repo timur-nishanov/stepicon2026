@@ -88,7 +88,7 @@
       <div class="about__photo about__photo--2"><img src="assets/IMG 2.png" alt="" /></div>
       <div class="about__photo about__photo--1"><img src="assets/IMG 1.png" alt="" /></div>
 
-      <h2 class="about__text">Stepicon — ежегодная встреча Stepik для тех, кто создаёт, развивает и продвигает онлайн-образование</h2>
+      <h2 class="about__text about__text--1"><span class="about__tunnel" aria-hidden="true"></span>Stepicon — ежегодная встреча Stepik для тех, кто создаёт, развивает и продвигает онлайн-образование</h2>
     </div>
 
     <div class="about__block">
@@ -96,7 +96,7 @@
       <div class="about__photo about__photo--6"><img src="assets/IMG 6.png" alt="" /></div>
       <div class="about__photo about__photo--5"><img src="assets/IMG 5.png" alt="" /></div>
 
-      <h2 class="about__text about__text--2">Здесь собираются авторы курсов, образовательные проекты, компании, преподаватели, методисты, маркетологи, партнёры и команда Stepik</h2>
+      <h2 class="about__text about__text--2"><span class="about__tunnel" aria-hidden="true"></span>Здесь собираются авторы курсов, образовательные проекты, компании, преподаватели, методисты, маркетологи, партнёры и команда Stepik</h2>
     </div>
   </section>
 
@@ -156,6 +156,111 @@
         <span class="theme-card__dot theme-card__dot--purple" aria-hidden="true"></span>
         <h3 class="theme-card__text">Будущее профессий и&nbsp;обучения</h3>
       </article>
+    </div>
+  </section>
+
+  <!-- ===================== PROGRAM (schedule) ========================= -->
+  <section class="program">
+    <h2 class="program__title">Программа<br />мероприятия</h2>
+
+    <div class="program__content">
+      <!-- Day switcher — clickable; content is placeholder for now -->
+      <div class="switcher" role="tablist" aria-label="День программы">
+        <button class="switcher__btn switcher__btn--active" type="button" role="tab" aria-selected="true">2&nbsp;октября</button>
+        <button class="switcher__btn" type="button" role="tab" aria-selected="false">3&nbsp;октября</button>
+      </div>
+
+      <div class="program__table">
+        <div class="program__row program__row--single">
+          <span class="program__time">09:30</span>
+          <div class="program__items">
+            <h3 class="talk__title talk__title--solo">Регистрация и&nbsp;кофе</h3>
+          </div>
+        </div>
+
+        <div class="program__row">
+          <span class="program__time">10:00</span>
+          <div class="program__items">
+            <article class="talk">
+              <h3 class="talk__title">Новые тренды онлайн-образования: взгляд Stepik как крупнейшего маркетплейса курсов</h3>
+              <div class="talk__author">
+                <span class="talk__photo"><img src="assets/IMG 8.png" alt="Андрей Гаврилов" /></span>
+                <span class="talk__person">
+                  <span class="talk__name">Андрей Гаврилов</span>
+                  <span class="talk__role">Сооснователь Stepik</span>
+                </span>
+              </div>
+            </article>
+            <article class="talk">
+              <h3 class="talk__title">Корпоративное обучение и&nbsp;с&nbsp;чем его едят</h3>
+              <div class="talk__author">
+                <span class="talk__photo"><img src="assets/IMG 9.png" alt="Леся Набока" /></span>
+                <span class="talk__person">
+                  <span class="talk__name">Леся Набока</span>
+                  <span class="talk__role">Директор по&nbsp;корпоративному обучению</span>
+                </span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="program__row">
+          <span class="program__time">10:00</span>
+          <div class="program__items">
+            <article class="talk">
+              <h3 class="talk__title">Трансформация корпоративного обучения в&nbsp;эпоху AI</h3>
+              <div class="talk__author">
+                <span class="talk__photo"><img src="assets/IMG 10.png" alt="Круглый стол" /></span>
+                <span class="talk__person">
+                  <span class="talk__name">Круглый стол</span>
+                  <span class="talk__role">Совместное обсуждение</span>
+                </span>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="program__row">
+          <span class="program__time">10:00</span>
+          <div class="program__items">
+            <article class="talk">
+              <h3 class="talk__title">Как genAI уже меняет профессии и&nbsp;как будет менять их&nbsp;в&nbsp;будущем</h3>
+              <div class="talk__author">
+                <span class="talk__photo"><img src="assets/IMG 11.png" alt="Яна Чаруйская" /></span>
+                <span class="talk__person">
+                  <span class="talk__name">Яна Чаруйская</span>
+                  <span class="talk__role">Продакт-лид, AI</span>
+                </span>
+              </div>
+            </article>
+            <article class="talk">
+              <h3 class="talk__title">Как готовить студентов к&nbsp;профессиям, которых ещё нет</h3>
+              <div class="talk__author">
+                <span class="talk__photo"><img src="assets/IMG 12.png" alt="Маргарита Бурова" /></span>
+                <span class="talk__person">
+                  <span class="talk__name">Маргарита Бурова</span>
+                  <span class="talk__role">Руководитель образовательных программ</span>
+                </span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <!-- "Watch online" banner -->
+      <div class="program-banner">
+        <div class="program-banner__text">
+          <p class="program-banner__title">Не сможете приехать, но&nbsp;хотите быть в&nbsp;теме?</p>
+          <p class="program-banner__sub">Часть программы можно будет посмотреть онлайн</p>
+        </div>
+        <a class="program-banner__btn" href="#">
+          <svg class="program-banner__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M10.586 13.414a1 1 0 0 0 1.414 0l4.243-4.243a2 2 0 1 1 2.828 2.829l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414a4 4 0 1 0-5.657-5.657l-4.242 4.243a1 1 0 0 0 0 1.414Z" fill="currentColor"/>
+            <path d="M13.414 10.586a1 1 0 0 0-1.414 0l-4.243 4.243a2 2 0 1 1-2.828-2.829l1.414-1.414A1 1 0 0 0 4.929 9.17l-1.414 1.415a4 4 0 1 0 5.657 5.657l4.242-4.243a1 1 0 0 0 0-1.414Z" fill="currentColor"/>
+          </svg>
+          Ссылка скоро
+        </a>
+      </div>
     </div>
   </section>
 
