@@ -97,7 +97,7 @@
     /* --- Stars: light scroll parallax ------------------------------------- */
     gsap.to(".stars__layer", {
       y: function () {
-        return -window.innerHeight * 0.14; // parallax drift over the full scroll
+        return -window.innerHeight * 0.24; // stronger parallax drift over the scroll
       },
       ease: "none",
       scrollTrigger: {
@@ -179,21 +179,21 @@
           scrollTrigger: {
             trigger: ".points",
             start: "top 55%", // continue seamlessly from the About spine
-            end: "top 0%", // longer range (calm speed) but the section top is still
-            scrub: true, // on screen, so the purple branch stays visible
+            end: "top -12%", // long range = calm draw; top only just leaves view,
+            scrub: true, // so the purple branch is still catchable while drawing
           },
         })
-        // white spine continues down...
+        // white spine continues down (quick — it just extends the existing line)
         .to(
           ".points__line--white",
-          { strokeDashoffset: 0, ease: "none", duration: 0.55 },
+          { strokeDashoffset: 0, ease: "none", duration: 0.3 },
           0
         )
-        // ...and before it reaches its card, purple & green emerge from it
+        // ...then purple & green emerge and reach the cards over a long, slow tail
         .to(
           [".points__line--purple", ".points__line--green"],
-          { strokeDashoffset: 0, ease: "none", duration: 0.6 },
-          0.4
+          { strokeDashoffset: 0, ease: "none", duration: 0.7 },
+          0.3
         );
 
       // Cards drive up from off-screen, one by one, tied to scroll so they
@@ -207,8 +207,8 @@
         stagger: 0.15,
         scrollTrigger: {
           trigger: ".points",
-          start: "top 80%",
-          end: "top 0%", // settle in sync with the branches, top still in view
+          start: "top 85%",
+          end: "top 0%", // settle (top at viewport top) just before the branches finish
           scrub: true,
           invalidateOnRefresh: true,
         },

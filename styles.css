@@ -305,10 +305,11 @@ img {
 
 .stars__layer {
   position: absolute;
-  top: -20%;
-  left: -20%;
-  width: 140%;
-  height: 140%;
+  /* extra slack so the stronger scroll parallax never reveals an edge */
+  top: -30%;
+  left: -30%;
+  width: 160%;
+  height: 160%;
   background-image: url("assets/Stars 1.png");
   background-repeat: no-repeat;
   background-position: center top;
