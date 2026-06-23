@@ -51,7 +51,7 @@
     /* --- Stars: light scroll parallax ------------------------------------- */
     gsap.to(".stars__layer", {
       y: function () {
-        return -window.innerHeight * 0.08; // light drift over the full scroll
+        return -window.innerHeight * 0.14; // parallax drift over the full scroll
       },
       ease: "none",
       scrollTrigger: {
