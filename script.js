@@ -179,8 +179,8 @@
           scrollTrigger: {
             trigger: ".points",
             start: "top 55%", // continue seamlessly from the About spine
-            end: "top -20%", // long range => slow draw; green still connects on
-            scrub: 1.5, // screen, purple just past the top. Smoothing glides flicks
+            end: "top -28%", // very long range => slow, CONSTANT draw (tight scrub,
+            scrub: true, // no smoothing lag => no acceleration, no half-drawn bug)
           },
         })
         // white spine continues down (quick — it just extends the existing line)
