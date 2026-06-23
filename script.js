@@ -195,6 +195,27 @@
         },
       });
     });
+
+    /* --- Themes: gentle one-time reveal (no scrub, all viewports) ----------
+       Title rises in, then the cards fade up in a soft stagger as the section
+       scrolls into view. Light by design — no heavy scroll-driven motion. */
+    if (document.querySelector(".themes")) {
+      gsap.from(".themes__title", {
+        y: 32,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".themes", start: "top 78%" },
+      });
+      gsap.from(".theme-card", {
+        y: 40,
+        autoAlpha: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.1,
+        scrollTrigger: { trigger: ".themes__grid", start: "top 82%" },
+      });
+    }
   }
 
   /* --- Lines: prepare the "drawing" effect --------------------------------

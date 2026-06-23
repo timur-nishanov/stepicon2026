@@ -172,6 +172,12 @@
   --t-section-lh: 1;
   --t-section-ls: 0;
 
+  /* Heading / Tabs (section title) — Bold 80 / 1.12 / 0 */
+  --t-tabs-size: 80px;
+  --t-tabs-weight: 700;
+  --t-tabs-lh: 1.12;
+  --t-tabs-ls: 0;
+
   /* Heading / Accent (big numbers) — SemiBold 124 / 1 / -2% */
   --t-bignum-size: 124px;
   --t-bignum-weight: 600;
@@ -494,6 +500,65 @@ img {
     stroke-dasharray: 3000;
     stroke-dashoffset: 3000;
   }
+}
+
+/* -------------------------------------------------------------------------
+   7b. THEMES ("О чём будет Stepicon 2026")
+   ------------------------------------------------------------------------- */
+.themes {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(64px, 9vw, 128px) var(--layout-pad);
+}
+
+.themes__title {
+  margin: 0 0 clamp(32px, 4.4vw, 64px);
+  text-align: center;
+  font-size: clamp(34px, 5.6vw, var(--t-tabs-size));
+  font-weight: var(--t-tabs-weight);
+  line-height: var(--t-tabs-lh);
+  letter-spacing: var(--t-tabs-ls);
+  color: var(--text-primary);
+}
+
+.themes__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.theme-card {
+  box-sizing: border-box;
+  aspect-ratio: 459 / 280;
+  background-color: var(--background-transparent-1);
+  padding: clamp(20px, 2.2vw, 32px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.theme-card__dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  flex: 0 0 auto;
+}
+.theme-card__dot--green {
+  background-color: var(--background-green);
+}
+.theme-card__dot--purple {
+  background-color: var(--background-purple);
+}
+
+.theme-card__text {
+  margin: 0;
+  font-size: clamp(18px, 2.08vw, var(--t-accent1-size));
+  font-weight: var(--t-accent1-weight);
+  line-height: var(--t-accent1-lh);
+  letter-spacing: var(--t-accent1-ls);
+  color: var(--text-primary);
 }
 
 /* -------------------------------------------------------------------------
@@ -858,6 +923,20 @@ html.menu-open body {
     font-size: clamp(48px, 13vw, 72px); /* full-width cards: bigger, readable */
   }
 
+  /* Themes: single column, size to content */
+  .themes__grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .theme-card {
+    aspect-ratio: auto;
+    min-height: 180px;
+    gap: 40px;
+  }
+  .theme-card__text {
+    font-size: clamp(20px, 5.6vw, 26px);
+  }
+
   /* no scroll animation here on mobile, so the spacer isn't needed */
   .flow-spacer {
     display: none;
@@ -883,6 +962,7 @@ html.menu-open body {
     display: flex;
     flex-direction: column;
     padding: 16px;
+    overflow-y: auto; /* short screens: let the menu scroll instead of clipping */
   }
   .menu__header {
     display: flex;
@@ -899,9 +979,9 @@ html.menu-open body {
   .menu__nav {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    margin-top: 56px;
-    margin-bottom: 56px; /* guaranteed gap so nav never collides with the CTA buttons */
+    gap: 20px;
+    margin-top: 32px;
+    margin-bottom: 32px; /* breathing room before the CTA buttons */
   }
   .menu__nav a {
     font-size: var(--t-accent1-size);
