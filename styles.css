@@ -1058,8 +1058,6 @@ img {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: calc(1408px + var(--layout-pad) * 2); /* cap to the design frame */
-  margin-inline: auto; /* centre on wide screens so cards keep their proportion */
   box-sizing: border-box;
   padding: clamp(64px, 7vw, 120px) var(--layout-pad);
   display: flex;
@@ -1177,12 +1175,18 @@ img {
 /* -------------------------------------------------------------------------
    7h. FINALE (CTA + photos) — big purple blur glow behind the content
    ------------------------------------------------------------------------- */
-.finale {
+/* wrapper around FINALE + FAQ: the glow lives here so it bleeds across both
+   (onto the FAQ) while overflow:hidden clips it (no horizontal scrollbar). */
+.finale-wrap {
   position: relative;
   z-index: 1;
+  overflow: hidden;
+}
+.finale {
+  position: relative;
+  z-index: 1; /* above the glow */
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden; /* contain the oversized glow */
   padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(64px, 7vw, 120px);
   display: flex;
   flex-direction: column;
@@ -1200,7 +1204,7 @@ img {
   background-color: var(--background-purple);
   filter: blur(calc(100vw * 500 / 1440));
   pointer-events: none;
-  z-index: -1;
+  z-index: 0; /* behind FINALE & FAQ (both z-index 1) */
   transition: background-color 0.45s ease;
 }
 .finale__cta {
@@ -1305,9 +1309,20 @@ img {
 .btn-fill:focus-visible::after { transform: scaleY(1); }
 .btn-fill:hover,
 .btn-fill:focus-visible { color: var(--text-primary); }
-.finale:has(.finale__speaker:hover) .finale__glow,
-.finale:has(.finale__speaker:focus-visible) .finale__glow {
+
+/* "Стать спикером": fill is GREEN (and the glow turns green too) — dark text on it */
+.finale__speaker.btn-fill::after { background-color: var(--background-green); }
+.finale__speaker.btn-fill:hover,
+.finale__speaker.btn-fill:focus-visible { color: var(--text-primary-inverse); }
+.finale-wrap:has(.finale__speaker:hover) .finale__glow,
+.finale-wrap:has(.finale__speaker:focus-visible) .finale__glow {
   background-color: var(--background-green);
+}
+
+/* hero "Подать заявку": purple fill, but the label stays black (as in rest state) */
+.plate--button.btn-fill:hover .plate__value,
+.plate--button.btn-fill:focus-visible .plate__value {
+  color: var(--text-primary-inverse);
 }
 
 /* -------------------------------------------------------------------------
