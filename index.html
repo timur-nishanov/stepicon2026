@@ -358,7 +358,7 @@
     <div class="tariffs__price">
       <div class="tariffs__price-head">
         <h3 class="tariffs__heading">Стоимость участия</h3>
-        <a class="tariffs__pay" href="https://stepik.org/org/stepikteam" target="_blank" rel="noopener">Оплатить</a>
+        <a class="tariffs__pay btn-fill" href="https://stepik.org/org/stepikteam" target="_blank" rel="noopener">Оплатить</a>
       </div>
       <div class="tariffs__cards">
         <div class="tariff-card tariff-card--white">
@@ -377,9 +377,69 @@
     </div>
   </section>
 
-  <!-- TEMP: scroll room so the Points scroll animations can finish while it's
-       the last section (will be replaced by the next section). -->
-  <div class="flow-spacer" aria-hidden="true"></div>
+  <!-- ===================== FINALE (CTA + photos) ===================== -->
+  <section class="finale">
+    <div class="finale__glow" aria-hidden="true"></div>
+
+    <div class="finale__cta">
+      <div class="finale__text">
+        <h2 class="finale__title">Увидимся<br />на&nbsp;Stepicon 2026</h2>
+        <p class="finale__subtitle">2-3 октября • Москва • Школа&nbsp;21</p>
+      </div>
+      <div class="finale__buttons">
+        <a class="finale__btn finale__speaker btn-fill" href="https://stepik.org/org/stepikteam" target="_blank" rel="noopener">Стать спикером</a>
+        <a class="finale__btn finale__route" href="https://yandex.ru/maps/?text=Москва, Вятская улица, 27" target="_blank" rel="noopener">
+          <img class="finale__btn-icon" src="assets/pin map.svg" alt="" width="40" height="40" />Маршрут
+        </a>
+      </div>
+    </div>
+
+    <div class="finale__photos">
+      <div class="finale__row finale__row--1">
+        <img class="finale__photo" src="assets/IMG 17.png" alt="" />
+        <img class="finale__photo" src="assets/IMG 18.png" alt="" />
+      </div>
+      <div class="finale__row finale__row--2">
+        <img class="finale__photo" src="assets/IMG 19.png" alt="" />
+        <img class="finale__photo" src="assets/IMG 21.png" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ======================================= -->
+  <section class="faq">
+    <h2 class="faq__title">FAQ</h2>
+    <div class="faq__list">
+      <div class="faq__item faq__item--open">
+        <button class="faq__q" type="button" aria-expanded="true">
+          <span>Как попасть на&nbsp;конференцию?</span>
+          <img class="faq__chevron" src="assets/chevron-down.svg" alt="" width="32" height="32" />
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><p>В&nbsp;факультете работают 10&nbsp;базовых кафедр технологических компаний (Яндекс, Сбербанк, Т-Банк, МТС и&nbsp;др.), а&nbsp;преподаватели-практики делятся актуальным опытом индустрии. Партнёрство с&nbsp;ФКН позволяет объединить практику онлайн-образования с&nbsp;академической экспертизой.</p></div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span>Будет ли&nbsp;онлайн?</span>
+          <img class="faq__chevron" src="assets/chevron-down.svg" alt="" width="32" height="32" />
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><p>Да, часть программы можно будет посмотреть онлайн. Ссылку на&nbsp;трансляцию опубликуем ближе к&nbsp;дате конференции.</p></div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span>Как выступить на&nbsp;конференции?</span>
+          <img class="faq__chevron" src="assets/chevron-down.svg" alt="" width="32" height="32" />
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><p>Заполните заявку спикера через кнопку «Стать спикером» — мы&nbsp;свяжемся с&nbsp;вами и&nbsp;обсудим тему доклада.</p></div></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span>Есть ли&nbsp;партнёрские возможности?</span>
+          <img class="faq__chevron" src="assets/chevron-down.svg" alt="" width="32" height="32" />
+        </button>
+        <div class="faq__a"><div class="faq__a-inner"><p>Да, мы&nbsp;открыты к&nbsp;партнёрству и&nbsp;спонсорству. Напишите нам — расскажем о&nbsp;доступных форматах.</p></div></div>
+      </div>
+    </div>
+  </section>
 
   <!-- Star layer on top of everything; non-interactive.
        Outer = fixed clip (always covers the viewport); inner = oversized

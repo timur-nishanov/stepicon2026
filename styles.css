@@ -1175,6 +1175,215 @@ img {
 }
 
 /* -------------------------------------------------------------------------
+   7h. FINALE (CTA + photos) — big purple blur glow behind the content
+   ------------------------------------------------------------------------- */
+.finale {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden; /* contain the oversized glow */
+  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(64px, 7vw, 120px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 6vw, 80px);
+}
+/* the glow — scaled from the 1440 spec (1834 circle, blur 500, at left -197 / top 376) */
+.finale__glow {
+  position: absolute;
+  left: calc(100vw * -197 / 1440);
+  top: calc(100vw * 376 / 1440);
+  width: calc(100vw * 1834 / 1440);
+  height: calc(100vw * 1834 / 1440);
+  border-radius: 50%;
+  opacity: 0.48;
+  background-color: var(--background-purple);
+  filter: blur(calc(100vw * 500 / 1440));
+  pointer-events: none;
+  z-index: -1;
+  transition: background-color 0.45s ease;
+}
+.finale__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 3.4vw, 48px);
+  text-align: center;
+}
+.finale__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 2vw, 32px);
+}
+.finale__title {
+  margin: 0;
+  font-size: clamp(36px, 8.6vw, var(--t-bignum-size));
+  font-weight: var(--t-bignum-weight);
+  line-height: 1;
+  color: var(--text-primary);
+}
+.finale__subtitle {
+  margin: 0;
+  font-size: clamp(18px, 2.2vw, var(--t-accent2-size));
+  font-weight: var(--t-accent2-weight);
+  line-height: var(--t-accent2-lh);
+  letter-spacing: var(--t-accent2-ls);
+  color: var(--text-primary);
+}
+.finale__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.finale__btn {
+  height: clamp(64px, 6.8vw, 112px);
+  padding: 0 clamp(28px, 3vw, 44px);
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: clamp(20px, 2.08vw, var(--t-accent1-size));
+  font-weight: var(--t-accent1-weight);
+  line-height: var(--t-accent1-lh);
+  white-space: nowrap;
+}
+.finale__speaker {
+  background-color: var(--background-white);
+  color: var(--text-primary-inverse);
+}
+.finale__route {
+  background-color: var(--background-transparent);
+  color: var(--text-primary);
+}
+.finale__btn-icon {
+  width: clamp(28px, 2.8vw, 40px);
+  height: clamp(28px, 2.8vw, 40px);
+  flex: 0 0 auto;
+}
+.finale__photos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.finale__row {
+  display: grid;
+  gap: 16px;
+  height: clamp(180px, 32vw, 462px);
+}
+.finale__row--1 { grid-template-columns: 933fr 459fr; }
+.finale__row--2 { grid-template-columns: 340fr 1052fr; }
+.finale__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: clamp(16px, 2.2vw, 32px);
+  display: block;
+}
+
+/* Hover: the purple fill sweeps up to fill the button; on the speaker button it
+   also turns the glow green. */
+.btn-fill {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.35s ease;
+}
+.btn-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--background-purple);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+.btn-fill:hover::after,
+.btn-fill:focus-visible::after { transform: scaleY(1); }
+.btn-fill:hover,
+.btn-fill:focus-visible { color: var(--text-primary); }
+.finale:has(.finale__speaker:hover) .finale__glow,
+.finale:has(.finale__speaker:focus-visible) .finale__glow {
+  background-color: var(--background-green);
+}
+
+/* -------------------------------------------------------------------------
+   7i. FAQ — heading + accordion
+   ------------------------------------------------------------------------- */
+.faq {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(48px, 6vw, 100px) var(--layout-pad) clamp(72px, 9vw, 160px);
+}
+.faq__title {
+  max-width: 696px;
+  margin: 0 auto clamp(40px, 5vw, 80px);
+  font-size: clamp(56px, 8.6vw, var(--t-bignum-size));
+  font-weight: var(--t-bignum-weight);
+  line-height: 1;
+  color: var(--text-primary);
+}
+.faq__list {
+  max-width: 696px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.faq__item {
+  border-bottom: 2px solid var(--border-white);
+  padding-bottom: 40px;
+}
+.faq__q {
+  width: 100%;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  text-align: left;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.6vw, var(--t-accent2-size));
+  font-weight: var(--t-accent2-weight);
+  line-height: var(--t-accent2-lh);
+  letter-spacing: var(--t-accent2-ls);
+}
+.faq__chevron {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+}
+.faq__item--open .faq__chevron { transform: rotate(180deg); }
+.faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+.faq__item--open .faq__a { grid-template-rows: 1fr; }
+.faq__a-inner {
+  overflow: hidden;
+}
+.faq__a p {
+  margin: 20px 0 0;
+  max-width: 600px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.32;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+}
+
+/* -------------------------------------------------------------------------
    4. HERO
    ------------------------------------------------------------------------- */
 .hero {
@@ -1643,6 +1852,24 @@ html.menu-open body {
   .tariff-card {
     min-height: 200px;
     border-width: clamp(10px, 3.4vw, 18px); /* keep the outline clearly visible */
+  }
+
+  /* hero "Место" plate: keep the long address clear of the school logo */
+  .plate--place .plate__value {
+    padding-right: 52px;
+  }
+
+  /* Finale: full-width buttons, taller photo rows so they read on small screens */
+  .finale__buttons {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .finale__btn {
+    width: 100%;
+  }
+  .finale__row {
+    height: clamp(150px, 40vw, 280px);
   }
 
   /* no scroll animation here on mobile, so the spacer isn't needed */

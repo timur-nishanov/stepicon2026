@@ -47,6 +47,20 @@
   if (next) next.addEventListener("click", function () { go(i + 1); });
 })();
 
+/* --- FAQ accordion ------------------------------------------------------- */
+(function () {
+  var items = document.querySelectorAll(".faq__item");
+  if (!items.length) return;
+  items.forEach(function (item) {
+    var btn = item.querySelector(".faq__q");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var open = item.classList.toggle("faq__item--open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+})();
+
 /* --- Program day switcher (visual toggle only; data swaps later) --------- */
 (function () {
   var sw = document.querySelector(".switcher");
@@ -341,6 +355,44 @@
         ease: "power2.out",
         stagger: 0.12,
         scrollTrigger: { trigger: ".tariffs__cards", start: "top 82%" },
+      });
+    }
+
+    /* --- Finale: gentle reveal of the CTA, then the photo rows ------------ */
+    if (document.querySelector(".finale")) {
+      gsap.from(".finale__cta", {
+        y: 32,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".finale", start: "top 78%" },
+      });
+      gsap.from(".finale__row", {
+        y: 36,
+        autoAlpha: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.12,
+        scrollTrigger: { trigger: ".finale__photos", start: "top 85%" },
+      });
+    }
+
+    /* --- FAQ: gentle reveal ---------------------------------------------- */
+    if (document.querySelector(".faq")) {
+      gsap.from(".faq__title", {
+        y: 28,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".faq", start: "top 80%" },
+      });
+      gsap.from(".faq__item", {
+        y: 24,
+        autoAlpha: 0,
+        duration: 0.55,
+        ease: "power2.out",
+        stagger: 0.1,
+        scrollTrigger: { trigger: ".faq__list", start: "top 85%" },
       });
     }
   }
