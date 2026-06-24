@@ -324,6 +324,25 @@
       });
       // stats stay static (no reveal) — a fade was dirtying the line
     }
+
+    /* --- Tariffs: gentle reveal of the text, then the price cards --------- */
+    if (document.querySelector(".tariffs")) {
+      gsap.from(".tariffs__text", {
+        y: 32,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".tariffs", start: "top 78%" },
+      });
+      gsap.from(".tariff-card", {
+        y: 36,
+        autoAlpha: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.12,
+        scrollTrigger: { trigger: ".tariffs__cards", start: "top 82%" },
+      });
+    }
   }
 
   /* --- Lines: prepare the "drawing" effect --------------------------------

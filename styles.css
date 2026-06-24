@@ -1052,6 +1052,127 @@ img {
 }
 
 /* -------------------------------------------------------------------------
+   7g. TARIFFS — title + promo + three outlined price cards
+   ------------------------------------------------------------------------- */
+.tariffs {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(64px, 7vw, 120px) var(--layout-pad);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 6vw, 80px);
+}
+.tariffs__text {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.4vw, 48px);
+  max-width: 1200px;
+}
+.tariffs__title {
+  margin: 0;
+  font-size: clamp(30px, 4.4vw, var(--t-section-size));
+  font-weight: var(--t-section-weight);
+  line-height: var(--t-section-lh);
+  letter-spacing: var(--t-section-ls);
+  color: var(--text-primary);
+}
+.tariffs__sale {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.tariffs__promo {
+  flex: 0 0 auto;
+  background-color: var(--background-transparent);
+  border-radius: 9999px;
+  padding: clamp(18px, 2.2vw, 32px) clamp(28px, 3vw, 44px);
+  font-size: clamp(20px, 2.08vw, var(--t-accent1-size));
+  font-weight: var(--t-accent1-weight);
+  line-height: var(--t-accent1-lh);
+  color: var(--border-green);
+  white-space: nowrap;
+}
+.tariffs__sale-text {
+  margin: 0;
+  max-width: 348px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+}
+.tariffs__price {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(36px, 4.4vw, 64px);
+}
+.tariffs__price-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.tariffs__heading {
+  margin: 0;
+  font-size: clamp(30px, 4.4vw, var(--t-section-size));
+  font-weight: var(--t-section-weight);
+  line-height: var(--t-section-lh);
+  letter-spacing: var(--t-section-ls);
+  color: var(--text-primary);
+}
+.tariffs__pay {
+  flex: 0 0 auto;
+  height: clamp(64px, 6.8vw, 112px);
+  padding: 0 clamp(28px, 3vw, 44px);
+  border-radius: 9999px;
+  background-color: var(--background-white);
+  color: var(--text-primary-inverse);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(20px, 2.08vw, var(--t-accent1-size));
+  font-weight: var(--t-accent1-weight);
+  line-height: var(--t-accent1-lh);
+  white-space: nowrap;
+}
+.tariffs__cards {
+  display: flex;
+  gap: clamp(16px, 5.5vw, 80px);
+}
+.tariff-card {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+  background-color: var(--background-black);
+  /* outline thickness: 24 in the 1440 canvas (NOT 32 like Points) */
+  border: calc(100vw * 24 / 1440) solid;
+  padding: clamp(20px, 2.2vw, 32px);
+  min-height: clamp(220px, 22vw, 326px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  color: var(--text-primary);
+}
+.tariff-card--white { border-color: var(--border-white); }
+.tariff-card--green { border-color: var(--border-green); }
+.tariff-card--purple { border-color: var(--border-purple); }
+.tariff-card__price {
+  font-size: clamp(40px, 5.6vw, var(--t-tabs-size));
+  font-weight: var(--t-tabs-weight);
+  line-height: var(--t-tabs-lh);
+  letter-spacing: var(--t-tabs-ls);
+  white-space: nowrap;
+}
+.tariff-card__note {
+  font-size: clamp(16px, 1.7vw, 24px);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* -------------------------------------------------------------------------
    4. HERO
    ------------------------------------------------------------------------- */
 .hero {
@@ -1501,6 +1622,25 @@ html.menu-open body {
   }
   .place__map {
     padding-top: 28px;
+  }
+
+  /* Tariffs: stack the promo, the price header, and the cards */
+  .tariffs__sale {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .tariffs__price-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .tariffs__cards {
+    flex-direction: column;
+  }
+  .tariff-card {
+    min-height: 200px;
+    border-width: clamp(10px, 3.4vw, 18px); /* keep the outline clearly visible */
   }
 
   /* no scroll animation here on mobile, so the spacer isn't needed */
