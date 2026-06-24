@@ -472,11 +472,6 @@ img {
   padding-bottom: clamp(80px, 12vh, 200px); /* breathing room before "О чём будет" */
 }
 
-/* TEMP: scroll room below the last section so its scroll animations finish */
-.flow-spacer {
-  height: 40vh;
-}
-
 .points__inner {
   position: relative;
   width: 100%;
@@ -1886,11 +1881,6 @@ html.menu-open body {
   }
   .finale__row {
     height: clamp(150px, 40vw, 280px);
-  }
-
-  /* no scroll animation here on mobile, so the spacer isn't needed */
-  .flow-spacer {
-    display: none;
   }
 
   /* --- Fullscreen mobile menu --- */

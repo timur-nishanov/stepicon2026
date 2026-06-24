@@ -329,8 +329,8 @@
             ease: "none",
             scrollTrigger: {
               trigger: line,
-              start: "top 85%", // begins as the segment enters
-              end: "bottom 45%", // long, even draw — no rushed/jerky finish
+              start: "top 95%", // start as soon as the segment peeks in
+              end: "bottom 15%", // much longer range => slow, unhurried draw
               scrub: true,
             },
           }
