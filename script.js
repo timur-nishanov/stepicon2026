@@ -322,15 +322,7 @@
           }
         );
       });
-      gsap.utils.toArray(".whatis__stat").forEach(function (stat) {
-        gsap.from(stat, {
-          y: 28,
-          autoAlpha: 0,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: { trigger: stat, start: "top 85%" },
-        });
-      });
+      // stats stay static (no reveal) — a fade was dirtying the line
     }
   }
 
