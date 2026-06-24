@@ -995,6 +995,60 @@ img {
 }
 
 /* -------------------------------------------------------------------------
+   7f. WHAT IS STEPIK — three big stats joined by a spine that emerges from
+   green/purple tunnel mouths (line draws on scroll). Centred stack, fluid.
+   ------------------------------------------------------------------------- */
+.whatis {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(72px, 11vh, 180px) var(--layout-pad);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.whatis__label {
+  margin: 0 0 clamp(16px, 2vw, 40px);
+  font-size: var(--t-primary-size);
+  font-weight: var(--t-primary-weight);
+  line-height: var(--t-primary-lh);
+  letter-spacing: var(--t-primary-ls);
+  color: var(--text-primary);
+}
+.whatis__stat {
+  margin: 0;
+  font-size: clamp(40px, 11vw, var(--t-bignum-size));
+  font-weight: var(--t-bignum-weight);
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--text-primary);
+}
+.whatis__seg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.whatis__mouth {
+  flex: 0 0 auto;
+  width: clamp(40px, 4vw, 56px);
+  height: clamp(20px, 2vw, 28px);
+}
+.whatis__mouth--green { background-color: var(--background-green); }
+.whatis__mouth--purple { background-color: var(--background-purple); }
+.whatis__line {
+  width: clamp(8px, 1vw, 12px);
+  height: clamp(200px, 30vh, 420px); /* long road so the draw feels unhurried */
+  background-color: var(--border-white);
+  transform-origin: top center;
+}
+/* hide the line before it draws (avoid a flash); reduced motion keeps it shown */
+@media (prefers-reduced-motion: no-preference) {
+  .whatis__line { transform: scaleY(0); }
+}
+
+/* -------------------------------------------------------------------------
    4. HERO
    ------------------------------------------------------------------------- */
 .hero {

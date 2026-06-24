@@ -302,6 +302,36 @@
         scrollTrigger: { trigger: ".place", start: "top 78%" },
       });
     }
+
+    /* --- What is Stepik: each spine segment draws as it scrolls through
+       (constant speed, long line => calm path), stats reveal one by one ---- */
+    if (document.querySelector(".whatis")) {
+      gsap.utils.toArray(".whatis__line").forEach(function (line) {
+        gsap.fromTo(
+          line,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: line,
+              start: "top 85%", // begins as the segment enters
+              end: "bottom 45%", // long, even draw — no rushed/jerky finish
+              scrub: true,
+            },
+          }
+        );
+      });
+      gsap.utils.toArray(".whatis__stat").forEach(function (stat) {
+        gsap.from(stat, {
+          y: 28,
+          autoAlpha: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: { trigger: stat, start: "top 85%" },
+        });
+      });
+    }
   }
 
   /* --- Lines: prepare the "drawing" effect --------------------------------
