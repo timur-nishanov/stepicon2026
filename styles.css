@@ -1191,7 +1191,7 @@ img {
   padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(64px, 7vw, 120px);
   display: flex;
   flex-direction: column;
-  gap: clamp(48px, 6vw, 80px);
+  gap: clamp(64px, 7vw, 120px); /* CTA → photos: same as the Tariffs top padding */
 }
 /* the glow — scaled from the 1440 spec (1834 circle, blur 500, at left -197 / top 376) */
 .finale__glow {
