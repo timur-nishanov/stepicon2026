@@ -284,11 +284,6 @@ img {
   pointer-events: none;
 }
 
-/* (vertical bands removed — the canvas is plain black behind the star layer) */
-.backdrop__stripes {
-  display: none;
-}
-
 /* Star field — separate layer (transparent PNG asset). Sits ON TOP of
    everything and is non-interactive, so it never blocks clicks.
    Outer .stars is a fixed clip locked to the viewport (always on screen);
