@@ -875,6 +875,126 @@ img {
 }
 
 /* -------------------------------------------------------------------------
+   7e. PLACE (venue) — text column + photo slider
+   ------------------------------------------------------------------------- */
+.place {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(64px, 7vw, 120px) var(--layout-pad);
+  display: flex;
+  gap: 32px;
+  align-items: stretch;
+}
+.place__text {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.place__title {
+  margin: 0;
+  font-size: clamp(36px, 4.4vw, var(--t-section-size));
+  font-weight: var(--t-section-weight);
+  line-height: var(--t-section-lh);
+  letter-spacing: var(--t-section-ls);
+  color: var(--text-primary);
+}
+.place__body {
+  margin: clamp(20px, 1.7vw, 24px) 0 0;
+  max-width: 530px;
+  font-size: clamp(18px, 1.7vw, 24px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+.place__map {
+  margin-top: auto; /* pin to the bottom of the column */
+  padding-top: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  align-self: flex-start;
+}
+.place__map-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  flex: 0 0 auto;
+  object-fit: cover;
+}
+.place__map-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.place__addr {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.32;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+}
+.place__map-link {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: #8a8a8c;
+}
+
+/* --- photo slider --- */
+.place__media {
+  flex: 0 1 846px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.place__nav {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--background-transparent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+.place__nav:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+.place__nav img {
+  width: 31px;
+  height: 31px;
+  display: block;
+}
+.place__slider {
+  flex: 1 1 0;
+  min-width: 0;
+  aspect-ratio: 686 / 622;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+}
+.place__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.place__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* -------------------------------------------------------------------------
    4. HERO
    ------------------------------------------------------------------------- */
 .hero {
@@ -1302,6 +1422,28 @@ html.menu-open body {
   }
   .program-banner__btn {
     justify-content: center;
+  }
+
+  /* Place: stack the text above the slider */
+  .place {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .place__media {
+    flex: 1 1 auto;
+    width: 100%;
+    gap: 8px;
+  }
+  .place__nav {
+    width: 48px;
+    height: 48px;
+  }
+  .place__nav img {
+    width: 24px;
+    height: 24px;
+  }
+  .place__map {
+    padding-top: 28px;
   }
 
   /* no scroll animation here on mobile, so the spacer isn't needed */

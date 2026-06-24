@@ -290,6 +290,38 @@
     </div>
   </section>
 
+  <!-- ===================== PLACE (venue + photo slider) =============== -->
+  <section class="place">
+    <div class="place__text">
+      <h2 class="place__title">Место<br />проведения</h2>
+      <p class="place__body">В этом году встречаемся в&nbsp;московском кампусе Школы&nbsp;21 — современном образовательном пространстве на&nbsp;Вятской улице. Для&nbsp;Stepicon это особенно символично: мы&nbsp;собираемся не&nbsp;в&nbsp;случайной конференц-зоне, а&nbsp;в&nbsp;месте, где каждый день учатся, работают с&nbsp;технологиями и&nbsp;делают образовательные проекты.</p>
+      <a class="place__map" href="https://yandex.ru/maps/?text=Москва, Вятская улица, 27" target="_blank" rel="noopener">
+        <img class="place__map-icon" src="assets/map.png" alt="" width="48" height="48" />
+        <span class="place__map-text">
+          <span class="place__addr">ул.&nbsp;Вятская, дом&nbsp;27</span>
+          <span class="place__map-link">Показать на&nbsp;карте</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="place__media">
+      <button class="place__nav place__nav--prev" type="button" aria-label="Предыдущее фото">
+        <img src="assets/chevron-left.svg" alt="" width="31" height="31" />
+      </button>
+      <div class="place__slider">
+        <div class="place__track">
+          <img class="place__slide" src="assets/IMG 13.png" alt="Кампус Школы 21 в Москве" />
+          <img class="place__slide" src="assets/IMG 14.png" alt="" />
+          <img class="place__slide" src="assets/IMG 15.png" alt="" />
+          <img class="place__slide" src="assets/IMG 16.png" alt="" />
+        </div>
+      </div>
+      <button class="place__nav place__nav--next" type="button" aria-label="Следующее фото">
+        <img src="assets/chevron-right.svg" alt="" width="31" height="31" />
+      </button>
+    </div>
+  </section>
+
   <!-- TEMP: scroll room so the Points scroll animations can finish while it's
        the last section (will be replaced by the next section). -->
   <div class="flow-spacer" aria-hidden="true"></div>
