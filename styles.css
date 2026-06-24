@@ -1032,14 +1032,16 @@ img {
 }
 .whatis__mouth {
   flex: 0 0 auto;
-  width: clamp(40px, 4vw, 56px);
-  height: clamp(20px, 2vw, 28px);
+  /* match the upper tunnel mouths exactly (About: 48/1440 vw wide, 40px tall) */
+  width: max(18px, calc(100vw * 48 / 1440));
+  height: 40px;
 }
 .whatis__mouth--green { background-color: var(--background-green); }
 .whatis__mouth--purple { background-color: var(--background-purple); }
 .whatis__line {
-  width: clamp(8px, 1vw, 12px);
-  height: clamp(200px, 30vh, 420px); /* long road so the draw feels unhurried */
+  /* match the upper spine thickness (About/Points: 32/1440 vw) */
+  width: max(12px, calc(100vw * 32 / 1440));
+  height: clamp(340px, 50vh, 720px); /* long road so the draw really reads */
   background-color: var(--border-white);
   transform-origin: top center;
 }
