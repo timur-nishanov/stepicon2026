@@ -1139,17 +1139,17 @@ img {
 }
 .tariffs__cards {
   display: flex;
-  gap: clamp(16px, 5.5vw, 80px);
+  gap: clamp(16px, 6vw, 80px); /* 80px between cards on wide screens */
 }
 .tariff-card {
-  flex: 1 1 0;
+  flex: 1 1 0; /* fill the container evenly */
   min-width: 0;
   box-sizing: border-box;
   background-color: var(--background-black);
   /* outline thickness: 24 in the 1440 canvas (NOT 32 like Points) */
   border: calc(100vw * 24 / 1440) solid;
   padding: clamp(20px, 2.2vw, 32px);
-  min-height: clamp(220px, 22vw, 326px);
+  min-height: clamp(240px, 24vw, 326px); /* 326px tall on wide screens */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
