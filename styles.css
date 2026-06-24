@@ -1058,6 +1058,8 @@ img {
   position: relative;
   z-index: 1;
   width: 100%;
+  max-width: calc(1408px + var(--layout-pad) * 2); /* cap to the design frame */
+  margin-inline: auto; /* centre on wide screens so cards keep their proportion */
   box-sizing: border-box;
   padding: clamp(64px, 7vw, 120px) var(--layout-pad);
   display: flex;
