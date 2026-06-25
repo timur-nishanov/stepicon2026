@@ -1497,7 +1497,9 @@ img {
 
 .hero__subtitle {
   margin: 0 0 6px;
-  width: 592px;
+  /* width matches the top nav block so the left edge lines up with the
+     first menu item ("О Stepicon"); both are anchored to the right gutter */
+  width: 675px;
   max-width: 100%;
   flex: 0 0 auto;
   font-size: clamp(22px, 2.78vw, var(--t-accent-size)); /* fluid, caps at the token */

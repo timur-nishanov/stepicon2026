@@ -29,6 +29,32 @@
   });
 })();
 
+/* --- Smooth-scroll for in-page anchor links (topbar + burger menu) --------
+   Reads window.__lenis lazily at click time so it works regardless of init
+   order; falls back to native smooth scroll when Lenis isn't running. ------ */
+(function () {
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      var hash = link.getAttribute("href");
+      if (!hash || hash === "#") {
+        // bare "#": logos go back to top; other placeholders (e.g. "Ссылка
+        // скоро") just do nothing rather than jumping the page.
+        e.preventDefault();
+        if (/logo/.test(link.className)) {
+          if (window.__lenis) window.__lenis.scrollTo(0);
+          else window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+        return;
+      }
+      var target = document.querySelector(hash);
+      if (!target) return; // let the browser handle unknown anchors
+      e.preventDefault();
+      if (window.__lenis) window.__lenis.scrollTo(target, { offset: 0 });
+      else target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+})();
+
 /* --- Place: photo slider (prev/next, wraps around) — desktop arrows.
        On mobile the same markup becomes a plain horizontal scroll (CSS). ---- */
 (function () {

@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stepicon 2026</title>
 
+  <!-- Favicon (brand corner mark) -->
+  <link rel="icon" type="image/png" href="assets/OG.png" />
+  <link rel="apple-touch-icon" href="assets/OG.png" />
+
+  <!-- Social share preview -->
+  <meta property="og:title" content="Stepicon 2026" />
+  <meta property="og:description" content="Место встречи людей, создающих образование" />
+  <meta property="og:image" content="assets/OG.png" />
+  <meta property="og:type" content="website" />
+
   <!-- Inter Display is loaded locally via @font-face (see styles.css / assets/fonts) -->
   <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css" />
   <link rel="stylesheet" href="styles.css" />
@@ -33,12 +43,13 @@
         <img src="assets/stepik logo.svg" alt="stepik" width="125" height="32" />
       </a>
       <ul class="topbar__menu">
-        <li><a href="#">О Stepicon</a></li>
-        <li><a href="#">Что будет</a></li>
-        <li><a href="#">Программа</a></li>
-        <li><a href="#">О нас</a></li>
-        <li><a href="#">Тарифы</a></li>
-        <li><a href="#">FAQ</a></li>
+        <li><a href="#about">О Stepicon</a></li>
+        <li><a href="#themes">Что будет</a></li>
+        <li><a href="#program">Программа</a></li>
+        <li><a href="#place">Место</a></li>
+        <li><a href="#whatis">О нас</a></li>
+        <li><a href="#tariffs">Тарифы</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
       <button class="topbar__burger" type="button" aria-label="Открыть меню" aria-controls="menu" aria-expanded="false">
         <img src="assets/burger-open.svg" alt="" width="32" height="32" />
@@ -77,7 +88,7 @@
   </header>
 
   <!-- ===================== ABOUT (blocks) ============================== -->
-  <section class="about">
+  <section class="about" id="about">
     <!-- central spine line: spans the whole section, drawn downward by scroll -->
     <span class="about__line" aria-hidden="true"></span>
 
@@ -127,7 +138,7 @@
   </section>
 
   <!-- ===================== THEMES (what it's about) ==================== -->
-  <section class="themes">
+  <section class="themes" id="themes">
     <h2 class="themes__title">О&nbsp;чём будет Stepicon<br />2026</h2>
 
     <div class="themes__grid">
@@ -159,7 +170,7 @@
   </section>
 
   <!-- ===================== PROGRAM (schedule) ========================= -->
-  <section class="program">
+  <section class="program" id="program">
     <h2 class="program__title">Программа<br />мероприятия</h2>
 
     <div class="program__content">
@@ -289,7 +300,7 @@
   </section>
 
   <!-- ===================== PLACE (venue + photo slider) =============== -->
-  <section class="place">
+  <section class="place" id="place">
     <div class="place__text">
       <h2 class="place__title">Место<br />проведения</h2>
       <p class="place__body">В этом году встречаемся в&nbsp;московском кампусе Школы&nbsp;21 — современном образовательном пространстве на&nbsp;Вятской улице. Для&nbsp;Stepicon это особенно символично: мы&nbsp;собираемся не&nbsp;в&nbsp;случайной конференц-зоне, а&nbsp;в&nbsp;месте, где каждый день учатся, работают с&nbsp;технологиями и&nbsp;делают образовательные проекты.</p>
@@ -324,7 +335,7 @@
   </section>
 
   <!-- ===================== WHAT IS STEPIK (stats spine) ============== -->
-  <section class="whatis">
+  <section class="whatis" id="whatis">
     <span class="whatis__label">Что такое Stepik</span>
     <h2 class="whatis__stat">13M+ пользователей</h2>
 
@@ -344,7 +355,7 @@
   </section>
 
   <!-- ===================== TARIFFS (pricing) ========================= -->
-  <section class="tariffs">
+  <section class="tariffs" id="tariffs">
     <div class="tariffs__text">
       <h2 class="tariffs__title">Для всех спикеров, участников дискуссий, победителей Stepik Awards и&nbsp;авторов месяца</h2>
       <div class="tariffs__sale">
@@ -408,7 +419,7 @@
   </section>
 
   <!-- ===================== FAQ ======================================= -->
-  <section class="faq">
+  <section class="faq" id="faq">
     <h2 class="faq__title">FAQ</h2>
     <div class="faq__list">
       <div class="faq__item faq__item--open">
@@ -462,16 +473,17 @@
         </button>
       </div>
       <nav class="menu__nav">
-        <a href="#">О&nbsp;Stepicon</a>
-        <a href="#">Что будет</a>
-        <a href="#">Программа</a>
-        <a href="#">О&nbsp;нас</a>
-        <a href="#">Тарифы</a>
-        <a href="#">FAQ</a>
+        <a href="#about">О&nbsp;Stepicon</a>
+        <a href="#themes">Что будет</a>
+        <a href="#program">Программа</a>
+        <a href="#place">Место</a>
+        <a href="#whatis">О&nbsp;нас</a>
+        <a href="#tariffs">Тарифы</a>
+        <a href="#faq">FAQ</a>
       </nav>
       <div class="menu__cta">
         <a class="menu__btn menu__btn--white" href="https://forms.yandex.ru/cloud/6a2d29c195add56f6f78ee6d/" target="_blank" rel="noopener">Подать заявку</a>
-        <a class="menu__btn menu__btn--ghost" href="#">
+        <a class="menu__btn menu__btn--ghost" href="https://yandex.ru/maps/?text=Москва, Вятская улица, 27" target="_blank" rel="noopener">
           <img class="menu__btn-icon" src="assets/pin map.svg" alt="" width="28" height="28" />Маршрут
         </a>
       </div>
