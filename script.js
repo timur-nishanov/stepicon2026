@@ -29,6 +29,25 @@
   });
 })();
 
+/* --- Place: photo slider (prev/next, wraps around) — desktop arrows.
+       On mobile the same markup becomes a plain horizontal scroll (CSS). ---- */
+(function () {
+  var slider = document.querySelector(".place__slider");
+  if (!slider) return;
+  var track = slider.querySelector(".place__track");
+  if (!track) return;
+  var count = track.children.length;
+  var prev = document.querySelector(".place__nav--prev");
+  var next = document.querySelector(".place__nav--next");
+  var i = 0;
+  function go(n) {
+    i = (n + count) % count;
+    track.style.transform = "translateX(" + -i * 100 + "%)";
+  }
+  if (prev) prev.addEventListener("click", function () { go(i - 1); });
+  if (next) next.addEventListener("click", function () { go(i + 1); });
+})();
+
 /* --- FAQ accordion ------------------------------------------------------- */
 (function () {
   var items = document.querySelectorAll(".faq__item");

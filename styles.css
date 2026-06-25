@@ -874,7 +874,7 @@ img {
   box-sizing: border-box;
   padding: clamp(64px, 7vw, 120px) var(--layout-pad);
   display: flex;
-  gap: clamp(40px, 5vw, 72px); /* more room between the text and the photos */
+  gap: 32px;
   align-items: stretch;
 }
 .place__text {
@@ -935,26 +935,47 @@ img {
 }
 
 /* --- photo slider --- */
-/* horizontal scroll gallery (drag/swipe/scroll — no buttons) */
+/* Desktop: arrow slider. Mobile (≤768): plain horizontal scroll (see media query). */
 .place__media {
   flex: 0 1 846px;
   min-width: 0;
   display: flex;
+  align-items: center;
   gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none; /* Firefox */
-  -webkit-overflow-scrolling: touch;
 }
-.place__media::-webkit-scrollbar { display: none; } /* WebKit */
-.place__slide {
+.place__nav {
   flex: 0 0 auto;
-  height: clamp(300px, 34vw, 622px);
+  width: 64px;
+  height: 64px;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--background-transparent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+.place__nav:hover { background-color: rgba(255, 255, 255, 0.22); }
+.place__nav img { width: 31px; height: 31px; display: block; }
+.place__slider {
+  flex: 1 1 0;
+  min-width: 0;
   aspect-ratio: 686 / 622;
-  width: auto;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+}
+.place__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.place__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: clamp(16px, 2.2vw, 32px);
-  scroll-snap-align: start;
   display: block;
 }
 
@@ -1156,8 +1177,8 @@ img {
   padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(64px, 7vw, 120px);
   display: flex;
   flex-direction: column;
-  /* generous breathing room between the CTA heading and the photos */
-  gap: calc(clamp(72px, 11vh, 180px) + clamp(64px, 7vw, 120px) + clamp(32px, 4vw, 64px));
+  /* CTA → photos: exactly the gap above the Tariffs (whatis bottom-pad + tariffs top-pad) */
+  gap: calc(clamp(72px, 11vh, 180px) + clamp(64px, 7vw, 120px));
 }
 /* the glow — scaled from the 1440 spec (1834 circle, blur 500, at left -197 / top 376) */
 .finale__glow {
@@ -1703,7 +1724,7 @@ html.menu-open body {
     width: 100%;
     grid-column: 1 / -1;
     order: -2;          /* text first, above the photos */
-    margin: 0 0 6px;
+    margin: 0 0 28px;   /* breathing room between the heading and its photos */
     font-size: clamp(24px, 6.4vw, 34px); /* readable for the long statement */
   }
   .about__text--2 {
@@ -1798,7 +1819,7 @@ html.menu-open body {
   /* Place: stack the text above the horizontal photo scroll */
   .place {
     flex-direction: column;
-    gap: 48px;
+    gap: 28px;
   }
   .place__media {
     flex: 1 1 auto;
@@ -1806,6 +1827,27 @@ html.menu-open body {
   }
   .place__map {
     padding-top: 28px;
+  }
+  /* Mobile: turn the slider into a plain horizontal scroll (no arrows) */
+  .place__nav {
+    display: none;
+  }
+  .place__slider {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .place__slider::-webkit-scrollbar {
+    display: none;
+  }
+  .place__track {
+    transform: none !important; /* let native scroll drive position, not the JS slider */
+  }
+  .place__slide {
+    flex: 0 0 85%; /* peek the next photo to signal scrollability */
+    scroll-snap-align: start;
   }
 
   /* Tariffs: stack the promo, the price header, and the cards */
