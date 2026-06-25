@@ -935,52 +935,26 @@ img {
 }
 
 /* --- photo slider --- */
+/* horizontal scroll gallery (drag/swipe/scroll — no buttons) */
 .place__media {
   flex: 0 1 846px;
   min-width: 0;
   display: flex;
-  align-items: center;
   gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch;
 }
-.place__nav {
-  flex: 0 0 auto;
-  width: 64px;
-  height: 64px;
-  border: 0;
-  border-radius: 50%;
-  background-color: var(--background-transparent);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease;
-}
-.place__nav:hover {
-  background-color: rgba(255, 255, 255, 0.22);
-}
-.place__nav img {
-  width: 31px;
-  height: 31px;
-  display: block;
-}
-.place__slider {
-  flex: 1 1 0;
-  min-width: 0;
-  aspect-ratio: 686 / 622;
-  border-radius: 32px;
-  overflow: hidden;
-  position: relative;
-}
-.place__track {
-  display: flex;
-  height: 100%;
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-}
+.place__media::-webkit-scrollbar { display: none; } /* WebKit */
 .place__slide {
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
+  flex: 0 0 auto;
+  height: clamp(300px, 34vw, 622px);
+  aspect-ratio: 686 / 622;
+  width: auto;
   object-fit: cover;
+  border-radius: clamp(16px, 2.2vw, 32px);
+  scroll-snap-align: start;
   display: block;
 }
 
@@ -1023,9 +997,10 @@ img {
 }
 .whatis__mouth {
   flex: 0 0 auto;
-  /* match the upper tunnel mouths exactly (About: 48/1440 vw wide, 40px tall) */
-  width: max(18px, calc(100vw * 48 / 1440));
-  height: 40px;
+  /* landscape (wider than tall) at every width, like the desktop tunnel mouths:
+     both dimensions scale together with floors so it never goes portrait */
+  width: max(36px, calc(100vw * 48 / 1440));
+  height: max(30px, calc(100vw * 40 / 1440));
 }
 .whatis__mouth--green { background-color: var(--background-green); }
 .whatis__mouth--purple { background-color: var(--background-purple); }
@@ -1802,6 +1777,7 @@ html.menu-open body {
     width: 100%;
   }
   .talk {
+    flex: 0 0 auto; /* size to content in the stacked column (don't collapse to 0) */
     gap: 20px;
     max-width: none; /* full width when stacked */
     min-height: 0; /* keep the avatar tight under its own title (clear grouping) */
@@ -1819,7 +1795,7 @@ html.menu-open body {
     justify-content: center;
   }
 
-  /* Place: stack the text above the slider */
+  /* Place: stack the text above the horizontal photo scroll */
   .place {
     flex-direction: column;
     gap: 28px;
@@ -1827,15 +1803,6 @@ html.menu-open body {
   .place__media {
     flex: 1 1 auto;
     width: 100%;
-    gap: 8px;
-  }
-  .place__nav {
-    width: 48px;
-    height: 48px;
-  }
-  .place__nav img {
-    width: 24px;
-    height: 24px;
   }
   .place__map {
     padding-top: 28px;
