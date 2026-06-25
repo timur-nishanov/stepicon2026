@@ -978,6 +978,9 @@ img {
   object-fit: cover;
   display: block;
 }
+.place__dots {
+  display: none; /* desktop uses the arrow slider; dots are mobile-only */
+}
 
 /* -------------------------------------------------------------------------
    7f. WHAT IS STEPIK — three big stats joined by a spine that emerges from
@@ -1760,8 +1763,8 @@ html.menu-open body {
     width: 100%;
     aspect-ratio: auto;   /* size to content instead of a tall empty box */
     gap: 32px;
-    /* thicker borders to match the desktop frame proportions */
-    border-width: clamp(14px, 6vw, 24px);
+    /* border thickness matches the tariff cards on mobile */
+    border-width: clamp(10px, 3.4vw, 18px);
     padding: 24px;
   }
   .points__num {
@@ -1850,6 +1853,27 @@ html.menu-open body {
   .place__slide {
     flex: 0 0 85%; /* peek the next photo to signal scrollability */
     scroll-snap-align: start;
+  }
+  /* Mobile: scroll indicator dots under the photos */
+  .place__dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .place__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3); /* dimmed */
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+  .place__dot--active {
+    background-color: var(--text-primary, #fff); /* active */
+    transform: scale(1.15);
   }
 
   /* Tariffs: stack the promo, the price header, and the cards */

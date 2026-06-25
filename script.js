@@ -66,12 +66,57 @@
   var prev = document.querySelector(".place__nav--prev");
   var next = document.querySelector(".place__nav--next");
   var i = 0;
+
+  /* Mobile dots: built here so the count always matches the slides. They're
+     hidden on desktop via CSS; on mobile they reflect the native scroll. */
+  var dotsWrap = document.querySelector(".place__dots");
+  var dots = [];
+  if (dotsWrap) {
+    for (var d = 0; d < count; d++) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "place__dot" + (d === 0 ? " place__dot--active" : "");
+      dot.setAttribute("aria-label", "Фото " + (d + 1));
+      (function (idx) {
+        dot.addEventListener("click", function () {
+          slider.scrollTo({
+            left: idx * (track.children[0] ? track.children[0].offsetWidth : 0),
+            behavior: "smooth",
+          });
+        });
+      })(d);
+      dotsWrap.appendChild(dot);
+      dots.push(dot);
+    }
+  }
+  function setActive(idx) {
+    for (var k = 0; k < dots.length; k++) {
+      dots[k].classList.toggle("place__dot--active", k === idx);
+    }
+  }
+
   function go(n) {
     i = (n + count) % count;
     track.style.transform = "translateX(" + -i * 100 + "%)";
+    setActive(i);
   }
   if (prev) prev.addEventListener("click", function () { go(i - 1); });
   if (next) next.addEventListener("click", function () { go(i + 1); });
+
+  /* Track the mobile horizontal scroll → light up the matching dot. */
+  var ticking = false;
+  slider.addEventListener("scroll", function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var w = track.children[0] ? track.children[0].offsetWidth : 1;
+      var idx = Math.round(slider.scrollLeft / w);
+      if (idx < 0) idx = 0;
+      if (idx > count - 1) idx = count - 1;
+      setActive(idx);
+      ticking = false;
+    });
+  });
 })();
 
 /* --- FAQ accordion ------------------------------------------------------- */
