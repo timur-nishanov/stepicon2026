@@ -874,7 +874,7 @@ img {
   box-sizing: border-box;
   padding: clamp(64px, 7vw, 120px) var(--layout-pad);
   display: flex;
-  gap: 32px;
+  gap: clamp(40px, 5vw, 72px); /* more room between the text and the photos */
   align-items: stretch;
 }
 .place__text {
@@ -1156,8 +1156,8 @@ img {
   padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(64px, 7vw, 120px);
   display: flex;
   flex-direction: column;
-  /* CTA → photos: exactly the gap above the Tariffs (whatis bottom-pad + tariffs top-pad) */
-  gap: calc(clamp(72px, 11vh, 180px) + clamp(64px, 7vw, 120px));
+  /* generous breathing room between the CTA heading and the photos */
+  gap: calc(clamp(72px, 11vh, 180px) + clamp(64px, 7vw, 120px) + clamp(32px, 4vw, 64px));
 }
 /* the glow — scaled from the 1440 spec (1834 circle, blur 500, at left -197 / top 376) */
 .finale__glow {
@@ -1798,7 +1798,7 @@ html.menu-open body {
   /* Place: stack the text above the horizontal photo scroll */
   .place {
     flex-direction: column;
-    gap: 28px;
+    gap: 48px;
   }
   .place__media {
     flex: 1 1 auto;
