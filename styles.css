@@ -1585,21 +1585,17 @@ img {
   color: var(--text-primary-inverse);
 }
 
-/* Desktop: bigger school logo on the "Место" plate, and reserve a right
-   gutter on the address so the text wraps clear of the logo (mobile keeps its
-   own smaller logo + 52px gutter, set in the max-width:768 block). */
+/* Desktop: 64x64 school logo on the "Место" plate. The address is forced to
+   two lines (.plate__nl in the markup); the first, shorter line clears the
+   logo on its own and the second sits below it, so no big right gutter is
+   needed. Mobile keeps its own smaller logo + 52px gutter (max-width:768). */
 @media (min-width: 769px) {
   .plate--place .plate__logo {
-    width: clamp(64px, 5vw, 80px);
-    top: 18px;
+    width: 64px;
+    height: 64px;
   }
   .plate--place .plate__value {
-    padding-right: clamp(92px, 7vw, 104px);
-    /* smaller, tighter address so the 3 wrapped lines stay compact: keeps the
-       plate at its base height (so the title doesn't creep up toward the hero
-       line) while leaving room for space-between to separate it from "Место" */
-    font-size: clamp(20px, 1.55vw, 22px);
-    line-height: 1.1;
+    padding-right: 8px;
   }
 }
 
@@ -1739,6 +1735,9 @@ html.menu-open body {
   }
   .plate__value {
     font-size: clamp(20px, 5.8vw, 26px); /* long address fits without clipping */
+  }
+  .plate__nl {
+    display: none; /* let the address wrap naturally on narrow screens */
   }
 
   /* About: drop the scattered absolute layout for a stacked one */
