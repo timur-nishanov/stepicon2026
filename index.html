@@ -23,6 +23,25 @@
   <!-- ================= BACKGROUND (solid black, built in code) ============== -->
   <div class="backdrop" aria-hidden="true"></div>
 
+  <!-- Top bar: fixed site header (hides on scroll-down, reveals on scroll-up) -->
+  <nav class="topbar">
+    <a class="topbar__logo" href="#">
+      <img src="assets/stepik logo.svg" alt="stepik" width="125" height="32" />
+    </a>
+    <ul class="topbar__menu">
+      <li><a href="#about">О Stepicon</a></li>
+      <li><a href="#themes">Что будет</a></li>
+      <li><a href="#program">Программа</a></li>
+      <li><a href="#place">Место</a></li>
+      <li><a href="#whatis">О нас</a></li>
+      <li><a href="#tariffs">Тарифы</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <button class="topbar__burger" type="button" aria-label="Открыть меню" aria-controls="menu" aria-expanded="false">
+      <img src="assets/burger-open.svg" alt="" width="32" height="32" />
+    </button>
+  </nav>
+
   <!-- ============================== HERO ==================================== -->
   <header class="hero">
 
@@ -37,24 +56,6 @@
       <path class="hero__line hero__line--white" d="M 720.001 830 L 720.001 361.522 C 720 352.273 724.944 344.382 732.962 339.772 L 734.353 338.973 C 741.935 334.615 750.526 332.321 759.271 332.321 L 1440 332.321" stroke-width="32"/>
     </svg>
 
-    <!-- Top bar: logo + navigation -->
-    <nav class="topbar">
-      <a class="topbar__logo" href="#">
-        <img src="assets/stepik logo.svg" alt="stepik" width="125" height="32" />
-      </a>
-      <ul class="topbar__menu">
-        <li><a href="#about">О Stepicon</a></li>
-        <li><a href="#themes">Что будет</a></li>
-        <li><a href="#program">Программа</a></li>
-        <li><a href="#place">Место</a></li>
-        <li><a href="#whatis">О нас</a></li>
-        <li><a href="#tariffs">Тарифы</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ul>
-      <button class="topbar__burger" type="button" aria-label="Открыть меню" aria-controls="menu" aria-expanded="false">
-        <img src="assets/burger-open.svg" alt="" width="32" height="32" />
-      </button>
-    </nav>
 
     <!-- Bottom block: title + subtitle + CTA plates -->
     <div class="hero__content">

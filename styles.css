@@ -1405,7 +1405,7 @@ img {
   overflow: hidden;       /* clip the line layer to the plates (no green diagonal poking out) */
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* topbar at the top, content at the bottom */
+  justify-content: flex-end; /* content sits at the bottom; the fixed header floats over the top */
 }
 
 /* Independent SVG line layer (purple/green corner).
@@ -1447,12 +1447,29 @@ img {
   }
 }
 
-/* --- Top bar (logo + menu) --- */
+/* --- Top bar (logo + menu): fixed site header that hides on scroll-down and
+       reveals on scroll-up (toggled from script.js). --- */
 .topbar {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 150; /* above content/stars, below the mobile menu overlay (200) */
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: var(--layout-pad); /* matches the hero's 16px gutter */
+  transition: transform 0.35s ease, background-color 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+.topbar--hidden {
+  transform: translateY(-100%); /* slid up out of view on scroll-down */
+}
+.topbar--solid {
+  /* readable backing once it floats over page content (not over the hero top) */
+  background-color: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .topbar__menu {
@@ -1566,6 +1583,19 @@ img {
   line-height: var(--t-accent1-lh);
   letter-spacing: var(--t-accent1-ls);
   color: var(--text-primary-inverse);
+}
+
+/* Desktop: bigger school logo on the "Место" plate, and reserve a right
+   gutter on the address so the text wraps clear of the logo (mobile keeps its
+   own smaller logo + 52px gutter, set in the max-width:768 block). */
+@media (min-width: 769px) {
+  .plate--place .plate__logo {
+    width: clamp(64px, 5vw, 80px);
+    top: 18px;
+  }
+  .plate--place .plate__value {
+    padding-right: clamp(92px, 7vw, 104px);
+  }
 }
 
 /* --- Vertical tag ("10 лет конференции") pinned to the right edge --- */

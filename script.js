@@ -29,6 +29,43 @@
   });
 })();
 
+/* --- Header reveal: hide on scroll-down, show on scroll-up (all viewports).
+       Independent of GSAP/Lenis — reads the real scroll position, which Lenis
+       drives natively, so it works with or without smooth scroll. ----------- */
+(function () {
+  var header = document.querySelector(".topbar");
+  if (!header) return;
+  var lastY = window.pageYOffset || 0;
+  var ticking = false;
+  function update() {
+    var y = window.pageYOffset || 0;
+    if (y <= 4) {
+      // at the very top (over the hero) → always visible, no backing
+      header.classList.remove("topbar--hidden");
+      header.classList.remove("topbar--solid");
+    } else {
+      header.classList.add("topbar--solid");
+      if (y > lastY + 6 && y > 80) {
+        header.classList.add("topbar--hidden"); // scrolling down
+      } else if (y < lastY - 6) {
+        header.classList.remove("topbar--hidden"); // scrolling up
+      }
+    }
+    lastY = y;
+    ticking = false;
+  }
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    },
+    { passive: true }
+  );
+})();
+
 /* --- Smooth-scroll for in-page anchor links (topbar + burger menu) --------
    Reads window.__lenis lazily at click time so it works regardless of init
    order; falls back to native smooth scroll when Lenis isn't running. ------ */
