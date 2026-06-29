@@ -1589,6 +1589,11 @@ img {
    gutter on the address so the text wraps clear of the logo (mobile keeps its
    own smaller logo + 52px gutter, set in the max-width:768 block). */
 @media (min-width: 769px) {
+  .plate--place {
+    /* guarantees breathing room between "Место" and the 3-line address even
+       when the wrapped text fills the plate (space-between would collapse) */
+    gap: 20px;
+  }
   .plate--place .plate__logo {
     width: clamp(64px, 5vw, 80px);
     top: 18px;
