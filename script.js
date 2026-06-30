@@ -170,12 +170,13 @@
   });
 })();
 
-/* --- Program day switcher (visual toggle only; data swaps later) --------- */
+/* --- Program day switcher: highlights the tab and swaps the day's content -- */
 (function () {
   var sw = document.querySelector(".switcher");
   if (!sw) return;
-  var btns = sw.querySelectorAll(".switcher__btn");
-  btns.forEach(function (btn) {
+  var btns = Array.prototype.slice.call(sw.querySelectorAll(".switcher__btn"));
+  var days = Array.prototype.slice.call(document.querySelectorAll(".program__day"));
+  btns.forEach(function (btn, i) {
     btn.addEventListener("click", function () {
       btns.forEach(function (b) {
         b.classList.remove("switcher__btn--active");
@@ -183,6 +184,11 @@
       });
       btn.classList.add("switcher__btn--active");
       btn.setAttribute("aria-selected", "true");
+      // show the matching day panel, hide the others
+      days.forEach(function (day, j) {
+        day.hidden = j !== i;
+      });
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
     });
   });
 })();
