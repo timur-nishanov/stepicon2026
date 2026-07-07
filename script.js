@@ -260,6 +260,8 @@
         [".about__photo--5", 15],
         [".about__photo--6", -20],
         [".about__photo--7", 12],
+        [".about__photo--8", 16],
+        [".about__photo--9", -18],
       ].forEach(function (item) {
         var el = document.querySelector(item[0]);
         if (!el) return;

@@ -387,7 +387,7 @@ img {
 .about__photo--6 { left: 71.66%; top: 8.89%;  width: 28.34%; height: 29.56%; }
 .about__photo--7 { left: 60.16%; top: 71.00%; width: 17.12%; height: 32.44%; }
 /* Block 3 — two photos: large one top-left, one lower-right */
-.about__photo--8 { left: 0;      top: 2.00%;  width: 40.00%; height: 54.00%; }
+.about__photo--8 { left: 0;      top: -6.00%; width: 40.00%; height: 54.00%; }
 .about__photo--9 { left: 62.00%; top: 60.00%; width: 36.00%; height: 33.00%; }
 
 .about__text {
@@ -452,6 +452,10 @@ img {
   .about__block:not(:last-child) {
     margin-bottom: 20vh;  /* road between the statements */
   }
+}
+
+.about__text--1 {
+  width: min(880px, 90%); /* wider so it reads as 3-4 lines, not a narrow column */
 }
 
 .about__text--2 {
@@ -533,7 +537,7 @@ img {
 }
 
 .points__num {
-  font-size: clamp(48px, 8.6vw, var(--t-bignum-size));
+  font-size: clamp(48px, 8.6vw, 112px); /* a touch smaller so "С 2016" clears the card edge */
   font-weight: var(--t-bignum-weight);
   line-height: var(--t-bignum-lh);
   letter-spacing: var(--t-bignum-ls);
