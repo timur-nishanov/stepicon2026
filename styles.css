@@ -1436,7 +1436,11 @@ img {
   top: 0;
   left: 0;
   width: 100%;
-  height: auto;
+  /* Fit the whole line layer inside the hero box (preserveAspectRatio="meet"
+     contains it). On a wide/short window this scales the lines down to fit the
+     height instead of overflowing and dropping the convergence onto the title.
+     At 1440×900 width is the limiting side, so it renders exactly as before. */
+  height: 100%;
   pointer-events: none;
   overflow: hidden;    /* clip the long vertical line to the hero region */
 }
@@ -1526,7 +1530,10 @@ img {
   margin: 0;
   max-width: 100%;
   flex: 0 0 auto;
-  font-size: clamp(52px, 10.8vw, var(--t-page-size)); /* fluid, caps at the token */
+  /* Fluid, caps at the token; the extra 18vh cap shrinks the title on short
+     windows (wide/zoomed) so it stays clear of the line convergence. At
+     1440×900 the vw term (≈155.5px) wins, so the reference is unchanged. */
+  font-size: clamp(52px, 10.8vw, min(var(--t-page-size), 18vh));
   font-weight: var(--t-page-weight);
   line-height: var(--t-page-lh);
   letter-spacing: var(--t-page-ls);
