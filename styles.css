@@ -1536,16 +1536,18 @@ img {
 
 .hero__subtitle {
   margin: 0 0 6px;
-  /* width matches the top nav block so the left edge lines up with the
-     first menu item ("О Stepicon"); both are anchored to the right gutter */
-  width: 675px;
+  /* Basis matches the top nav block so at 1440 the left edge lines up with the
+     first menu item ("О Stepicon"); both are anchored to the right gutter.
+     flex-shrink lets it narrow below 1440 instead of overflowing the row. */
+  flex: 0 1 675px;
+  min-width: 0;
   max-width: 100%;
-  flex: 0 0 auto;
   font-size: clamp(22px, 2.78vw, var(--t-accent-size)); /* fluid, caps at the token */
   font-weight: var(--t-accent-weight);
   line-height: var(--t-accent-lh);
   letter-spacing: var(--t-accent-ls);
   color: var(--text-primary);
+  overflow-wrap: break-word; /* never spill past the container edge */
   mix-blend-mode: difference; /* inverts where it overlaps the line layer */
 }
 
@@ -1615,6 +1617,23 @@ img {
   }
   .plate--place .plate__value {
     padding-right: 8px;
+    /* fluid so the forced first line ("«Школа 21». Москва, ул.") fits the
+       narrowing plate down to ~1280; caps at the token so 1440 is unchanged */
+    font-size: clamp(26px, 2.083vw, var(--t-accent1-size));
+    overflow-wrap: break-word;
+  }
+}
+
+/* Below ~1280 the forced two-line address can no longer dodge the 64px logo as
+   the plate narrows. Drop the manual break and reserve the logo's width so the
+   address wraps naturally and always clears it (1440 keeps its look above). */
+@media (min-width: 769px) and (max-width: 1280px) {
+  .plate__nl {
+    display: none;
+  }
+  .plate--place .plate__value {
+    padding-right: clamp(72px, 5.6vw, 80px);
+    font-size: clamp(20px, 2vw, 26px);
   }
 }
 
