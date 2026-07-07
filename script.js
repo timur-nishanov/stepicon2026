@@ -207,21 +207,6 @@
     return;
   }
 
-  /* --- Stars: gentle, never-ending idle drift -----------------------------
-     The layer is oversized, so this drift never reveals an edge. This uses
-     xPercent/yPercent/scale; the scroll parallax below uses `y` (px) on the
-     same element, so the two compose without fighting. The fixed,
-     overflow-hidden .stars wrapper keeps the field on screen at all times. */
-  gsap.to(".stars__layer", {
-    xPercent: 2,
-    yPercent: -3,
-    scale: 1.05,
-    duration: 18,
-    ease: "sine.inOut",
-    yoyo: true,
-    repeat: -1,
-  });
-
   /* --- Smooth scroll (Lenis) synced with ScrollTrigger --------------------
      Lenis smooths the scroll position; ScrollTrigger reads from it, so any
      scroll-driven animation (the parallax below) becomes buttery and modern.
@@ -240,20 +225,6 @@
       lenis.raf(time * 1000); // GSAP ticker is in seconds, Lenis wants ms
     });
     gsap.ticker.lagSmoothing(0);
-
-    /* --- Stars: light scroll parallax ------------------------------------- */
-    gsap.to(".stars__layer", {
-      y: function () {
-        return -window.innerHeight * 0.24; // stronger parallax drift over the scroll
-      },
-      ease: "none",
-      scrollTrigger: {
-        start: 0,
-        end: "max",
-        scrub: true, // tracks the already-smoothed Lenis scroll (no double lag)
-        invalidateOnRefresh: true,
-      },
-    });
 
     /* --- About: line draw + photo parallax (desktop/tablet only) ----------
        Below 769px the section is a stacked layout (line hidden, photos in a
