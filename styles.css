@@ -747,7 +747,7 @@ img {
   flex: 0 0 auto;
   width: 16px;
   height: 16px;
-  margin-top: 8px; /* level with the cap height of the first line, not the whole block */
+  margin-top: 11px; /* level with the cap height of the first line, not the whole block */
   background-color: var(--background-green);
 }
 .talk__title-dot--purple {
@@ -894,6 +894,11 @@ img {
   line-height: var(--t-accent1-lh);
   white-space: nowrap;
 }
+/* purple resting background — a purple fill-sweep would be invisible, so it
+   fills green instead (text switches to dark, like the tariff buttons) */
+.program-banner__btn.btn-fill::after { background-color: var(--background-green); }
+.program-banner__btn.btn-fill:hover,
+.program-banner__btn.btn-fill:focus-visible { color: var(--text-primary-inverse); }
 .program-banner__icon {
   width: clamp(28px, 2.5vw, 36px);
   height: clamp(28px, 2.5vw, 36px);
@@ -1038,9 +1043,9 @@ img {
   text-align: center;
 }
 .whatis__label {
-  /* extra +50px per the client's annotated screenshot, on top of the earlier
+  /* extra +40px per the client's annotated screenshot, on top of the earlier
      round of spacing bumps */
-  margin: 0 0 clamp(216px, 16vh, 340px);
+  margin: 0 0 clamp(256px, 16vh, 380px);
   max-width: 900px;
   /* at least 2x the old fixed 18px per client request (36px floor, scales to 64px) */
   font-size: clamp(36px, 4.4vw, var(--t-section-size));
@@ -1095,36 +1100,30 @@ img {
   padding: clamp(64px, 7vw, 120px) var(--layout-pad);
   display: flex;
   flex-direction: column;
-  gap: clamp(48px, 6vw, 80px);
 }
 .tariffs__text {
   display: flex;
   flex-direction: column;
   gap: clamp(20px, 2.4vw, 32px);
   max-width: 1200px;
+  margin: 0 auto clamp(48px, 6vw, 80px); /* gap to the cards below; the banner stays flush against the cards */
 }
 .tariffs__title {
   margin: 0;
-  font-size: clamp(30px, 4.4vw, var(--t-section-size));
-  font-weight: var(--t-section-weight);
-  line-height: var(--t-section-lh);
-  letter-spacing: var(--t-section-ls);
+  text-align: center;
+  /* same size as the program title ("Программа мероприятия") */
+  font-size: clamp(40px, 8.6vw, 124px);
+  font-weight: 600;
+  line-height: 1;
   color: var(--text-primary);
 }
-/* "What's included" — one wrapping line of checkmark items under the title */
+/* "What's included" — one descriptive sentence under the title */
 .tariffs__includes {
   margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 32px;
-}
-.tariffs__includes li {
-  max-width: 100%; /* an item that can't fit on its own line wraps instead of overflowing */
-  font-size: 18px;
+  max-width: 720px;
+  font-size: clamp(18px, 1.6vw, 22px);
   font-weight: 500;
-  line-height: 1.32;
+  line-height: 1.4;
   letter-spacing: 0.02em;
   color: var(--text-secondary);
 }
@@ -1133,7 +1132,7 @@ img {
   gap: clamp(16px, 6vw, 80px); /* 80px between cards on wide screens */
 }
 .tariff-card {
-  flex: 1 1 0; /* fill the container evenly */
+  flex: 1 1 auto; /* fill the container evenly, but never shrink below its own content */
   min-width: 0;
   box-sizing: border-box;
   background-color: var(--background-black);
@@ -1156,6 +1155,13 @@ img {
   gap: 16px;
   min-width: 0; /* let the price shrink instead of blowing out the card */
 }
+/* Reserved row above the price — empty on green/purple, holds the struck-through
+   old price on white — so every card's price line starts at the same height
+   regardless of whether it has an "old price" above it. */
+.tariff-card__eyebrow {
+  display: block;
+  height: clamp(20px, 2.7vw, 49px); /* 0.55 x the price line's own height */
+}
 .tariff-card__price {
   font-size: clamp(32px, 4.4vw, var(--t-tabs-size));
   font-weight: var(--t-tabs-weight);
@@ -1163,9 +1169,9 @@ img {
   letter-spacing: var(--t-tabs-ls);
 }
 .tariff-card__price-old {
-  margin-right: 8px;
-  font-size: 0.55em;
+  font-size: clamp(18px, 2.42vw, 44px);
   font-weight: 500;
+  line-height: 1.12;
   opacity: 0.5;
   text-decoration: line-through;
 }
@@ -1190,15 +1196,15 @@ img {
   font-weight: var(--t-accent1-weight);
   line-height: var(--t-accent1-lh);
   text-align: center;
-  transition: opacity 0.2s ease;
-}
-.tariff-card__btn:hover,
-.tariff-card__btn:focus-visible {
-  opacity: 0.82;
 }
 .tariff-card__btn--white { background-color: var(--background-white); }
 .tariff-card__btn--green { background-color: var(--background-green); }
 .tariff-card__btn--purple { background-color: var(--background-purple); }
+/* purple button: a purple fill-sweep would be invisible on the purple resting
+   background, so it fills green instead (text stays dark, like the green button) */
+.tariff-card__btn--purple.btn-fill::after { background-color: var(--background-green); }
+.tariff-card__btn--purple.btn-fill:hover,
+.tariff-card__btn--purple.btn-fill:focus-visible { color: var(--text-primary-inverse); }
 
 /* -------------------------------------------------------------------------
    7h. FINALE (CTA + photos) — big purple blur glow behind the content
