@@ -1144,7 +1144,7 @@ img {
 }
 .tariffs__cards {
   display: flex;
-  gap: clamp(16px, 6vw, 80px); /* 80px between cards on wide screens */
+  gap: clamp(16px, 2.4vw, 32px); /* 32px between cards on wide screens */
   margin-bottom: 40px; /* gap down to the broadcast banner below */
 }
 .tariff-card {
