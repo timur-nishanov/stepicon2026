@@ -902,6 +902,16 @@ img {
 .program-banner__btn.btn-fill::after { background-color: var(--background-green); }
 .program-banner__btn.btn-fill:hover,
 .program-banner__btn.btn-fill:focus-visible { color: var(--text-primary-inverse); }
+
+/* "Подписаться" (Tariffs banner): white background, black text at rest —
+   the default purple fill-sweep works fine here, so no green override needed */
+.program-banner__btn--white {
+  background-color: var(--background-white);
+  color: var(--text-primary-inverse);
+}
+.program-banner__btn--white.btn-fill::after { background-color: var(--background-purple); }
+.program-banner__btn--white.btn-fill:hover,
+.program-banner__btn--white.btn-fill:focus-visible { color: var(--text-primary); }
 .program-banner__icon {
   width: clamp(28px, 2.5vw, 36px);
   height: clamp(28px, 2.5vw, 36px);
