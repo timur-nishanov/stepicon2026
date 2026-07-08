@@ -404,7 +404,13 @@ img {
   letter-spacing: var(--t-section-ls);
   color: var(--text-primary);
   isolation: isolate; /* scope the tunnel's z-index to this element */
-  mix-blend-mode: difference; /* same invert effect as the hero title where a photo crosses it */
+}
+/* Only the visible words blend (same invert effect as the hero title where a
+   photo crosses it) — the tunnel mask is a separate sibling so it keeps
+   painting as a normal opaque box and still hides the spine line behind it. */
+.about__text-inner {
+  isolation: isolate;
+  mix-blend-mode: difference;
 }
 
 /* "Tunnel": a black strip masks the spine line behind the text (so the line
@@ -597,7 +603,7 @@ img {
 .themes__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(16px, 2vw, 32px);
+  gap: clamp(20px, 3vw, 32px);
 }
 
 .theme-card {
@@ -933,7 +939,10 @@ img {
   align-items: stretch;
 }
 .place__text {
-  flex: 1 1 0;
+  /* percentage basis (not 0) so it shrinks together with the photo,
+     proportionally, instead of collapsing to near-nothing whenever the
+     photo's own basis alone exceeds the available width */
+  flex: 1 1 30%;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -992,7 +1001,7 @@ img {
 /* --- photo slider --- */
 /* Desktop: arrow slider. Mobile (≤768): plain horizontal scroll (see media query). */
 .place__media {
-  flex: 0 1 960px;
+  flex: 1 1 70%;
   min-width: 0;
   display: flex;
   align-items: center;
@@ -1206,7 +1215,7 @@ img {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: clamp(56px, 5.6vw, 72px);
   padding: 14px clamp(24px, 2.4vw, 36px);
   border-radius: 9999px;
@@ -1214,7 +1223,7 @@ img {
   font-size: clamp(16px, 1.6vw, 20px);
   font-weight: var(--t-accent1-weight);
   line-height: var(--t-accent1-lh);
-  text-align: center;
+  text-align: left;
 }
 .tariff-card__btn--white { background-color: var(--background-white); }
 .tariff-card__btn--green { background-color: var(--background-green); }
@@ -1866,6 +1875,62 @@ html.menu-open body {
   .hero__tag {
     display: none;
   }
+
+  /* Place: stack the text above the horizontal photo scroll — the side-by-side
+     layout doesn't have room to breathe once the photo column gets this narrow */
+  .place {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .place__media {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+  .place__map {
+    padding-top: 28px;
+  }
+  /* Turn the slider into a plain horizontal scroll (no arrows) */
+  .place__nav {
+    display: none;
+  }
+  .place__slider {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .place__slider::-webkit-scrollbar {
+    display: none;
+  }
+  .place__track {
+    transform: none !important; /* let native scroll drive position, not the JS slider */
+  }
+  .place__slide {
+    flex: 0 0 85%; /* peek the next photo to signal scrollability */
+    scroll-snap-align: start;
+  }
+  /* Scroll indicator dots under the photos */
+  .place__dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .place__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3); /* dimmed */
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+  .place__dot--active {
+    background-color: var(--text-primary, #fff); /* active */
+    transform: scale(1.15);
+  }
 }
 
 /* Mobile — single column throughout */
@@ -2020,6 +2085,16 @@ html.menu-open body {
   .talk__title--solo {
     align-self: flex-start;
   }
+  /* Drop the coloured square marker per row — not needed on mobile. The
+     title text now starts flush left (no dot + gap before it), so the
+     author/badge indents that matched that offset need to reset too. */
+  .talk__title-dot {
+    display: none;
+  }
+  .talk__author,
+  .talk__feature {
+    margin-left: 0;
+  }
   /* Banner: stack text above a full-width button */
   .program-banner {
     flex-direction: column;
@@ -2028,61 +2103,6 @@ html.menu-open body {
   }
   .program-banner__btn {
     justify-content: center;
-  }
-
-  /* Place: stack the text above the horizontal photo scroll */
-  .place {
-    flex-direction: column;
-    gap: 28px;
-  }
-  .place__media {
-    flex: 1 1 auto;
-    width: 100%;
-  }
-  .place__map {
-    padding-top: 28px;
-  }
-  /* Mobile: turn the slider into a plain horizontal scroll (no arrows) */
-  .place__nav {
-    display: none;
-  }
-  .place__slider {
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .place__slider::-webkit-scrollbar {
-    display: none;
-  }
-  .place__track {
-    transform: none !important; /* let native scroll drive position, not the JS slider */
-  }
-  .place__slide {
-    flex: 0 0 85%; /* peek the next photo to signal scrollability */
-    scroll-snap-align: start;
-  }
-  /* Mobile: scroll indicator dots under the photos */
-  .place__dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 18px;
-  }
-  .place__dot {
-    width: 8px;
-    height: 8px;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.3); /* dimmed */
-    cursor: pointer;
-    transition: background-color 0.25s ease, transform 0.25s ease;
-  }
-  .place__dot--active {
-    background-color: var(--text-primary, #fff); /* active */
-    transform: scale(1.15);
   }
 
   /* Tariffs: stack the cards; full-width buttons are easier to tap */
@@ -2113,7 +2133,15 @@ html.menu-open body {
   }
   .footer__bottom {
     width: 100%;
-    justify-content: space-between;
+    /* social icons above the copyright line, both stacked (not side by side) —
+       column-reverse flips the visual order without touching the DOM order */
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .footer__social {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   /* Finale: full-width buttons, taller photo rows so they read on small screens */
