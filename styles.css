@@ -784,6 +784,10 @@ img {
   display: flex;
   align-items: flex-end;
   gap: 20px;
+  /* lines up with the title's text, not the dot before it (dot 16px + its
+     16px gap) — matters now that the photo tile is hidden and this is the
+     only thing left in the row to align */
+  margin-left: 32px;
 }
 /* Speaker placeholder: dark tile, a soft coloured glow, a person silhouette.
    Hidden per client request (they don't want the silhouette placeholder) —
@@ -1034,8 +1038,9 @@ img {
   text-align: center;
 }
 .whatis__label {
-  /* same amount of air down to the first stat as above the section itself */
-  margin: 0 0 clamp(166px, 16vh, 290px);
+  /* extra +50px per the client's annotated screenshot, on top of the earlier
+     round of spacing bumps */
+  margin: 0 0 clamp(216px, 16vh, 340px);
   max-width: 900px;
   /* at least 2x the old fixed 18px per client request (36px floor, scales to 64px) */
   font-size: clamp(36px, 4.4vw, var(--t-section-size));
