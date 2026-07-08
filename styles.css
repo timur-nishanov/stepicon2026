@@ -587,8 +587,12 @@ img {
 
 .theme-card {
   box-sizing: border-box;
+  min-width: 0; /* grid items default to min-width:auto — an nbsp-locked run in
+    the copy (e.g. "2027 год") would otherwise force the column wider than its
+    1fr share and blow out the page's horizontal scroll */
   aspect-ratio: 459 / 280;
-  background-color: var(--background-transparent-1);
+  /* transparent-1 (0.08) + ~12pt so the card plates read a touch more solid */
+  background-color: rgba(255, 255, 255, 0.2);
   padding: clamp(20px, 2.2vw, 32px);
   display: flex;
   flex-direction: column;
