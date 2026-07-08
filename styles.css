@@ -765,11 +765,6 @@ img {
   align-items: flex-start;
   gap: 14px;
 }
-/* Reserve room for 2 lines of title so the tag below always starts at the
-   same height, whether this column's title wraps to 1 line or 2 */
-.talk__head .talk__title {
-  min-height: calc(clamp(24px, 3vw, 40px) * 1.14 * 2);
-}
 /* Green "Воркшоп" tag that flags workshops apart from the lectures */
 .talk__feature {
   align-self: flex-start;
@@ -1143,7 +1138,7 @@ img {
   margin-bottom: 40px; /* gap down to the broadcast banner below */
 }
 .tariff-card {
-  flex: 1 1 auto; /* fill the container evenly, but never shrink below its own content */
+  flex: 1 1 0; /* equal width for all three cards, side by side */
   min-width: 0;
   box-sizing: border-box;
   background-color: var(--background-black);
@@ -1235,9 +1230,8 @@ img {
   z-index: 1; /* above the glow */
   width: 100%;
   box-sizing: border-box;
-  /* bottom padding is lighter than usual — the FAQ section right below
-     already opens with its own generous top padding */
-  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(48px, 6vw, 100px);
+  /* extra +100px per client request, on top of FAQ's own generous top padding */
+  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(148px, calc(6vw + 100px), 200px);
   display: flex;
   flex-direction: column;
 }
@@ -1481,7 +1475,6 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  border-top: 2px solid var(--border-white);
 }
 .footer__logo {
   flex: 0 0 auto;
@@ -2087,6 +2080,9 @@ html.menu-open body {
     flex-direction: column;
   }
   .tariff-card {
+    /* stacked in a column now, so flex-basis:0 would disable the automatic
+       content-based minimum height and let the button spill past the border */
+    flex: 1 1 auto;
     min-height: 200px;
     border-width: clamp(10px, 3.4vw, 18px); /* keep the outline clearly visible */
   }
