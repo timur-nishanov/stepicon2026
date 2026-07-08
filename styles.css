@@ -684,6 +684,7 @@ img {
   padding-top: 0;
 }
 .program__time {
+  display: none; /* hidden per client request — not in the markup either; kept in case it returns */
   flex: 0 0 auto;
   width: clamp(64px, 8vw, 89px);
   font-size: clamp(24px, 2.2vw, var(--t-accent2-size));
@@ -691,6 +692,17 @@ img {
   line-height: var(--t-accent2-lh);
   letter-spacing: var(--t-accent2-ls);
   color: var(--text-primary);
+}
+/* Small leading label for a row ("В параллель", "Оба потока") — same column
+   width as .program__time so it lines up, but caption-sized and muted. */
+.program__row-label {
+  flex: 0 0 auto;
+  width: clamp(64px, 8vw, 89px);
+  font-size: var(--t-caption-size);
+  font-weight: var(--t-caption-weight);
+  line-height: var(--t-caption-lh);
+  letter-spacing: var(--t-caption-ls);
+  color: var(--text-tertiary);
 }
 .program__items {
   flex: 1 1 auto;
@@ -745,15 +757,18 @@ img {
   align-items: flex-end;
   gap: 20px;
 }
-/* Speaker placeholder: dark tile, a soft coloured glow, a person silhouette */
+/* Speaker placeholder: dark tile, a soft coloured glow, a person silhouette.
+   Hidden per client request (they don't want the silhouette placeholder) —
+   markup is kept as-is so it can be turned back on (or swapped for real
+   photos) later without rebuilding the talk cards. */
 .talk__photo {
+  display: none; /* was: flex — restore this to bring the placeholder back */
   position: relative;
   flex: 0 0 auto;
   width: clamp(96px, 9.2vw, 132px);
   aspect-ratio: 132 / 154;
   overflow: hidden;
   background-color: var(--background-transparent-1);
-  display: flex;
   align-items: flex-end;
   justify-content: center;
 }
@@ -1899,6 +1914,9 @@ html.menu-open body {
     align-items: flex-start;
   }
   .program__time {
+    width: auto;
+  }
+  .program__row-label {
     width: auto;
   }
   .program__items {
