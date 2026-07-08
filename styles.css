@@ -404,6 +404,7 @@ img {
   letter-spacing: var(--t-section-ls);
   color: var(--text-primary);
   isolation: isolate; /* scope the tunnel's z-index to this element */
+  mix-blend-mode: difference; /* same invert effect as the hero title where a photo crosses it */
 }
 
 /* "Tunnel": a black strip masks the spine line behind the text (so the line
@@ -596,7 +597,7 @@ img {
 .themes__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: clamp(16px, 2vw, 32px);
 }
 
 .theme-card {
@@ -928,7 +929,7 @@ img {
   box-sizing: border-box;
   padding: clamp(64px, 7vw, 120px) var(--layout-pad);
   display: flex;
-  gap: 20px;
+  gap: 40px;
   align-items: stretch;
 }
 .place__text {
