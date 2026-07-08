@@ -773,6 +773,9 @@ img {
 /* Green "Воркшоп" tag that flags workshops apart from the lectures */
 .talk__feature {
   align-self: flex-start;
+  /* lines up with the title's text, not the dot before it — same 32px
+     offset used for .talk__author (dot 16px + its 16px gap) */
+  margin-left: 32px;
   padding: 5px 14px;
   border-radius: 999px;
   background-color: var(--background-green);
@@ -1137,6 +1140,7 @@ img {
 .tariffs__cards {
   display: flex;
   gap: clamp(16px, 6vw, 80px); /* 80px between cards on wide screens */
+  margin-bottom: 40px; /* gap down to the broadcast banner below */
 }
 .tariff-card {
   flex: 1 1 auto; /* fill the container evenly, but never shrink below its own content */
@@ -1162,26 +1166,25 @@ img {
   gap: 16px;
   min-width: 0; /* let the price shrink instead of blowing out the card */
 }
+/* White card only: old price stacked as its own line directly above the new
+   price — both sit inside the flow, as the __info block's first child, so
+   the OLD price lands at the same height as green/purple's single-line
+   headline (they're also the first child of their own __info block). */
+.tariff-card__price-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 .tariff-card__price {
-  position: relative; /* anchors the old price, floated above without taking flow space */
-  display: inline-block;
   font-size: clamp(32px, 4.4vw, var(--t-tabs-size));
   font-weight: var(--t-tabs-weight);
   line-height: var(--t-tabs-lh);
   letter-spacing: var(--t-tabs-ls);
 }
-/* Struck-through old price (white card only) — sits above the new price
-   instead of sharing its line, so the new price starts at the same height
-   as the green/purple cards' single-line headline. */
 .tariff-card__price-old {
-  position: absolute;
-  left: 0;
-  bottom: 100%;
-  margin-bottom: 0;
-  font-size: clamp(14px, 1.8vw, 26px);
+  font-size: clamp(15px, 2vw, 28px);
   font-weight: 500;
-  line-height: 1.1;
-  white-space: nowrap;
+  line-height: 1.2;
   opacity: 0.5;
   text-decoration: line-through;
 }
