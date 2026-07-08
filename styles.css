@@ -1230,8 +1230,8 @@ img {
   z-index: 1; /* above the glow */
   width: 100%;
   box-sizing: border-box;
-  /* extra +100px per client request, on top of FAQ's own generous top padding */
-  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(148px, calc(6vw + 100px), 200px);
+  /* extra +180px per client requests, on top of FAQ's own generous top padding */
+  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(228px, calc(6vw + 180px), 280px);
   display: flex;
   flex-direction: column;
 }
@@ -1387,9 +1387,8 @@ img {
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  /* lighter bottom padding — the closing photo grid follows right after,
-     with its own padding, so FAQ no longer needs to be the last section's gap */
-  padding: clamp(48px, 6vw, 100px) var(--layout-pad) clamp(48px, 6vw, 100px);
+  /* bottom padding: +100px per client request for extra room before the photos */
+  padding: clamp(48px, 6vw, 100px) var(--layout-pad) clamp(148px, calc(6vw + 100px), 200px);
 }
 .faq__title {
   max-width: 696px;
