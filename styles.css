@@ -1100,7 +1100,7 @@ img {
 .tariffs__text {
   display: flex;
   flex-direction: column;
-  gap: clamp(28px, 3.4vw, 48px);
+  gap: clamp(20px, 2.4vw, 32px);
   max-width: 1200px;
 }
 .tariffs__title {
@@ -1111,64 +1111,22 @@ img {
   letter-spacing: var(--t-section-ls);
   color: var(--text-primary);
 }
-.tariffs__sale {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.tariffs__promo {
-  flex: 0 0 auto;
-  background-color: var(--background-transparent);
-  border-radius: 9999px;
-  padding: clamp(18px, 2.2vw, 32px) clamp(28px, 3vw, 44px);
-  font-size: clamp(20px, 2.08vw, var(--t-accent1-size));
-  font-weight: var(--t-accent1-weight);
-  line-height: var(--t-accent1-lh);
-  color: var(--border-green);
-  white-space: nowrap;
-}
-.tariffs__sale-text {
+/* "What's included" — one wrapping line of checkmark items under the title */
+.tariffs__includes {
   margin: 0;
-  max-width: 348px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 32px;
+}
+.tariffs__includes li {
+  max-width: 100%; /* an item that can't fit on its own line wraps instead of overflowing */
   font-size: 18px;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.32;
   letter-spacing: 0.02em;
   color: var(--text-secondary);
-}
-.tariffs__price {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(36px, 4.4vw, 64px);
-}
-.tariffs__price-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-.tariffs__heading {
-  margin: 0;
-  font-size: clamp(30px, 4.4vw, var(--t-section-size));
-  font-weight: var(--t-section-weight);
-  line-height: var(--t-section-lh);
-  letter-spacing: var(--t-section-ls);
-  color: var(--text-primary);
-}
-.tariffs__pay {
-  flex: 0 0 auto;
-  height: clamp(64px, 6.8vw, 112px);
-  padding: 0 clamp(28px, 3vw, 44px);
-  border-radius: 9999px;
-  background-color: var(--background-white);
-  color: var(--text-primary-inverse);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(20px, 2.08vw, var(--t-accent1-size));
-  font-weight: var(--t-accent1-weight);
-  line-height: var(--t-accent1-lh);
-  white-space: nowrap;
 }
 .tariffs__cards {
   display: flex;
@@ -1192,18 +1150,55 @@ img {
 .tariff-card--white { border-color: var(--border-white); }
 .tariff-card--green { border-color: var(--border-green); }
 .tariff-card--purple { border-color: var(--border-purple); }
+.tariff-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0; /* let the price shrink instead of blowing out the card */
+}
 .tariff-card__price {
-  font-size: clamp(40px, 5.6vw, var(--t-tabs-size));
+  font-size: clamp(32px, 4.4vw, var(--t-tabs-size));
   font-weight: var(--t-tabs-weight);
   line-height: var(--t-tabs-lh);
   letter-spacing: var(--t-tabs-ls);
-  white-space: nowrap;
+}
+.tariff-card__price-old {
+  margin-right: 8px;
+  font-size: 0.55em;
+  font-weight: 500;
+  opacity: 0.5;
+  text-decoration: line-through;
 }
 .tariff-card__note {
   font-size: clamp(16px, 1.7vw, 24px);
   font-weight: 500;
   line-height: 1.4;
 }
+.tariff-card__btn {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  max-width: 100%; /* long labels ("Получить бесплатный билет") wrap instead of overflowing the card */
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(56px, 5.6vw, 72px);
+  padding: 14px clamp(24px, 2.4vw, 36px);
+  border-radius: 9999px;
+  color: var(--text-primary-inverse);
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: var(--t-accent1-weight);
+  line-height: var(--t-accent1-lh);
+  text-align: center;
+  transition: opacity 0.2s ease;
+}
+.tariff-card__btn:hover,
+.tariff-card__btn:focus-visible {
+  opacity: 0.82;
+}
+.tariff-card__btn--white { background-color: var(--background-white); }
+.tariff-card__btn--green { background-color: var(--background-green); }
+.tariff-card__btn--purple { background-color: var(--background-purple); }
 
 /* -------------------------------------------------------------------------
    7h. FINALE (CTA + photos) — big purple blur glow behind the content
@@ -1986,23 +1981,16 @@ html.menu-open body {
     transform: scale(1.15);
   }
 
-  /* Tariffs: stack the promo, the price header, and the cards */
-  .tariffs__sale {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .tariffs__price-head {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
+  /* Tariffs: stack the cards; full-width buttons are easier to tap */
   .tariffs__cards {
     flex-direction: column;
   }
   .tariff-card {
     min-height: 200px;
     border-width: clamp(10px, 3.4vw, 18px); /* keep the outline clearly visible */
+  }
+  .tariff-card__btn {
+    align-self: stretch;
   }
 
   /* hero "Место" plate: keep the long address clear of the school logo */
