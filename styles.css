@@ -1742,6 +1742,9 @@ html.menu-open body {
     gap: 20px;
   }
   .hero__subtitle {
+    /* stacked layout: reset the desktop flex-basis (675px) — in this column it
+       would otherwise force a 675px-tall subtitle and a huge empty gap */
+    flex: 0 0 auto;
     width: auto;
     max-width: 620px;
   }
