@@ -734,10 +734,11 @@ img {
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  font-size: clamp(20px, 2.2vw, var(--t-accent2-size));
-  font-weight: var(--t-accent2-weight);
-  line-height: var(--t-accent2-lh);
-  letter-spacing: var(--t-accent2-ls);
+  /* same size as the program-banner title ("Хотите стать спикером?") */
+  font-size: clamp(24px, 3vw, var(--t-accent-size));
+  font-weight: var(--t-accent-weight);
+  line-height: var(--t-accent-lh);
+  letter-spacing: var(--t-accent-ls);
   color: var(--text-primary);
 }
 /* Coloured square marking every row (matches the speaker's green/purple, so
