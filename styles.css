@@ -747,7 +747,7 @@ img {
   flex: 0 0 auto;
   width: 16px;
   height: 16px;
-  margin-top: 11px; /* level with the cap height of the first line, not the whole block */
+  margin-top: 15px; /* level with the cap height of the first line, not the whole block */
   background-color: var(--background-green);
 }
 .talk__title-dot--purple {
@@ -764,6 +764,11 @@ img {
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
+}
+/* Reserve room for 2 lines of title so the tag below always starts at the
+   same height, whether this column's title wraps to 1 line or 2 */
+.talk__head .talk__title {
+  min-height: calc(clamp(24px, 3vw, 40px) * 1.14 * 2);
 }
 /* Green "Воркшоп" tag that flags workshops apart from the lectures */
 .talk__feature {
@@ -915,7 +920,7 @@ img {
   box-sizing: border-box;
   padding: clamp(64px, 7vw, 120px) var(--layout-pad);
   display: flex;
-  gap: 32px;
+  gap: 20px;
   align-items: stretch;
 }
 .place__text {
@@ -978,7 +983,7 @@ img {
 /* --- photo slider --- */
 /* Desktop: arrow slider. Mobile (≤768): plain horizontal scroll (see media query). */
 .place__media {
-  flex: 0 1 846px;
+  flex: 0 1 960px;
   min-width: 0;
   display: flex;
   align-items: center;
@@ -1104,6 +1109,7 @@ img {
 .tariffs__text {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: clamp(20px, 2.4vw, 32px);
   max-width: 1200px;
   margin: 0 auto clamp(48px, 6vw, 80px); /* gap to the cards below; the banner stays flush against the cards */
@@ -1121,6 +1127,7 @@ img {
 .tariffs__includes {
   margin: 0;
   max-width: 720px;
+  text-align: center;
   font-size: clamp(18px, 1.6vw, 22px);
   font-weight: 500;
   line-height: 1.4;
@@ -1155,23 +1162,26 @@ img {
   gap: 16px;
   min-width: 0; /* let the price shrink instead of blowing out the card */
 }
-/* Reserved row above the price — empty on green/purple, holds the struck-through
-   old price on white — so every card's price line starts at the same height
-   regardless of whether it has an "old price" above it. */
-.tariff-card__eyebrow {
-  display: block;
-  height: clamp(20px, 2.7vw, 49px); /* 0.55 x the price line's own height */
-}
 .tariff-card__price {
+  position: relative; /* anchors the old price, floated above without taking flow space */
+  display: inline-block;
   font-size: clamp(32px, 4.4vw, var(--t-tabs-size));
   font-weight: var(--t-tabs-weight);
   line-height: var(--t-tabs-lh);
   letter-spacing: var(--t-tabs-ls);
 }
+/* Struck-through old price (white card only) — sits above the new price
+   instead of sharing its line, so the new price starts at the same height
+   as the green/purple cards' single-line headline. */
 .tariff-card__price-old {
-  font-size: clamp(18px, 2.42vw, 44px);
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  margin-bottom: 0;
+  font-size: clamp(14px, 1.8vw, 26px);
   font-weight: 500;
-  line-height: 1.12;
+  line-height: 1.1;
+  white-space: nowrap;
   opacity: 0.5;
   text-decoration: line-through;
 }
@@ -1222,11 +1232,20 @@ img {
   z-index: 1; /* above the glow */
   width: 100%;
   box-sizing: border-box;
-  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(64px, 7vw, 120px);
+  /* bottom padding is lighter than usual — the FAQ section right below
+     already opens with its own generous top padding */
+  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(48px, 6vw, 100px);
   display: flex;
   flex-direction: column;
-  /* CTA → photos: exactly the gap above the Tariffs (whatis bottom-pad + tariffs top-pad) */
-  gap: calc(clamp(72px, 11vh, 180px) + clamp(64px, 7vw, 120px));
+}
+/* Closing photo grid — now the last thing before the footer, moved out from
+   under FAQ per client request ("FAQ above the last photos") */
+.finale-photos {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 var(--layout-pad) clamp(64px, 7vw, 120px);
 }
 /* the glow — scaled from the 1440 spec (1834 circle, blur 500, at left -197 / top 376) */
 .finale__glow {
@@ -1371,7 +1390,9 @@ img {
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  padding: clamp(48px, 6vw, 100px) var(--layout-pad) clamp(72px, 9vw, 160px);
+  /* lighter bottom padding — the closing photo grid follows right after,
+     with its own padding, so FAQ no longer needs to be the last section's gap */
+  padding: clamp(48px, 6vw, 100px) var(--layout-pad) clamp(48px, 6vw, 100px);
 }
 .faq__title {
   max-width: 696px;
@@ -1441,6 +1462,77 @@ img {
 }
 .faq__a a:hover {
   color: var(--text-secondary);
+}
+
+/* -------------------------------------------------------------------------
+   7j. FOOTER
+   ------------------------------------------------------------------------- */
+.footer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(40px, 5vw, 64px) var(--layout-pad);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  border-top: 2px solid var(--border-white);
+}
+.footer__logo {
+  flex: 0 0 auto;
+  display: block;
+  line-height: 0;
+}
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 32px;
+  font-size: var(--t-primary-size);
+  font-weight: var(--t-primary-weight);
+  line-height: var(--t-primary-lh);
+  letter-spacing: var(--t-primary-ls);
+  color: var(--text-secondary);
+}
+.footer__links a:hover {
+  color: var(--text-primary);
+}
+.footer__bottom {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.footer__copy {
+  margin: 0;
+  font-size: var(--t-tag-size);
+  font-weight: var(--t-tag-weight);
+  line-height: var(--t-tag-lh);
+  letter-spacing: var(--t-tag-ls);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+.footer__social {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--background-transparent-1);
+  color: var(--text-secondary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.footer__social-link:hover {
+  background-color: var(--background-transparent);
+  color: var(--text-primary);
 }
 
 /* -------------------------------------------------------------------------
@@ -2002,6 +2094,17 @@ html.menu-open body {
   /* hero "Место" plate: keep the long address clear of the school logo */
   .plate--place .plate__value {
     padding-right: 52px;
+  }
+
+  /* Footer: stack logo / links / copyright+social into a centred column */
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .footer__bottom {
+    width: 100%;
+    justify-content: space-between;
   }
 
   /* Finale: full-width buttons, taller photo rows so they read on small screens */
