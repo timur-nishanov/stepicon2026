@@ -693,17 +693,6 @@ img {
   letter-spacing: var(--t-accent2-ls);
   color: var(--text-primary);
 }
-/* Small leading label for a row ("В параллель", "Оба потока") — same column
-   width as .program__time so it lines up, but caption-sized and muted. */
-.program__row-label {
-  flex: 0 0 auto;
-  width: clamp(64px, 8vw, 89px);
-  font-size: var(--t-caption-size);
-  font-weight: var(--t-caption-weight);
-  line-height: var(--t-caption-lh);
-  letter-spacing: var(--t-caption-ls);
-  color: var(--text-tertiary);
-}
 .program__items {
   flex: 1 1 auto;
   display: flex;
@@ -719,6 +708,11 @@ img {
   justify-content: space-between;
   gap: 32px;
 }
+/* A row with a single speaker (the whole row belongs to one talk, not split
+   between two) spans the full row width instead of staying half-width. */
+.talk--full {
+  max-width: none;
+}
 .talk__title {
   margin: 0;
   font-size: clamp(20px, 2.2vw, var(--t-accent2-size));
@@ -729,6 +723,20 @@ img {
 }
 .talk__title--solo {
   align-self: center; /* single-line rows centre the title against the time */
+}
+/* "Интерактив" (and similar standalone segments): bigger + a coloured dot so
+   it doesn't read as flat as a plain talk title. */
+.talk__title--feature {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: clamp(28px, 3vw, var(--t-accent-size));
+}
+.talk__title-dot {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  background-color: var(--background-green);
 }
 /* Title + a "feature" tag stacked at the top of a talk card */
 .talk__head {
@@ -807,6 +815,11 @@ img {
   line-height: 1.2;
   color: var(--text-tertiary);
 }
+/* A confirmed speaker's real name/role — full white, not dimmed like the
+   "Скоро объявим" placeholder. */
+.talk__tba--name {
+  color: var(--text-primary);
+}
 
 /* --- "Watch online" banner --- */
 .program-banner {
@@ -857,63 +870,6 @@ img {
   width: clamp(28px, 2.5vw, 36px);
   height: clamp(28px, 2.5vw, 36px);
   flex: 0 0 auto;
-}
-
-/* -------------------------------------------------------------------------
-   7d. PARTNERS — title + a slow logo marquee on rounded plates
-   ------------------------------------------------------------------------- */
-.partners {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  box-sizing: border-box;
-  /* a bit more lead-in from Program above */
-  padding: clamp(96px, 10vw, 176px) 0 clamp(64px, 7vw, 120px);
-  overflow: hidden; /* clip the off-screen part of the track */
-}
-.partners__title {
-  margin: 0 0 clamp(32px, 4vw, 56px);
-  text-align: center;
-  font-size: clamp(34px, 5.6vw, var(--t-tabs-size));
-  font-weight: var(--t-tabs-weight);
-  line-height: var(--t-tabs-lh);
-  letter-spacing: var(--t-tabs-ls);
-  color: var(--text-primary);
-}
-.partners__marquee {
-  width: 100%;
-  overflow: hidden;
-}
-.partners__track {
-  display: flex;
-  width: max-content;
-  gap: clamp(12px, 1.4vw, 20px);
-  animation: partners-scroll 50s linear infinite; /* slow drift */
-}
-.partners__item {
-  flex: 0 0 auto;
-  /* 340×200 at the 1440 base (340/1440 ≈ 23.6vw), scaled down responsively */
-  width: clamp(208px, 23.6vw, 340px);
-  aspect-ratio: 340 / 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px; /* fully rounded plate */
-  background-color: var(--background-transparent); /* same as the banner */
-}
-.partners__item img {
-  max-width: 76%;
-  max-height: 48%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-}
-@keyframes partners-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); } /* one full set; the dup makes it seamless */
-}
-@media (prefers-reduced-motion: reduce) {
-  .partners__track { animation: none; }
 }
 
 /* -------------------------------------------------------------------------
@@ -1051,10 +1007,12 @@ img {
 }
 .whatis__label {
   margin: 0 0 clamp(16px, 2vw, 40px);
-  font-size: var(--t-primary-size);
-  font-weight: var(--t-primary-weight);
-  line-height: var(--t-primary-lh);
-  letter-spacing: var(--t-primary-ls);
+  max-width: 900px;
+  /* at least 2x the old fixed 18px per client request (36px floor, scales to 64px) */
+  font-size: clamp(36px, 4.4vw, var(--t-section-size));
+  font-weight: var(--t-section-weight);
+  line-height: 1.2;
+  letter-spacing: var(--t-section-ls);
   color: var(--text-primary);
 }
 .whatis__stat {
@@ -1440,6 +1398,13 @@ img {
   font-weight: 500;
   line-height: 1.32;
   letter-spacing: 0.02em;
+  color: var(--text-secondary);
+}
+.faq__a a {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+.faq__a a:hover {
   color: var(--text-secondary);
 }
 
@@ -1914,9 +1879,6 @@ html.menu-open body {
     align-items: flex-start;
   }
   .program__time {
-    width: auto;
-  }
-  .program__row-label {
     width: auto;
   }
   .program__items {
