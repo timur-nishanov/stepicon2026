@@ -391,25 +391,31 @@ img {
 .about__photo--9 { left: 62.00%; top: 60.00%; width: 36.00%; height: 33.00%; }
 
 .about__text {
+  /* full-width, transform-free wrapper: a transform (or isolation) here would
+     create a stacking context that traps .about__text-inner's blend inside
+     it, hiding it from the photos it's supposed to invert against */
   position: absolute;
-  left: 50%;
-  top: 64.56%;
-  transform: translate(-50%, -100%);
-  width: min(743px, 86%);
+  left: 0;
+  right: 0;
+  bottom: 35.44%; /* equivalent to the old top:64.56% + translateY(-100%) */
   margin: 0;
+  display: flex;
+  justify-content: center;
+}
+/* Only the visible words blend (same invert effect as the hero title where a
+   photo crosses it) — the tunnel mask is a separate sibling so it keeps
+   painting as a normal opaque box and still hides the spine line behind it. */
+.about__text-inner {
+  /* "positioned" (no offset) so it stacks with the tunnel by DOM order alone
+     — no z-index/isolation needed, which would otherwise block the blend */
+  position: relative;
+  width: min(743px, 86%);
   text-align: center;
   font-size: clamp(28px, 4.44vw, var(--t-section-size));
   font-weight: var(--t-section-weight);
   line-height: var(--t-section-lh);
   letter-spacing: var(--t-section-ls);
   color: var(--text-primary);
-  isolation: isolate; /* scope the tunnel's z-index to this element */
-}
-/* Only the visible words blend (same invert effect as the hero title where a
-   photo crosses it) — the tunnel mask is a separate sibling so it keeps
-   painting as a normal opaque box and still hides the spine line behind it. */
-.about__text-inner {
-  isolation: isolate;
   mix-blend-mode: difference;
 }
 
@@ -425,7 +431,9 @@ img {
   transform: translateX(-50%);
   width: calc(100vw * 36 / 1440); /* a touch wider than the 32 spine */
   background-color: var(--background-black);
-  z-index: -1; /* behind the glyphs, above the spine line */
+  /* no z-index needed: both this and .about__text-inner are position:relative/
+     absolute with z-index:auto, so plain DOM order puts the tunnel (earlier)
+     below the glyphs (later) and above the line (earlier still) */
 }
 .about__tunnel::before,
 .about__tunnel::after {
@@ -461,20 +469,24 @@ img {
   }
 }
 
-.about__text--1 {
-  /* narrower than the other two so it clears photo--1/--2 on both sides
-     (its copy is longer, so it wraps to more lines at the same font size
-     as --2/--3 — kept equal per client request, not shrunk) */
+/* narrower than the other two so it clears photo--1/--2 on both sides
+   (its copy is longer, so it wraps to more lines at the same font size
+   as --2/--3 — kept equal per client request, not shrunk) */
+.about__text--1 .about__text-inner {
   width: min(800px, 88%);
 }
 
 .about__text--2 {
-  top: 66%;
+  bottom: 34%; /* equivalent to the old top: 66% */
+}
+.about__text--2 .about__text-inner {
   width: min(933px, 90%);
 }
 
 .about__text--3 {
-  top: 58%;
+  bottom: 42%; /* equivalent to the old top: 58% */
+}
+.about__text--3 .about__text-inner {
   width: min(930px, 90%);
 }
 
@@ -935,7 +947,7 @@ img {
   box-sizing: border-box;
   padding: clamp(64px, 7vw, 120px) var(--layout-pad);
   display: flex;
-  gap: 40px;
+  gap: 64px;
   align-items: stretch;
 }
 .place__text {
@@ -1001,7 +1013,7 @@ img {
 /* --- photo slider --- */
 /* Desktop: arrow slider. Mobile (≤768): plain horizontal scroll (see media query). */
 .place__media {
-  flex: 1 1 70%;
+  flex: 1 1 64%;
   min-width: 0;
   display: flex;
   align-items: center;
@@ -1025,7 +1037,7 @@ img {
 .place__slider {
   flex: 1 1 0;
   min-width: 0;
-  aspect-ratio: 686 / 622;
+  aspect-ratio: 3 / 2;
   border-radius: 32px;
   overflow: hidden;
   position: relative;
@@ -1999,11 +2011,14 @@ html.menu-open body {
   }
   .about__text {
     position: static;
-    transform: none;
+    bottom: auto;
     width: 100%;
     grid-column: 1 / -1;
     order: -2;          /* text first, above the photos */
     margin: 0 0 28px;   /* breathing room between the heading and its photos */
+  }
+  .about__text-inner {
+    width: 100%;
     font-size: clamp(24px, 6.4vw, 34px); /* readable for the long statement */
   }
   .about__text--2 {
