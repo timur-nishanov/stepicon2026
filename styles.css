@@ -455,7 +455,11 @@ img {
 }
 
 .about__text--1 {
-  width: min(880px, 90%); /* wider so it reads as 3-4 lines, not a narrow column */
+  /* narrower than the other two so it clears photo--1/--2 on both sides; the
+     copy is longer than its siblings, so the font is a size down to keep the
+     line count in the same ballpark (~6 lines, matching about__text--2) */
+  width: min(800px, 88%);
+  font-size: clamp(24px, 3.6vw, 52px);
 }
 
 .about__text--2 {
@@ -509,7 +513,10 @@ img {
 
 .points__card {
   position: absolute;
-  width: 31.875%; /* 459 / 1440 */
+  /* a touch wider than the 459/1440 base so "С 2016 года" sits comfortably —
+     kept small since the white card's right edge sits close to the green
+     card's left edge (only ~14px of clearance at the 1440 baseline) */
+  width: 32.5%;
   aspect-ratio: 459 / 360;
   box-sizing: border-box;
   background-color: var(--background-black);
@@ -537,11 +544,15 @@ img {
 }
 
 .points__num {
-  font-size: clamp(48px, 8.6vw, 112px); /* a touch smaller so "С 2016" clears the card edge */
+  /* Pure vw scaling (no low-end override needed) — the card also scales with
+     vw, so the ratio between text and card stays constant at every width from
+     769px up. Verified against the true glyph width (not the stretched flex
+     box) so "С 2016 года" never overflows into the next card. */
+  font-size: clamp(36px, 5vw, 112px);
   font-weight: var(--t-bignum-weight);
   line-height: var(--t-bignum-lh);
   letter-spacing: var(--t-bignum-ls);
-  white-space: nowrap; /* keep "с 2016" on one line */
+  white-space: nowrap; /* keep "С 2016 года" on one line */
 }
 .points__label {
   font-size: clamp(18px, 2.08vw, var(--t-accent1-size));
@@ -715,28 +726,41 @@ img {
 }
 .talk__title {
   margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
   font-size: clamp(20px, 2.2vw, var(--t-accent2-size));
   font-weight: var(--t-accent2-weight);
   line-height: var(--t-accent2-lh);
   letter-spacing: var(--t-accent2-ls);
   color: var(--text-primary);
 }
+/* Coloured square marking every row (matches the speaker's green/purple, so
+   it stays consistent with the hidden photo tile if that ever comes back). */
+.talk__title-dot {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-top: 8px; /* level with the cap height of the first line, not the whole block */
+  background-color: var(--background-green);
+}
+.talk__title-dot--purple {
+  background-color: var(--background-purple);
+}
 .talk__title--solo {
   align-self: center; /* single-line rows centre the title against the time */
 }
-/* "Интерактив" (and similar standalone segments): bigger + a coloured dot so
+/* "Интерактив" (and similar standalone segments): bigger + a bigger dot so
    it doesn't read as flat as a plain talk title. */
 .talk__title--feature {
-  display: flex;
-  align-items: center;
+  align-items: center; /* single line: centre the bigger dot against the text */
   gap: 18px;
   font-size: clamp(28px, 3vw, var(--t-accent-size));
 }
-.talk__title-dot {
-  flex: 0 0 auto;
+.talk__title--feature .talk__title-dot {
   width: 22px;
   height: 22px;
-  background-color: var(--background-green);
+  margin-top: 0;
 }
 /* Title + a "feature" tag stacked at the top of a talk card */
 .talk__head {
@@ -816,9 +840,13 @@ img {
   color: var(--text-tertiary);
 }
 /* A confirmed speaker's real name/role — full white, not dimmed like the
-   "Скоро объявим" placeholder. */
+   "Скоро объявим" placeholder. The role/affiliation on the second line stays
+   grey so the name itself pops. */
 .talk__tba--name {
   color: var(--text-primary);
+}
+.talk__tba-role {
+  color: var(--text-tertiary);
 }
 
 /* --- "Watch online" banner --- */
@@ -999,14 +1027,18 @@ img {
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  padding: clamp(72px, 11vh, 180px) var(--layout-pad);
+  /* more air above (from Тарифы) than the old shared value, and even more
+     below (into Finale) — the client flagged both gaps as too tight/low
+     contrast against the surrounding sections */
+  padding: clamp(96px, 16vh, 220px) var(--layout-pad) calc(clamp(72px, 11vh, 180px) + 80px);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 .whatis__label {
-  margin: 0 0 clamp(16px, 2vw, 40px);
+  /* same amount of air down to the first stat as above the section itself */
+  margin: 0 0 clamp(96px, 16vh, 220px);
   max-width: 900px;
   /* at least 2x the old fixed 18px per client request (36px floor, scales to 64px) */
   font-size: clamp(36px, 4.4vw, var(--t-section-size));
@@ -1707,14 +1739,6 @@ html.menu-open body {
   }
   .topbar__menu {
     gap: 28px;
-  }
-}
-
-/* Below the 1440 mockup width the stat number (e.g. "с 2016") no longer fits
-   the narrow cards at the design ratio — scale it down so it stays on one line. */
-@media (max-width: 1439px) and (min-width: 769px) {
-  .points__num {
-    font-size: 6.8vw;
   }
 }
 
