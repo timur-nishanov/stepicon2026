@@ -1251,8 +1251,11 @@ img {
 .finale-wrap {
   position: relative;
   z-index: 1;
-  overflow-x: clip; /* stop the oversized glow adding a scrollbar, but let it
-                       bleed vertically (no hard clip at the top/bottom edge) */
+  /* both axes set explicitly: browsers force overflow-y to clip too if it's
+     left as the "visible" default while overflow-x is anything else — that
+     was hard-cutting the glow's blur off at the top/bottom edge instead of
+     letting it fade out */
+  overflow: clip visible;
 }
 .finale {
   position: relative;
@@ -2130,6 +2133,8 @@ html.menu-open body {
   }
   .tariff-card__btn {
     align-self: stretch;
+    justify-content: center;
+    text-align: center;
   }
 
   /* hero "Место" plate: keep the long address clear of the school logo */
@@ -2151,11 +2156,6 @@ html.menu-open body {
     align-items: flex-start;
     gap: 16px;
   }
-  .footer__social {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   /* Finale: full-width buttons, taller photo rows so they read on small screens */
   .finale__buttons {
     flex-direction: column;
