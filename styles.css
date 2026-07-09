@@ -1043,7 +1043,10 @@ img {
 .place__slider {
   flex: 1 1 0;
   min-width: 0;
-  aspect-ratio: 3 / 2;
+  /* fill the row's full height (matches the text column via .place's own
+     align-items:stretch) instead of centering at a fixed aspect-ratio —
+     top and bottom now line up with the text column exactly */
+  align-self: stretch;
   border-radius: 32px;
   overflow: hidden;
   position: relative;
@@ -1515,7 +1518,10 @@ img {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  /* logo + links sit together (gap below); .footer__bottom's own auto
+     margin pushes it to the far right instead of space-between stretching
+     everything apart — that dead space was what forced it to wrap first */
+  justify-content: flex-start;
   gap: 32px;
 }
 .footer__logo {
@@ -1527,7 +1533,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px 32px;
+  gap: 10px 22px;
   font-size: var(--t-primary-size);
   font-weight: var(--t-primary-weight);
   line-height: var(--t-primary-lh);
@@ -1539,6 +1545,7 @@ img {
 }
 .footer__bottom {
   flex: 0 0 auto;
+  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 24px;
@@ -1917,6 +1924,10 @@ html.menu-open body {
     display: none;
   }
   .place__slider {
+    /* stacked layout: no text column to stretch-match anymore, so size by
+       aspect-ratio again like before */
+    align-self: auto;
+    aspect-ratio: 3 / 2;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
@@ -2161,6 +2172,7 @@ html.menu-open body {
   }
   .footer__bottom {
     width: 100%;
+    margin-left: 0; /* the desktop auto-right-align doesn't apply in this stacked column */
     /* social icons above the copyright line, both stacked (not side by side) —
        column-reverse flips the visual order without touching the DOM order */
     flex-direction: column-reverse;
