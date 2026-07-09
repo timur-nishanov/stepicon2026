@@ -727,11 +727,6 @@ img {
 .program__day > .program__row:last-child {
   border-bottom: none;
 }
-/* The row just before "Интерактив" also loses its divider so there isn't
-   a stray line floating right above that heading. */
-.program__row--flush {
-  border-bottom: none;
-}
 .program__time {
   display: none; /* hidden per client request — not in the markup either; kept in case it returns */
   flex: 0 0 auto;
