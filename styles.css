@@ -246,15 +246,6 @@ body {
   padding: 0;
 }
 
-html {
-  /* the finale glow is a huge absolutely-positioned circle that bleeds into
-     the footer on purpose (no hard-edge clip near .finale), but without a
-     bottom clip here its excess below the footer was extending the page's
-     real scrollable height, leaving dead space to scroll into below the
-     footer. Set on html (the actual scrolling root), not just body. */
-  overflow-y: clip;
-}
-
 body {
   min-height: 100vh;
   background-color: var(--background-black);
@@ -1247,6 +1238,15 @@ img {
 /* -------------------------------------------------------------------------
    7h. FINALE (CTA + photos) — big purple blur glow behind the content
    ------------------------------------------------------------------------- */
+/* Clips the glow's excess bleed at the true bottom of the page (footer
+   included) so it can't inflate document scroll height — sized by normal
+   flow (finale-wrap + footer), unaffected by the glow's own overflow.
+   Deliberately scoped here instead of html/body: overflow-y:clip on html
+   made body compute its own overflow-y to auto (a real nested scroll
+   box), which broke the native page scrollbar's rendering. */
+.page-end {
+  overflow: clip;
+}
 /* wrapper around FINALE + FAQ: the glow lives here so it bleeds across both
    (onto the FAQ) while overflow:hidden clips it (no horizontal scrollbar). */
 .finale-wrap {

@@ -454,6 +454,11 @@
     <h2 class="whatis__stat">12000+ онлайн-курсов</h2>
   </section>
 
+  <!-- wrapper clips the glow's excess bleed at the true bottom of the page
+       (footer included) so it never inflates the document's scroll height,
+       without touching html/body overflow (that broke native scrollbar
+       rendering — see styles.css) -->
+  <div class="page-end">
   <!-- ===================== FINALE (CTA + photos) + FAQ =============== -->
   <!-- wrapper clips the glow vertically across both blocks (and horizontally,
        so the oversized glow never adds a scrollbar) -->
@@ -567,6 +572,7 @@
       </div>
     </div>
   </footer>
+  </div><!-- /.page-end -->
 
   <!-- Mobile fullscreen menu (opened from the burger) -->
   <div class="menu" id="menu" aria-hidden="true">
