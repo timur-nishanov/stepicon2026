@@ -623,7 +623,11 @@ img {
   min-width: 0; /* grid items default to min-width:auto — an nbsp-locked run in
     the copy (e.g. "2027 год") would otherwise force the column wider than its
     1fr share and blow out the page's horizontal scroll */
-  aspect-ratio: 459 / 280;
+  /* min-height (not a fixed aspect-ratio) — a card with longer copy (more
+     wrapped lines) needs to grow, not cram its dot against the text. Grid's
+     default align-items:stretch then equalizes every card in the same row
+     to the tallest one, so they still all match visually. */
+  min-height: clamp(220px, 19vw, 280px);
   /* transparent-1 (0.08) + ~12pt so the card plates read a touch more solid */
   background-color: rgba(255, 255, 255, 0.2);
   padding: clamp(20px, 2.2vw, 32px);
