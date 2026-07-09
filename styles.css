@@ -722,6 +722,16 @@ img {
 .program__row:first-child {
   padding-top: 0;
 }
+/* Last row of a day sits right above the banner — its own bottom divider
+   would double up with the banner's edge, so drop it. */
+.program__day > .program__row:last-child {
+  border-bottom: none;
+}
+/* The row just before "Интерактив" also loses its divider so there isn't
+   a stray line floating right above that heading. */
+.program__row--flush {
+  border-bottom: none;
+}
 .program__time {
   display: none; /* hidden per client request — not in the markup either; kept in case it returns */
   flex: 0 0 auto;
@@ -1522,7 +1532,7 @@ img {
      margin pushes it to the far right instead of space-between stretching
      everything apart — that dead space was what forced it to wrap first */
   justify-content: flex-start;
-  gap: 32px;
+  gap: 20px;
 }
 .footer__logo {
   flex: 0 0 auto;
@@ -1578,6 +1588,22 @@ img {
 .footer__social-link:hover {
   background-color: var(--background-transparent);
   color: var(--text-primary);
+}
+/* Above 1440 there's slack in the row, so the links read better centred
+   between the logo and the copyright/social block instead of hugging the
+   logo — grid gives true centring regardless of how wide either side is. */
+@media (min-width: 1441px) {
+  .footer {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+  }
+  .footer__links {
+    justify-self: center;
+  }
+  .footer__bottom {
+    margin-left: 0;
+    justify-self: end;
+  }
 }
 
 /* -------------------------------------------------------------------------
