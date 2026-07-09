@@ -246,6 +246,15 @@ body {
   padding: 0;
 }
 
+html {
+  /* the finale glow is a huge absolutely-positioned circle that bleeds into
+     the footer on purpose (no hard-edge clip near .finale), but without a
+     bottom clip here its excess below the footer was extending the page's
+     real scrollable height, leaving dead space to scroll into below the
+     footer. Set on html (the actual scrolling root), not just body. */
+  overflow-y: clip;
+}
+
 body {
   min-height: 100vh;
   background-color: var(--background-black);
