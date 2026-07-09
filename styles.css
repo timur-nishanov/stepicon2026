@@ -281,7 +281,7 @@ img {
 }
 
 /* -------------------------------------------------------------------------
-   3. BACKGROUND (generated in code — black base + stripes + stars)
+   3. BACKGROUND (generated in code — black base + stripes)
    Fixed full-viewport layer that sits behind all content.
    ------------------------------------------------------------------------- */
 .backdrop {
@@ -292,42 +292,6 @@ img {
   background-color: var(--background-black);
   pointer-events: none;
 }
-
-/* Star field — separate layer (vector asset, tiled). Sits ON TOP of
-   everything and is non-interactive, so it never blocks clicks.
-   Outer .stars is a fixed clip locked to the viewport (always on screen);
-   the inner .stars__layer holds the image and is oversized so it can take a
-   light scroll parallax without revealing an edge. */
-.stars {
-  position: fixed;
-  inset: 0;
-  z-index: 100;          /* above all hero content */
-  pointer-events: none;  /* never intercepts clicks */
-  overflow: hidden;      /* keeps the oversized layer clipped to the viewport */
-  mix-blend-mode: difference; /* dots invert over whatever is beneath them */
-}
-
-.stars__layer {
-  position: absolute;
-  /* extra slack so the parallax never reveals an edge */
-  top: -30%;
-  left: -30%;
-  width: 160%;
-  height: 160%;
-  /* tiled (not cover-cropped) — the SVG's own 32 stars are spread across its
-     1440x900 canvas, but that's a sparse sample: any single viewport-sized
-     crop of one tile can still land on a locally sparse/dense patch by pure
-     chance (and scroll parallax shifts which patch is visible). A second
-     copy offset by half a tile interleaves the pattern so density stays
-     even wherever the crop lands, without changing the parallax itself. */
-  background-image: url("assets/Stars.svg"), url("assets/Stars.svg");
-  background-repeat: repeat, repeat;
-  background-size: 1440px 900px, 1440px 900px;
-  background-position: 0 0, 720px 450px;
-  will-change: transform;
-}
-
-/* TEMP marker removed — block 2 now provides the scroll length */
 
 /* -------------------------------------------------------------------------
    6. ABOUT — scattered photos + a centred spine line drawn by scroll.
@@ -914,7 +878,6 @@ img {
   flex: 0 0 auto;
   width: 14px;
   height: 14px;
-  border-radius: 4px;
   background-color: #ff3b30;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -1690,7 +1653,7 @@ img {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 150; /* above content/stars, below the mobile menu overlay (200) */
+  z-index: 150; /* above content, below the mobile menu overlay (200) */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2026,10 +1989,6 @@ html.menu-open body {
   }
   /* hero lines clutter the small screen — hide them */
   .hero__lines {
-    display: none;
-  }
-  /* Stars read as "dust" on small screens — hide the field on mobile. */
-  .stars {
     display: none;
   }
   .hero__content {
