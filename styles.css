@@ -905,6 +905,27 @@ img {
   line-height: var(--t-accent-lh);
   color: var(--text-primary);
 }
+.program-banner__title--live {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.program-banner__live {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background-color: #ff3b30;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .program-banner__live {
+    animation: liveBlink 1.8s ease-in-out infinite;
+  }
+}
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
 .program-banner__sub {
   margin: 0;
   font-size: clamp(16px, 1.7vw, 24px);
