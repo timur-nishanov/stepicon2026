@@ -226,6 +226,29 @@
     });
     gsap.ticker.lagSmoothing(0);
 
+    /* --- Star field: scroll parallax only, no idle/automatic drift. Tied
+       directly to scroll position (scrub, no duration) so it only ever
+       moves in response to the user scrolling, never on its own. Desktop
+       only — the field is display:none on mobile (see CSS). */
+    if (document.querySelector(".stars__layer")) {
+      gsap.matchMedia().add("(min-width: 769px)", function () {
+        gsap.fromTo(
+          ".stars__layer",
+          { yPercent: -8 },
+          {
+            yPercent: 8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: document.body,
+              start: "top top",
+              end: "bottom bottom",
+              scrub: true,
+            },
+          }
+        );
+      });
+    }
+
     /* --- About: line draw + photo parallax (desktop/tablet only) ----------
        Below 769px the section is a stacked layout (line hidden, photos in a
        grid), so these scroll effects are scoped with matchMedia and cleaned
