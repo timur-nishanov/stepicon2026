@@ -1262,8 +1262,8 @@ img {
   z-index: 1; /* above the glow */
   width: 100%;
   box-sizing: border-box;
-  /* extra +180px per client requests, on top of FAQ's own generous top padding */
-  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(228px, calc(6vw + 180px), 280px);
+  /* now the last section before the footer — a normal closing padding */
+  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(64px, 7vw, 120px);
   display: flex;
   flex-direction: column;
 }
@@ -1419,8 +1419,10 @@ img {
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  /* bottom padding: +100px per client request for extra room before the photos */
-  padding: clamp(48px, 6vw, 100px) var(--layout-pad) clamp(148px, calc(6vw + 100px), 200px);
+  /* FAQ is now the first section in finale-wrap (top padding matches what the
+     finale CTA used to open with, for the same gap from Whatis above);
+     bottom padding: +100px per earlier client request for room before the photos */
+  padding: clamp(64px, 8vw, 140px) var(--layout-pad) clamp(148px, calc(6vw + 100px), 200px);
 }
 .faq__title {
   max-width: 696px;
