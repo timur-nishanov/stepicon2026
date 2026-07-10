@@ -1508,18 +1508,25 @@ img {
 /* -------------------------------------------------------------------------
    7j. FOOTER
    ------------------------------------------------------------------------- */
-/* Single row on desktop: logo, then the links, with the social buttons
-   pushed to the far right. */
+/* Two rows: (1) logo + nav links (with small square separators between the
+   links), (2) a divided strip — copyright on the left, social buttons on
+   the right. */
 .footer {
   position: relative;
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  padding: clamp(44px, 4.5vw, 64px) var(--layout-pad);
+  padding: clamp(48px, 5vw, 72px) var(--layout-pad) clamp(40px, 4vw, 56px);
   display: flex;
-  flex-wrap: nowrap;   /* logo | links | social stay on one row on desktop */
+  flex-direction: column;
+  gap: clamp(28px, 3vw, 40px);
+}
+.footer__top {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 24px 40px;
+  justify-content: space-between;
+  gap: 20px 40px;
 }
 .footer__logo {
   flex: 0 0 auto;
@@ -1527,14 +1534,10 @@ img {
   line-height: 0;
 }
 .footer__links {
-  flex: 1 1 auto;      /* fills the middle; wraps its own items to 2 lines
-                          (at narrower desktop widths) rather than pushing the
-                          social buttons off the row */
-  min-width: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px 40px; /* a touch more breathing room between the link items */
+  gap: 12px 22px;
   font-size: var(--t-primary-size);
   font-weight: var(--t-primary-weight);
   line-height: var(--t-primary-lh);
@@ -1544,28 +1547,52 @@ img {
 .footer__links a:hover {
   color: var(--text-primary);
 }
-.footer__social {
+/* small square dot between the link items */
+.footer__sep {
   flex: 0 0 auto;
+  width: 4px;
+  height: 4px;
+  background-color: var(--text-secondary);
+}
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: clamp(24px, 2.6vw, 32px);
+  border-top: 1px solid var(--background-transparent);
+}
+.footer__copy {
+  margin: 0;
+  font-size: var(--t-tag-size);
+  font-weight: var(--t-tag-weight);
+  line-height: var(--t-tag-lh);
+  letter-spacing: var(--t-tag-ls);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.footer__social {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 18px;
 }
-/* Bigger, higher-contrast circles so they don't disappear against the
-   black background (the old 8% fill was near-invisible). */
+/* Enlarged (~1.5×) high-contrast circles so they read clearly against the
+   dark background. */
 .footer__social-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 .footer__social-link svg {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
 }
 .footer__social-link:hover {
   background-color: rgba(255, 255, 255, 0.22);
@@ -2159,15 +2186,22 @@ html.menu-open body {
     padding-right: 52px;
   }
 
-  /* Footer: stack logo → links → social into a left-aligned column; the
-     social icons keep their bigger, high-contrast circles. */
-  .footer {
+  /* Footer: logo above the links (links stack into a column so the square
+     separators would float oddly — hide them); copyright + social row. */
+  .footer__top {
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 20px;
   }
-  .footer__social {
-    margin-left: 0; /* the desktop far-right push doesn't apply once stacked */
+  .footer__links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer__sep {
+    display: none;
+  }
+  .footer__bottom {
+    align-items: center;
   }
   /* Finale: full-width buttons, taller photo rows so they read on small screens */
   .finale__buttons {

@@ -51,19 +51,10 @@
     <svg class="hero__lines" viewBox="0 0 1440 830" fill="none"
          preserveAspectRatio="xMidYMin meet" aria-hidden="true"
          xmlns="http://www.w3.org/2000/svg">
-      <!-- Mirrored horizontally (x → 1440−x) so the "reach" points to the
-           bottom-left «Место» plate instead of the bottom-right button; the
-           purple line now lands by the purple plate (colour match).
-           PREVIOUS VARIANT (kept for easy revert):
       <path class="hero__line hero__line--green" d="M 362.802 -42.687 L 707.5 302.012" stroke-width="32"/>
       <path class="hero__line hero__line--purple" d="M 719.732 -44.687 C 719.734 83.574 719.974 148.093 719.998 270.445 C 720 282.102 715.332 293.32 707.038 301.511 C 698.733 309.714 687.53 314.313 675.858 314.313 L 0 314.313" stroke-width="32"/>
       <path class="hero__line hero__line--green" d="M 1230.766 842.883 L 732.5 344.619" stroke-width="32"/>
       <path class="hero__line hero__line--white" d="M 720.001 830 L 720.001 361.522 C 720 352.273 724.944 344.382 732.962 339.772 L 734.353 338.973 C 741.935 334.615 750.526 332.321 759.271 332.321 L 1440 332.321" stroke-width="32"/>
-      -->
-      <path class="hero__line hero__line--green" d="M 1077.198 -42.687 L 732.5 302.012" stroke-width="32"/>
-      <path class="hero__line hero__line--white" d="M 720.268 -44.687 C 720.266 83.574 720.026 148.093 720.002 270.445 C 720 282.102 724.668 293.32 732.962 301.511 C 741.267 309.714 752.47 314.313 764.142 314.313 L 1440 314.313" stroke-width="32"/>
-      <path class="hero__line hero__line--green" d="M 209.234 842.883 L 707.5 344.619" stroke-width="32"/>
-      <path class="hero__line hero__line--purple" d="M 719.999 830 L 719.999 361.522 C 720 352.273 715.056 344.382 707.038 339.772 L 705.647 338.973 C 698.065 334.615 689.474 332.321 680.729 332.321 L 0 332.321" stroke-width="32"/>
     </svg>
 
 
@@ -556,18 +547,25 @@
 
   <!-- ===================== FOOTER ====================================== -->
   <footer class="footer">
-    <a class="footer__logo" href="#">
-      <img src="assets/stepik logo.svg" alt="stepik" width="125" height="32" />
-    </a>
+    <div class="footer__top">
+      <a class="footer__logo" href="#">
+        <img src="assets/stepik logo.svg" alt="stepik" width="125" height="32" />
+      </a>
 
-    <nav class="footer__links" aria-label="Полезные ссылки">
-      <a href="https://stepik.events/stepicon-2025" target="_blank" rel="noopener">Stepicon 2025</a>
-      <a href="https://teach.stepik.org/" target="_blank" rel="noopener">Создать онлайн-курс на&nbsp;Stepik</a>
-      <a href="https://teach.stepik.org/blog" target="_blank" rel="noopener">Блог Stepik для&nbsp;авторов</a>
-      <a href="https://t.me/stepik_teach" target="_blank" rel="noopener">Сообщество Stepik для&nbsp;авторов</a>
-    </nav>
+      <nav class="footer__links" aria-label="Полезные ссылки">
+        <a href="https://stepik.events/stepicon-2025" target="_blank" rel="noopener">Stepicon 2025</a>
+        <span class="footer__sep" aria-hidden="true"></span>
+        <a href="https://teach.stepik.org/" target="_blank" rel="noopener">Создать онлайн-курс на&nbsp;Stepik</a>
+        <span class="footer__sep" aria-hidden="true"></span>
+        <a href="https://teach.stepik.org/blog" target="_blank" rel="noopener">Блог Stepik для&nbsp;авторов</a>
+        <span class="footer__sep" aria-hidden="true"></span>
+        <a href="https://t.me/stepik_teach" target="_blank" rel="noopener">Сообщество Stepik для&nbsp;авторов</a>
+      </nav>
+    </div>
 
-    <div class="footer__social" aria-label="Мы в соцсетях">
+    <div class="footer__bottom">
+      <p class="footer__copy">© Stepik, 2026</p>
+      <div class="footer__social" aria-label="Мы в соцсетях">
         <a class="footer__social-link" href="https://t.me/stepik_courses" target="_blank" rel="noopener" aria-label="Telegram">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.05 3.16 2.9 10.36c-1.24.5-1.23 1.2-.23 1.5l4.65 1.45 1.8 5.5c.22.6.36.84.74.84.29 0 .42-.13.6-.32l1.62-1.57 4.71 3.48c.87.48 1.5.23 1.72-.8l3.1-14.6c.32-1.26-.47-1.83-1.36-1.68Z" fill="currentColor"/></svg>
         </a>
@@ -578,6 +576,7 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c0 5.52 4.48 10 10 10-5.52 0-10 4.48-10 10 0-5.52-4.48-10-10-10 5.52 0 10-4.48 10-10Z" fill="currentColor"/></svg>
         </a>
       </div>
+    </div>
   </footer>
   </div><!-- /.page-end -->
 
