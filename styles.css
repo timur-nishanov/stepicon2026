@@ -1508,60 +1508,31 @@ img {
 /* -------------------------------------------------------------------------
    7j. FOOTER
    ------------------------------------------------------------------------- */
-/* Two rows: (1) logo + nav links (with small square separators between the
-   links), (2) a divided strip — copyright on the left, social buttons on
-   the right. */
+/* Three columns spread across the row: (1) logo + copyright caption on the
+   left, (2) the nav links stacked in a column, (3) the social buttons at the
+   far-right top. +80px of extra breathing room above, away from the CTA. */
 .footer {
   position: relative;
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
+  margin-top: 80px;
   padding: clamp(48px, 5vw, 72px) var(--layout-pad) clamp(40px, 4vw, 56px);
   display: flex;
-  flex-direction: column;
-  gap: clamp(28px, 3vw, 40px);
-}
-.footer__top {
-  display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 20px 40px;
+  gap: 40px;
+}
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 .footer__logo {
   flex: 0 0 auto;
   display: block;
   line-height: 0;
-}
-.footer__links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 22px;
-  font-size: var(--t-primary-size);
-  font-weight: var(--t-primary-weight);
-  line-height: var(--t-primary-lh);
-  letter-spacing: var(--t-primary-ls);
-  color: var(--text-secondary);
-}
-.footer__links a:hover {
-  color: var(--text-primary);
-}
-/* small square dot between the link items */
-.footer__sep {
-  flex: 0 0 auto;
-  width: 4px;
-  height: 4px;
-  background-color: var(--text-secondary);
-}
-.footer__bottom {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding-top: clamp(24px, 2.6vw, 32px);
-  border-top: 1px solid var(--background-transparent);
 }
 .footer__copy {
   margin: 0;
@@ -1571,6 +1542,19 @@ img {
   letter-spacing: var(--t-tag-ls);
   color: var(--text-secondary);
   white-space: nowrap;
+}
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: var(--t-primary-size);
+  font-weight: var(--t-primary-weight);
+  line-height: var(--t-primary-lh);
+  letter-spacing: var(--t-primary-ls);
+  color: var(--text-secondary);
+}
+.footer__links a:hover {
+  color: var(--text-primary);
 }
 .footer__social {
   display: flex;
@@ -2186,22 +2170,11 @@ html.menu-open body {
     padding-right: 52px;
   }
 
-  /* Footer: logo above the links (links stack into a column so the square
-     separators would float oddly — hide them); copyright + social row. */
-  .footer__top {
+  /* Footer: stack brand → links → social into a left-aligned column. */
+  .footer {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
-  }
-  .footer__links {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .footer__sep {
-    display: none;
-  }
-  .footer__bottom {
-    align-items: center;
+    gap: 32px;
   }
   /* Finale: full-width buttons, taller photo rows so they read on small screens */
   .finale__buttons {
