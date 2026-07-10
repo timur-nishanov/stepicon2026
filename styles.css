@@ -1508,40 +1508,40 @@ img {
 /* -------------------------------------------------------------------------
    7j. FOOTER
    ------------------------------------------------------------------------- */
-/* Three columns spread across the row: (1) logo + copyright caption on the
-   left, (2) the nav links stacked in a column, (3) the social buttons at the
-   far-right top. +80px of extra breathing room above, away from the CTA. */
+/* Logo on the far left; a right-anchored block (.footer__main) holds the nav
+   links column + the social buttons. That block is the SAME 758px basis as
+   the hero subtitle, so the links column starts on the hero's "power line"
+   (lines up with the first nav item at 1440). +80px above and a hairline
+   divider separate it from the CTA. */
 .footer {
   position: relative;
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
   margin-top: 80px;
+  border-top: 2px solid rgba(255, 255, 255, 0.12);
   padding: clamp(48px, 5vw, 72px) var(--layout-pad) clamp(40px, 4vw, 56px);
   display: flex;
-  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: 40px;
-}
-.footer__brand {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
 .footer__logo {
   flex: 0 0 auto;
   display: block;
   line-height: 0;
 }
-.footer__copy {
-  margin: 0;
-  font-size: var(--t-tag-size);
-  font-weight: var(--t-tag-weight);
-  line-height: var(--t-tag-lh);
-  letter-spacing: var(--t-tag-ls);
-  color: var(--text-secondary);
-  white-space: nowrap;
+.footer__logo img {
+  width: auto;
+  height: 44px; /* a touch larger than the 32px top-bar mark */
+}
+.footer__main {
+  flex: 0 1 758px; /* same right-anchored basis as .hero__subtitle */
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
 }
 .footer__links {
   display: flex;
@@ -1557,6 +1557,7 @@ img {
   color: var(--text-primary);
 }
 .footer__social {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 18px;
@@ -2170,8 +2171,15 @@ html.menu-open body {
     padding-right: 52px;
   }
 
-  /* Footer: stack brand → links → social into a left-aligned column. */
+  /* Footer: stack logo → links → social into a left-aligned column. */
   .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+  .footer__main {
+    flex: 1 1 auto;
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
