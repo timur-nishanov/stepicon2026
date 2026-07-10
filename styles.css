@@ -507,17 +507,17 @@ img {
   border-color: var(--border-purple);
 }
 .points__card--green {
-  left: 64.79%;
+  /* holds "С 2016 года" (the longest stat) so it gets the extra width; left
+     nudged in from 64.79% so 61.3% + 36% keeps the old right edge (~97.3%)
+     and never overflows the section. */
+  left: 61.3%;
   top: 35.25%;
+  width: 36%;
   border-color: var(--border-green);
 }
 .points__card--white {
   left: 31.94%;
   top: 54.99%;
-  /* wider than the other two — "С 2016 года" needs the extra room. The cards
-     already overlap by design (this one paints over both purple and green
-     at the corners) but must stay clear of the green card's own label text. */
-  width: 36%;
   border-color: var(--border-white);
 }
 
@@ -862,13 +862,16 @@ img {
 }
 .program-banner__title--live {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* the text can wrap to 2 lines — keep the dot on the first */
   gap: 14px;
 }
 .program-banner__live {
   flex: 0 0 auto;
   width: 14px;
   height: 14px;
+  /* drop the dot onto the first line's optical centre (leading + cap height)
+     instead of the top of the line box */
+  margin-top: 0.42em;
   background-color: #ff3b30;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -1498,20 +1501,25 @@ img {
 /* -------------------------------------------------------------------------
    7j. FOOTER
    ------------------------------------------------------------------------- */
+/* Two clear rows: (1) logo + nav links, (2) a divided strip with the
+   copyright on the left and the social buttons on the right — so nothing
+   runs together into one flat line of text. */
 .footer {
   position: relative;
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  padding: clamp(40px, 5vw, 64px) var(--layout-pad);
+  padding: clamp(48px, 5vw, 72px) var(--layout-pad) clamp(40px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3vw, 40px);
+}
+.footer__top {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  /* logo + links sit together (gap below); .footer__bottom's own auto
-     margin pushes it to the far right instead of space-between stretching
-     everything apart — that dead space was what forced it to wrap first */
-  justify-content: flex-start;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 20px 40px;
 }
 .footer__logo {
   flex: 0 0 auto;
@@ -1522,7 +1530,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px 22px;
+  gap: 12px 28px;
   font-size: var(--t-primary-size);
   font-weight: var(--t-primary-weight);
   line-height: var(--t-primary-lh);
@@ -1533,11 +1541,13 @@ img {
   color: var(--text-primary);
 }
 .footer__bottom {
-  flex: 0 0 auto;
-  margin-left: auto;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: clamp(24px, 2.6vw, 32px);
+  border-top: 1px solid var(--background-transparent);
 }
 .footer__copy {
   margin: 0;
@@ -1545,44 +1555,33 @@ img {
   font-weight: var(--t-tag-weight);
   line-height: var(--t-tag-lh);
   letter-spacing: var(--t-tag-ls);
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   white-space: nowrap;
 }
 .footer__social {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
+/* Bigger, higher-contrast circles so they don't disappear against the
+   black background (the old 8% fill was near-invisible). */
 .footer__social-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background-color: var(--background-transparent-1);
-  color: var(--text-secondary);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-.footer__social-link:hover {
-  background-color: var(--background-transparent);
-  color: var(--text-primary);
+.footer__social-link svg {
+  width: 24px;
+  height: 24px;
 }
-/* Above 1440 there's slack in the row, so the links read better centred
-   between the logo and the copyright/social block instead of hugging the
-   logo — grid gives true centring regardless of how wide either side is. */
-@media (min-width: 1441px) {
-  .footer {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-  }
-  .footer__links {
-    justify-self: center;
-  }
-  .footer__bottom {
-    margin-left: 0;
-    justify-self: end;
-  }
+.footer__social-link:hover {
+  background-color: rgba(255, 255, 255, 0.22);
 }
 
 /* -------------------------------------------------------------------------
@@ -1902,7 +1901,10 @@ html.menu-open body {
     max-width: 620px;
   }
   .topbar__menu {
-    gap: 22px;
+    /* tighter gap + smaller type so the 7 links (incl. the longer
+       "Принять участие") still fit beside the logo down to 769px */
+    gap: 14px;
+    font-size: 16px;
   }
   .plate__value {
     font-size: 24px; /* narrower 3-col plates: keep the address readable */
@@ -2079,6 +2081,11 @@ html.menu-open body {
     border-width: clamp(10px, 3.4vw, 18px);
     padding: 24px;
   }
+  /* desktop swaps the green/white card CONTENTS for the right L→R reading
+     order; the stacked column follows DOM order, so re-order it here to keep
+     the intended sequence: 2 дня → 150+ → С 2016 года */
+  .points__card--white { order: 1; }
+  .points__card--green { order: 2; }
   .points__num {
     font-size: clamp(48px, 13vw, 72px); /* full-width cards: bigger, readable */
   }
@@ -2165,20 +2172,15 @@ html.menu-open body {
     padding-right: 52px;
   }
 
-  /* Footer: stack logo / links / copyright+social into a centred column */
-  .footer {
+  /* Footer: logo above the links; copyright + social stay a single row
+     (icons keep their bigger, high-contrast circles). */
+  .footer__top {
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
+    gap: 20px;
   }
   .footer__bottom {
-    width: 100%;
-    margin-left: 0; /* the desktop auto-right-align doesn't apply in this stacked column */
-    /* social icons above the copyright line, both stacked (not side by side) —
-       column-reverse flips the visual order without touching the DOM order */
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center;
   }
   /* Finale: full-width buttons, taller photo rows so they read on small screens */
   .finale__buttons {
