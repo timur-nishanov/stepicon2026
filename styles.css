@@ -883,6 +883,13 @@ img {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.25; }
 }
+/* Desktop: force "Часть докладов…" onto its own second line. On mobile the
+   text already wraps in the narrow banner, so drop the hard break there. */
+@media (max-width: 768px) {
+  .program-banner__nl {
+    display: none;
+  }
+}
 .program-banner__sub {
   margin: 0;
   font-size: clamp(16px, 1.7vw, 24px);
@@ -1501,25 +1508,18 @@ img {
 /* -------------------------------------------------------------------------
    7j. FOOTER
    ------------------------------------------------------------------------- */
-/* Two clear rows: (1) logo + nav links, (2) a divided strip with the
-   copyright on the left and the social buttons on the right — so nothing
-   runs together into one flat line of text. */
+/* Single row on desktop: logo, then the links, with the social buttons
+   pushed to the far right. */
 .footer {
   position: relative;
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  padding: clamp(48px, 5vw, 72px) var(--layout-pad) clamp(40px, 4vw, 56px);
+  padding: clamp(44px, 4.5vw, 64px) var(--layout-pad);
   display: flex;
-  flex-direction: column;
-  gap: clamp(28px, 3vw, 40px);
-}
-.footer__top {
-  display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;   /* logo | links | social stay on one row on desktop */
   align-items: center;
-  justify-content: space-between;
-  gap: 20px 40px;
+  gap: 24px 40px;
 }
 .footer__logo {
   flex: 0 0 auto;
@@ -1527,10 +1527,14 @@ img {
   line-height: 0;
 }
 .footer__links {
+  flex: 1 1 auto;      /* fills the middle; wraps its own items to 2 lines
+                          (at narrower desktop widths) rather than pushing the
+                          social buttons off the row */
+  min-width: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px 28px;
+  gap: 14px 40px; /* a touch more breathing room between the link items */
   font-size: var(--t-primary-size);
   font-weight: var(--t-primary-weight);
   line-height: var(--t-primary-lh);
@@ -1540,25 +1544,8 @@ img {
 .footer__links a:hover {
   color: var(--text-primary);
 }
-.footer__bottom {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding-top: clamp(24px, 2.6vw, 32px);
-  border-top: 1px solid var(--background-transparent);
-}
-.footer__copy {
-  margin: 0;
-  font-size: var(--t-tag-size);
-  font-weight: var(--t-tag-weight);
-  line-height: var(--t-tag-lh);
-  letter-spacing: var(--t-tag-ls);
-  color: var(--text-secondary);
-  white-space: nowrap;
-}
 .footer__social {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -1718,7 +1705,7 @@ img {
   /* Basis matches the top nav block so at 1440 the left edge lines up with the
      first menu item ("О Stepicon"); both are anchored to the right gutter.
      flex-shrink lets it narrow below 1440 instead of overflowing the row. */
-  flex: 0 1 675px;
+  flex: 0 1 758px;
   min-width: 0;
   max-width: 100%;
   font-size: clamp(22px, 2.78vw, var(--t-accent-size)); /* fluid, caps at the token */
@@ -2172,15 +2159,15 @@ html.menu-open body {
     padding-right: 52px;
   }
 
-  /* Footer: logo above the links; copyright + social stay a single row
-     (icons keep their bigger, high-contrast circles). */
-  .footer__top {
+  /* Footer: stack logo → links → social into a left-aligned column; the
+     social icons keep their bigger, high-contrast circles. */
+  .footer {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 24px;
   }
-  .footer__bottom {
-    align-items: center;
+  .footer__social {
+    margin-left: 0; /* the desktop far-right push doesn't apply once stacked */
   }
   /* Finale: full-width buttons, taller photo rows so they read on small screens */
   .finale__buttons {
