@@ -1714,13 +1714,17 @@ img {
 
 .hero__subtitle {
   margin: 0 0 6px;
-  /* Right-anchored, width tracks the viewport so the LEFT edge always lands
-     just to the right of the white hero line (its vertical stroke sits at
-     ~50% of the viewport). The subtitle no longer blends, so white-on-white
-     would merge — keeping it clear of the line matters at every width, not
-     just 1440. (Deliberately NOT aligned to the nav's first item, which sat
-     left of the line.) Shrinking only pushes it further right, so that's safe. */
-  flex: 0 1 calc(48.5vw - 24px);
+  /* Right-anchored. The subtitle no longer blends, so it must never overlap
+     the white hero line (vertical stroke at ~50% of the viewport → right edge
+     ≈ 51.1vw). Two behaviours, blended with min():
+       • 758px basis = left edge lines up with the first nav item (the "power
+         line"). Used on wide screens, where that still clears the line.
+       • calc(48.9vw - 48px) = pin the left edge ~32px to the right of the
+         line. Takes over once the nav-aligned position would come closer
+         than 32px (around 1650px and below).
+     Whichever is NARROWER wins, so the text stays ≥32px off the line while
+     preferring nav alignment when there's room. Shrinking only helps. */
+  flex: 0 1 min(758px, calc(48.9vw - 48px));
   min-width: 0;
   max-width: 100%;
   font-size: clamp(22px, 2.78vw, var(--t-accent-size)); /* fluid, caps at the token */
