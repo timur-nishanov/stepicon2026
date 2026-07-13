@@ -1257,15 +1257,15 @@ img {
 .page-end {
   overflow: clip;
 }
-/* wrapper around FINALE + FAQ: the glow lives here so it bleeds across both
-   (onto the FAQ) while overflow:hidden clips it (no horizontal scrollbar). */
+/* wrapper around FINALE + FAQ: the glow lives here and this box contains it
+   (both for the horizontal scrollbar and the page scroll-height — without
+   this clip the huge glow inflates the document by thousands of px). Safari
+   treats `overflow: clip visible` as clip on BOTH axes, so the glow is cut at
+   this box's bottom edge — the mobile glow below is sized to have fully faded
+   out before then, so that cut only ever falls on transparent pixels. */
 .finale-wrap {
   position: relative;
   z-index: 1;
-  /* both axes set explicitly: browsers force overflow-y to clip too if it's
-     left as the "visible" default while overflow-x is anything else — that
-     was hard-cutting the glow's blur off at the top/bottom edge instead of
-     letting it fade out */
   overflow: clip visible;
 }
 .finale {
@@ -2230,23 +2230,17 @@ html.menu-open body {
     aspect-ratio: 3 / 2;
   }
 
-  /* Purple glow: swap the blurred circle for a radial gradient. It fades
-     fully to transparent, so the overflow:clip ancestors can't leave a hard
-     cut edge on mobile Safari (the recurring "shape gets clipped" bug). */
+  /* Purple glow stays a blurred ellipse, but sized to fully fade out before
+     the .finale-wrap bottom edge — so the (Safari) clip at that edge only
+     ever falls on transparent pixels and never leaves a hard cut. */
   .finale__glow {
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    filter: none;
-    opacity: 1;
-    background: radial-gradient(
-      110% 78% at 50% 82%,
-      rgba(150, 116, 255, 0.5) 0%,
-      rgba(150, 116, 255, 0.14) 44%,
-      transparent 72%
-    );
+    left: 50%;
+    top: auto;
+    bottom: calc(100vw * 300 / 1440);
+    transform: translateX(-50%);
+    width: calc(100vw * 1300 / 1440);
+    height: calc(100vw * 1000 / 1440);
+    filter: blur(calc(100vw * 210 / 1440));
   }
 
   /* --- Fullscreen mobile menu --- */
