@@ -1714,10 +1714,13 @@ img {
 
 .hero__subtitle {
   margin: 0 0 6px;
-  /* Basis matches the top nav block so at 1440 the left edge lines up with the
-     first menu item ("О Stepicon"); both are anchored to the right gutter.
-     flex-shrink lets it narrow below 1440 instead of overflowing the row. */
-  flex: 0 1 758px;
+  /* Right-anchored, width tracks the viewport so the LEFT edge always lands
+     just to the right of the white hero line (its vertical stroke sits at
+     ~50% of the viewport). The subtitle no longer blends, so white-on-white
+     would merge — keeping it clear of the line matters at every width, not
+     just 1440. (Deliberately NOT aligned to the nav's first item, which sat
+     left of the line.) Shrinking only pushes it further right, so that's safe. */
+  flex: 0 1 calc(48.5vw - 24px);
   min-width: 0;
   max-width: 100%;
   font-size: clamp(22px, 2.78vw, var(--t-accent-size)); /* fluid, caps at the token */
