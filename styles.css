@@ -1596,7 +1596,7 @@ img {
      just enough that the bottom-aligned content still sits below it — this
      keeps the lines full-width and un-clipped instead of crashing the title.
      At 1440×900 the 100vh term wins, so the reference is unchanged. */
-  min-height: max(100vh, calc(21.8vw + 525px));
+  min-height: max(100vh, calc(21.8vw + 565px));
   padding: var(--layout-pad) var(--layout-pad) 0; /* 16px gutter top/sides */
   border-bottom: var(--layout-pad) solid transparent; /* 16px bottom gutter, sits outside the clip */
   overflow: hidden;       /* clip the line layer to the plates (no green diagonal poking out) */
@@ -1614,7 +1614,9 @@ img {
   top: 0;
   left: 0;
   width: 100%;
-  height: auto; /* full-width, scales with width — always reaches both edges */
+  height: 100%; /* fill the hero; slice keeps the aspect and lets the lines run
+                   all the way down behind the plates at any window shape, so
+                   they never float short of the plates */
   pointer-events: none;
   overflow: hidden;    /* clip the long vertical line to the hero region */
 }
@@ -1894,6 +1896,12 @@ html.menu-open body {
 
 /* Tablet — stack the title and subtitle, drop the side tag */
 @media (max-width: 1024px) {
+  /* Footer: below this width the 758px right-anchored block crowds the links
+     against the logo. Let .footer__main dissolve so logo / links / social
+     become three even-spaced flex items (equal gaps via space-between). */
+  .footer__main {
+    display: contents;
+  }
   .hero__title-row {
     flex-direction: column;
     align-items: flex-start;
@@ -2178,20 +2186,15 @@ html.menu-open body {
     padding-right: 52px;
   }
 
-  /* Footer: stack logo → links → social into a left-aligned column. */
+  /* Footer: stack logo → links → social into a left-aligned column.
+     (.footer__main is display:contents from the 1024 breakpoint, so logo,
+     links and social are all direct flex children here.) */
   .footer {
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
   }
-  .footer__main {
-    flex: 1 1 auto;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 32px;
-  }
-  /* Finale: full-width buttons, taller photo rows so they read on small screens */
+  /* Finale: full-width buttons */
   .finale__buttons {
     flex-direction: column;
     align-items: stretch;
@@ -2200,8 +2203,50 @@ html.menu-open body {
   .finale__btn {
     width: 100%;
   }
+  /* Closing photos → a swipeable horizontal slider (the 2×2 grid is cramped
+     on a phone). Flatten the rows so all four photos become equal slides. */
+  .finale__photos {
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* let the slides bleed to the screen edges, then pad so the first/last
+       still align to the layout gutter */
+    margin: 0 calc(-1 * var(--layout-pad));
+    padding: 0 var(--layout-pad);
+  }
+  .finale__photos::-webkit-scrollbar {
+    display: none;
+  }
   .finale__row {
-    height: clamp(150px, 40vw, 280px);
+    display: contents; /* the 4 photos become direct slides */
+  }
+  .finale__photo {
+    flex: 0 0 78%;
+    scroll-snap-align: center;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+
+  /* Purple glow: swap the blurred circle for a radial gradient. It fades
+     fully to transparent, so the overflow:clip ancestors can't leave a hard
+     cut edge on mobile Safari (the recurring "shape gets clipped" bug). */
+  .finale__glow {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    filter: none;
+    opacity: 1;
+    background: radial-gradient(
+      110% 78% at 50% 82%,
+      rgba(150, 116, 255, 0.5) 0%,
+      rgba(150, 116, 255, 0.14) 44%,
+      transparent 72%
+    );
   }
 
   /* --- Fullscreen mobile menu --- */
