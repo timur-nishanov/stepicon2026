@@ -1726,7 +1726,7 @@ img {
   letter-spacing: var(--t-accent-ls);
   color: var(--text-primary);
   overflow-wrap: break-word; /* never spill past the container edge */
-  mix-blend-mode: difference; /* inverts where it overlaps the line layer */
+  /* no blend mode — the subtitle just sits on top, the line passes under it */
 }
 
 /* --- CTA plates (place / date / button) --- */
