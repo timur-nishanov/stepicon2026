@@ -425,11 +425,13 @@ img {
   }
 }
 
-/* narrower than the other two so it clears photo--1/--2 on both sides
-   (its copy is longer, so it wraps to more lines at the same font size
-   as --2/--3 — kept equal per client request, not shrunk) */
+/* Its copy is the longest of the three, so at equal font size (kept equal
+   per client request, not shrunk) it needs the most width to avoid wrapping
+   into too many lines. Wide enough now that it grazes photo--1/--2 at some
+   breakpoints — fine, since .about__text-inner's difference-blend already
+   handles text-over-photo crossings everywhere else (e.g. the hero title). */
 .about__text--1 .about__text-inner {
-  width: min(800px, 88%);
+  width: min(920px, 88%);
 }
 
 .about__text--2 {
