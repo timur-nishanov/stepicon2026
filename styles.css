@@ -2061,7 +2061,13 @@ html.menu-open body {
     order: -2;          /* text first, above the photos */
     margin: 0 0 28px;   /* breathing room between the heading and its photos */
   }
-  .about__text-inner {
+  /* full width on mobile — override the desktop per-variant width caps
+     (.about__text--N .about__text-inner) which are more specific, otherwise
+     the copy stays capped narrow and wraps into many tall lines */
+  .about__text-inner,
+  .about__text--1 .about__text-inner,
+  .about__text--2 .about__text-inner,
+  .about__text--3 .about__text-inner {
     width: 100%;
     font-size: clamp(24px, 6.4vw, 34px); /* readable for the long statement */
   }
@@ -2232,7 +2238,11 @@ html.menu-open body {
     flex: 0 0 78%;
     scroll-snap-align: center;
     height: auto;
-    aspect-ratio: 3 / 2;
+    /* taller than the desktop 3:2 so the portrait shots (e.g. the speaker)
+       aren't cropped to a strip; bias the crop toward the top so faces,
+       which sit in the upper part of the frame, stay in view */
+    aspect-ratio: 4 / 3;
+    object-position: center 28%;
   }
 
   /* Purple glow stays a blurred ellipse, but sized to fully fade out before
