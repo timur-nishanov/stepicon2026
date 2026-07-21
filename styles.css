@@ -334,17 +334,17 @@ img {
   display: block;
 }
 /* Block 1 */
-.about__photo--1 { left: 0;      top: 8.11%;  width: 21.38%; height: 40.56%; }
+.about__photo--1 { left: 0;      top: 8.11%;  width: 16%;    height: 40.56%; }
 .about__photo--2 { left: 84.30%; top: 12.11%; width: 15.70%; height: 29.78%; }
-.about__photo--3 { left: 18.10%; top: 66.00%; width: 14.49%; height: 27.56%; }
-.about__photo--4 { left: 69.00%; top: 65.00%; width: 19.67%; height: 31.00%; }
+.about__photo--3 { left: 18.10%; top: 71.00%; width: 14.49%; height: 27.56%; }
+.about__photo--4 { left: 69.00%; top: 68.00%; width: 19.67%; height: 31.00%; }
 /* Block 2 */
-.about__photo--5 { left: 0;      top: 1.78%;  width: 21.38%; height: 40.56%; }
-.about__photo--6 { left: 71.66%; top: 8.89%;  width: 28.34%; height: 29.56%; }
+.about__photo--5 { left: 0;      top: 1.78%;  width: 16%;    height: 40.56%; }
+.about__photo--6 { left: 84.00%; top: 8.89%;  width: 16%;    height: 29.56%; }
 .about__photo--7 { left: 60.16%; top: 71.00%; width: 17.12%; height: 32.44%; }
 /* Block 3 — two photos: large one top-left, one lower-right */
-.about__photo--8 { left: 0;      top: -6.00%; width: 40.00%; height: 54.00%; }
-.about__photo--9 { left: 62.00%; top: 60.00%; width: 36.00%; height: 33.00%; }
+.about__photo--8 { left: 0;      top: -10.00%; width: 40.00%; height: 36.00%; }
+.about__photo--9 { left: 62.00%; top: 64.00%; width: 36.00%; height: 33.00%; }
 
 .about__text {
   /* full-width, transform-free wrapper: a transform (or isolation) here would
@@ -431,14 +431,14 @@ img {
    breakpoints — fine, since .about__text-inner's difference-blend already
    handles text-over-photo crossings everywhere else (e.g. the hero title). */
 .about__text--1 .about__text-inner {
-  width: min(920px, 88%);
+  width: min(920px, 64%);
 }
 
 .about__text--2 {
   bottom: 34%; /* equivalent to the old top: 66% */
 }
 .about__text--2 .about__text-inner {
-  width: min(933px, 90%);
+  width: min(933px, 64%);
 }
 
 .about__text--3 {
@@ -1593,12 +1593,11 @@ img {
   z-index: 1;
   isolation: isolate;     /* keep the title/subtitle blend within the hero */
   width: 100%;            /* edge-to-edge — no centring container / max-width */
-  /* Normally 100vh. On a wide/short (zoomed) window the full-width lines push
-     their convergence lower (it scales with width ≈ 21.8vw), so grow the hero
-     just enough that the bottom-aligned content still sits below it — this
-     keeps the lines full-width and un-clipped instead of crashing the title.
-     At 1440×900 the 100vh term wins, so the reference is unchanged. */
-  min-height: max(100vh, calc(21.8vw + 565px));
+  /* Exactly one viewport tall: the plates + button must always be fully
+     visible without scrolling. The line SVG uses xMidYMax slice, so it
+     rescales itself to whatever height this yields (bottom-anchored,
+     cropping the top) instead of needing extra hero height. */
+  min-height: 100vh;
   padding: var(--layout-pad) var(--layout-pad) 0; /* 16px gutter top/sides */
   border-bottom: var(--layout-pad) solid transparent; /* 16px bottom gutter, sits outside the clip */
   overflow: hidden;       /* clip the line layer to the plates (no green diagonal poking out) */
@@ -1750,7 +1749,9 @@ img {
 .plate {
   flex: 1 1 0;
   min-width: 0;
-  min-height: 148px; /* grows if text wraps at narrow widths instead of clipping */
+  /* 148px on a normal screen; on short windows (browser chrome eating the
+     height) compress down to 112px so the hero always fits 100vh */
+  min-height: min(148px, max(112px, 18vh));
   padding: 20px 24px;
   display: flex;
   flex-direction: column;
@@ -1889,7 +1890,7 @@ html.menu-open body {
 /* Small desktop */
 @media (max-width: 1280px) {
   .hero__content {
-    gap: 32px;
+    gap: 24px; /* tighter so the title clears the line convergence on short windows */
   }
   .topbar__menu {
     gap: 28px;
@@ -1907,14 +1908,16 @@ html.menu-open body {
   .hero__title-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 12px;
   }
   .hero__subtitle {
-    /* stacked layout: reset the desktop flex-basis (675px) — in this column it
-       would otherwise force a 675px-tall subtitle and a huge empty gap */
+    /* stacked layout: reset the desktop flex-basis — in this column it would
+       otherwise force a huge empty gap. No max-width cap: the line fits the
+       content width here, and one line (not two) keeps the stacked hero short
+       enough that the title clears the line convergence on short windows */
     flex: 0 0 auto;
     width: auto;
-    max-width: 620px;
+    max-width: 100%;
   }
   .topbar__menu {
     /* tighter gap + smaller type so the 7 links (incl. the longer
