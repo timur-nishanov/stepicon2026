@@ -1537,6 +1537,38 @@ img {
   width: auto;
   height: 44px; /* a touch larger than the 32px top-bar mark */
 }
+/* Partner logos: sits between the Stepik mark and the links/social block,
+   top-aligned with the links/social row (same baseline as .footer__main). */
+.footer__partners {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.footer__partners-label {
+  font-size: var(--t-primary-size);
+  font-weight: var(--t-primary-weight);
+  line-height: var(--t-primary-lh);
+  letter-spacing: var(--t-primary-ls);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.footer__partners-logos {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.footer__partners-logos img {
+  width: auto;
+  height: 28px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.footer__partners-logos a:hover img {
+  opacity: 1;
+}
 .footer__main {
   flex: 0 1 758px; /* same right-anchored basis as .hero__subtitle */
   min-width: 0;
@@ -2197,13 +2229,17 @@ html.menu-open body {
     padding-right: 52px;
   }
 
-  /* Footer: stack logo → links → social into a left-aligned column.
-     (.footer__main is display:contents from the 1024 breakpoint, so logo,
-     links and social are all direct flex children here.) */
+  /* Footer: stack logo → partners → links → social into a left-aligned
+     column. (.footer__main is display:contents from the 1024 breakpoint, so
+     logo, partners, links and social are all direct flex children here.) */
   .footer {
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
+  }
+  .footer__partners {
+    /* left-align the label/logos within the block, matching the column */
+    align-items: flex-start;
   }
   /* Finale: full-width buttons */
   .finale__buttons {
