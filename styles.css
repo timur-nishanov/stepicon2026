@@ -1538,22 +1538,21 @@ img {
   height: 44px; /* a touch larger than the 32px top-bar mark */
 }
 /* Partner logos: sits between the Stepik mark and the links/social block,
-   self-centered on the row's cross-axis (the row is as tall as the stacked
-   links nav, so flex-start would otherwise pin this to the top). */
+   top-aligned with the links/social row (same baseline as .footer__main). */
 .footer__partners {
   flex: 0 0 auto;
-  align-self: center;
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 14px;
 }
 .footer__partners-label {
-  font-size: var(--t-tag-size);
-  font-weight: var(--t-tag-weight);
-  line-height: var(--t-tag-lh);
-  letter-spacing: var(--t-tag-ls);
-  color: var(--text-tertiary);
+  font-size: var(--t-primary-size);
+  font-weight: var(--t-primary-weight);
+  line-height: var(--t-primary-lh);
+  letter-spacing: var(--t-primary-ls);
+  color: var(--text-secondary);
   white-space: nowrap;
 }
 .footer__partners-logos {
@@ -2239,10 +2238,7 @@ html.menu-open body {
     gap: 32px;
   }
   .footer__partners {
-    /* row-based align-self:center would otherwise centre this horizontally
-       against the left-aligned column; pin it back to the left edge, and
-       left-align the label/logos within it to match */
-    align-self: flex-start;
+    /* left-align the label/logos within the block, matching the column */
     align-items: flex-start;
   }
   /* Finale: full-width buttons */
