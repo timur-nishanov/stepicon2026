@@ -1544,7 +1544,7 @@ img {
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
 }
 .footer__partners-label {
@@ -1555,14 +1555,27 @@ img {
   color: var(--text-secondary);
   white-space: nowrap;
 }
+/* 2x2 grid: the 4 partner logos have wildly different aspect ratios (from
+   ~2.5:1 wordmarks to ~12:1 wide lockups), so each is capped to a shared
+   max-height/max-width box (auto/auto lets the tighter constraint win,
+   preserving aspect ratio) rather than forced to one uniform height. */
 .footer__partners-logos {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  align-items: center;
+  justify-items: start;
+  column-gap: 28px;
+  row-gap: 16px;
+}
+.footer__partners-logos a {
   display: flex;
   align-items: center;
-  gap: 28px;
 }
 .footer__partners-logos img {
   width: auto;
-  height: 28px;
+  height: auto;
+  max-width: 130px;
+  max-height: 28px;
   opacity: 0.85;
   transition: opacity 0.2s ease;
 }
@@ -2236,10 +2249,6 @@ html.menu-open body {
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
-  }
-  .footer__partners {
-    /* left-align the label/logos within the block, matching the column */
-    align-items: flex-start;
   }
   /* Finale: full-width buttons */
   .finale__buttons {
