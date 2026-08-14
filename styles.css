@@ -806,6 +806,13 @@ img {
   object-fit: cover;
   display: block;
 }
+/* Announced speaker whose portrait hasn't arrived yet: show the empty tile
+   (same box as a real one — glow, but no silhouette) so their row doesn't
+   sit as a bare name beside talks that already have a photo. Swap for
+   --real plus an <img class="talk__portrait"> once the photo lands. */
+.talk__photo--placeholder {
+  display: flex;
+}
 .talk__person {
   display: flex;
   flex-direction: column;
