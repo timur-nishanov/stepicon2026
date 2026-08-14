@@ -727,6 +727,24 @@ img {
 }
 .talk__title--solo {
   align-self: center; /* single-line rows centre the title against the time */
+  /* flex so the square dot (below) sits beside the text */
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+/* Coloured square marker — back on selected standalone items (master
+   classes / networking interactives) per client request. */
+.talk__title-dot {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  /* optically level with the cap height of the first line at any font size
+     (the title font scales with the viewport) */
+  margin-top: 0.38em;
+  background-color: var(--background-green);
+}
+.talk__title-dot--purple {
+  background-color: var(--background-purple);
 }
 /* "Интерактив" (and similar standalone segments): bigger + a bigger dot so
    it doesn't read as flat as a plain talk title. */
