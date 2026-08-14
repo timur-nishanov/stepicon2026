@@ -718,27 +718,12 @@ img {
 }
 .talk__title {
   margin: 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
   /* same size as the program-banner title ("Хотите стать спикером?") */
   font-size: clamp(24px, 3vw, var(--t-accent-size));
   font-weight: var(--t-accent-weight);
   line-height: var(--t-accent-lh);
   letter-spacing: var(--t-accent-ls);
   color: var(--text-primary);
-}
-/* Coloured square marking every row (matches the speaker's green/purple, so
-   it stays consistent with the hidden photo tile if that ever comes back). */
-.talk__title-dot {
-  flex: 0 0 auto;
-  width: 16px;
-  height: 16px;
-  margin-top: 15px; /* level with the cap height of the first line, not the whole block */
-  background-color: var(--background-green);
-}
-.talk__title-dot--purple {
-  background-color: var(--background-purple);
 }
 .talk__title--solo {
   align-self: center; /* single-line rows centre the title against the time */
@@ -755,9 +740,6 @@ img {
 /* Green "Воркшоп" tag that flags workshops apart from the lectures */
 .talk__feature {
   align-self: flex-start;
-  /* lines up with the title's text, not the dot before it — same 32px
-     offset used for .talk__author (dot 16px + its 16px gap) */
-  margin-left: 32px;
   padding: 5px 14px;
   border-radius: 999px;
   background-color: var(--background-green);
@@ -774,17 +756,13 @@ img {
   display: flex;
   align-items: flex-end;
   gap: 20px;
-  /* lines up with the title's text, not the dot before it (dot 16px + its
-     16px gap) — matters now that the photo tile is hidden and this is the
-     only thing left in the row to align */
-  margin-left: 32px;
 }
 /* Speaker placeholder: dark tile, a soft coloured glow, a person silhouette.
    Hidden per client request (they don't want the silhouette placeholder) —
    markup is kept as-is so it can be turned back on (or swapped for real
    photos) later without rebuilding the talk cards. */
 .talk__photo {
-  display: none; /* was: flex — restore this to bring the placeholder back */
+  display: none; /* silhouette placeholder stays hidden ("Скоро объявим") */
   position: relative;
   flex: 0 0 auto;
   width: clamp(96px, 9.2vw, 132px);
@@ -815,6 +793,17 @@ img {
   position: relative; /* above the glow */
   width: 84%;
   height: auto;
+  display: block;
+}
+/* Announced speaker: the tile shows their real portrait instead of the
+   hidden silhouette placeholder. */
+.talk__photo--real {
+  display: flex;
+}
+.talk__portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 .talk__person {
@@ -2199,16 +2188,6 @@ html.menu-open body {
   }
   .talk__title--solo {
     align-self: flex-start;
-  }
-  /* Drop the coloured square marker per row — not needed on mobile. The
-     title text now starts flush left (no dot + gap before it), so the
-     author/badge indents that matched that offset need to reset too. */
-  .talk__title-dot {
-    display: none;
-  }
-  .talk__author,
-  .talk__feature {
-    margin-left: 0;
   }
   /* Banner: stack text above a full-width button */
   .program-banner {
