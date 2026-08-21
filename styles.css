@@ -716,6 +716,12 @@ img {
      a short single-speaker title stretches into one very long line */
   max-width: 820px;
 }
+/* Sessions with no speaker block at all (panel discussions): the min-height
+   above exists only to push an author line down, so without one it leaves a
+   tall dead gap under the title. Collapse to the content. */
+.talk--compact {
+  min-height: 0;
+}
 .talk__title {
   margin: 0;
   /* same size as the program-banner title ("Хотите стать спикером?") */
