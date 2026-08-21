@@ -831,6 +831,14 @@ img {
 .talk__photo--placeholder {
   display: flex;
 }
+/* Announced speaker whose photo is still coming: hold the portrait's box
+   without drawing anything in it (no tile, no glow — client's call), so the
+   caption already sits where it will once the photo lands and nothing
+   shifts. Swap for --real plus an <img class="talk__portrait"> then. */
+.talk__photo--reserved {
+  display: flex;
+  background-color: transparent;
+}
 .talk__person {
   display: flex;
   flex-direction: column;
