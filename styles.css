@@ -716,6 +716,12 @@ img {
      a short single-speaker title stretches into one very long line */
   max-width: 820px;
 }
+/* Sessions with no speaker block at all (panel discussions): the min-height
+   above exists only to push an author line down, so without one it leaves a
+   tall dead gap under the title. Collapse to the content. */
+.talk--compact {
+  min-height: 0;
+}
 .talk__title {
   margin: 0;
   /* same size as the program-banner title ("Хотите стать спикером?") */
@@ -830,14 +836,6 @@ img {
    --real plus an <img class="talk__portrait"> once the photo lands. */
 .talk__photo--placeholder {
   display: flex;
-}
-/* Announced speaker whose photo is still coming: hold the portrait's box
-   without drawing anything in it (no tile, no glow — client's call), so the
-   caption already sits where it will once the photo lands and nothing
-   shifts. Swap for --real plus an <img class="talk__portrait"> then. */
-.talk__photo--reserved {
-  display: flex;
-  background-color: transparent;
 }
 .talk__person {
   display: flex;
