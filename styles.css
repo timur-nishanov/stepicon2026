@@ -1237,9 +1237,74 @@ img {
   text-decoration: line-through;
 }
 .tariff-card__note {
+  position: relative; /* positioning context for the tooltip below */
   font-size: clamp(16px, 1.7vw, 24px);
   font-weight: 500;
   line-height: 1.4;
+}
+/* Small (i) after the discount note — the 50% off isn't self-explanatory,
+   so hovering it explains where the promo code lives. A <button> (not a
+   bare span) so it is reachable by keyboard and tappable on touch, where
+   :hover never fires. */
+.tariff-tip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: 0.06em; /* optically centred against the note's x-height */
+  margin-left: 0.5em;
+  width: 1.15em;
+  height: 1.15em;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: 0.85em;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1;
+  cursor: help;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.tariff-tip:hover,
+.tariff-tip:focus-visible {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+/* The bubble is anchored to the note, not to the icon: the icon lands in a
+   different spot on every viewport (the note rewraps), and hanging the
+   bubble off it pushed the box past the card — and off-screen on mobile.
+   Pinning it to the note's left edge keeps it inside the card at any
+   width, and the note is what the tooltip explains anyway. */
+.tariff-tip__bubble {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  width: max-content;
+  max-width: min(300px, 100%);
+  padding: 12px 14px;
+  border-radius: 12px;
+  background-color: var(--background-white);
+  color: var(--text-primary-inverse);
+  /* reads as a layer floating over the cards rather than part of one */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  font-size: 15px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.35;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none; /* purely informational — never eats a click */
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+  z-index: 5;
+}
+.tariff-tip:hover .tariff-tip__bubble,
+.tariff-tip:focus-visible .tariff-tip__bubble {
+  opacity: 1;
+  visibility: visible;
 }
 .tariff-card__btn {
   flex: 0 0 auto;
