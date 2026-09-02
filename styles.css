@@ -781,6 +781,25 @@ img {
   align-items: flex-end;
   gap: 20px;
 }
+/* Panel discussion with several participants: portraits sit in a row, each
+   with its own caption underneath, instead of the single photo-beside-name
+   pair a one-speaker talk uses. */
+.talk__author--group {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: clamp(16px, 2.2vw, 32px);
+}
+.talk__speaker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* caption wraps to the portrait's width so the columns stay even */
+  width: clamp(96px, 9.2vw, 132px);
+}
+.talk__author--group .talk__tba {
+  font-size: clamp(14px, 1.15vw, 17px);
+  line-height: 1.25;
+}
 /* Speaker placeholder: dark tile, a soft coloured glow, a person silhouette.
    Hidden per client request (they don't want the silhouette placeholder) —
    markup is kept as-is so it can be turned back on (or swapped for real
