@@ -793,8 +793,10 @@ img {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  /* caption wraps to the portrait's width so the columns stay even */
-  width: clamp(96px, 9.2vw, 132px);
+  /* even columns across the card — the captions carry full roles, so
+     wrapping them to the portrait's 132px would shred them into slivers */
+  flex: 1 1 0;
+  min-width: 0;
 }
 .talk__author--group .talk__tba {
   font-size: clamp(14px, 1.15vw, 17px);
@@ -2144,6 +2146,18 @@ html.menu-open body {
 
 /* Mobile — single column throughout */
 @media (max-width: 768px) {
+  /* Panel participants: three columns leave ~110px each, far too narrow for
+     the full roles. Stack them instead, each portrait beside its caption. */
+  .talk__author--group {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .talk__author--group .talk__speaker {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
   /* topbar: logo + burger (nav moves into the fullscreen menu) */
   .topbar__menu {
     display: none;
