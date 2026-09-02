@@ -781,6 +781,27 @@ img {
   align-items: flex-end;
   gap: 20px;
 }
+/* Panel discussion with several participants: portraits sit in a row, each
+   with its own caption underneath, instead of the single photo-beside-name
+   pair a one-speaker talk uses. */
+.talk__author--group {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: clamp(16px, 2.2vw, 32px);
+}
+.talk__speaker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* even columns across the card — the captions carry full roles, so
+     wrapping them to the portrait's 132px would shred them into slivers */
+  flex: 1 1 0;
+  min-width: 0;
+}
+.talk__author--group .talk__tba {
+  font-size: clamp(14px, 1.15vw, 17px);
+  line-height: 1.25;
+}
 /* Speaker placeholder: dark tile, a soft coloured glow, a person silhouette.
    Hidden per client request (they don't want the silhouette placeholder) —
    markup is kept as-is so it can be turned back on (or swapped for real
@@ -2125,6 +2146,18 @@ html.menu-open body {
 
 /* Mobile — single column throughout */
 @media (max-width: 768px) {
+  /* Panel participants: three columns leave ~110px each, far too narrow for
+     the full roles. Stack them instead, each portrait beside its caption. */
+  .talk__author--group {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .talk__author--group .talk__speaker {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
   /* topbar: logo + burger (nav moves into the fullscreen menu) */
   .topbar__menu {
     display: none;
