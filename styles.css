@@ -872,12 +872,13 @@ img {
 }
 /* A confirmed speaker's real name/role — full white, not dimmed like the
    "Скоро объявим" placeholder. The role/affiliation on the second line stays
-   grey so the name itself pops. */
+   grey so the name itself pops, but at the tertiary 24% it was barely
+   legible on black, so it sits at the secondary 50% instead. */
 .talk__tba--name {
   color: var(--text-primary);
 }
 .talk__tba-role {
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 
 /* --- "Watch online" banner --- */
