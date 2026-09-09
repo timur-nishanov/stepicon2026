@@ -798,7 +798,10 @@ img {
   flex: 1 1 0;
   min-width: 0;
 }
-.talk__author--group .talk__tba {
+/* Two participants leave columns wide enough for the normal caption size,
+   so --group inherits it. Only the crowded three-column case needs to shrink
+   — that is what --dense is for. */
+.talk__author--dense .talk__tba {
   font-size: clamp(14px, 1.15vw, 17px);
   line-height: 1.25;
 }
