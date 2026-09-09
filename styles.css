@@ -716,6 +716,16 @@ img {
      a short single-speaker title stretches into one very long line */
   max-width: 820px;
 }
+/* Three participants inside the 820px measure leaves ~250px per column, which
+   shreds a full job title into five or six slivers. This card takes the whole
+   row so the captions get room; the title keeps the reading measure. */
+.talk--wide {
+  max-width: none;
+}
+.talk--wide .talk__head,
+.talk--wide > .talk__title {
+  max-width: 820px;
+}
 /* Sessions with no speaker block at all (panel discussions): the min-height
    above exists only to push an author line down, so without one it leaves a
    tall dead gap under the title. Collapse to the content. */
@@ -797,13 +807,6 @@ img {
      wrapping them to the portrait's 132px would shred them into slivers */
   flex: 1 1 0;
   min-width: 0;
-}
-/* Two participants leave columns wide enough for the normal caption size,
-   so --group inherits it. Only the crowded three-column case needs to shrink
-   — that is what --dense is for. */
-.talk__author--dense .talk__tba {
-  font-size: clamp(14px, 1.15vw, 17px);
-  line-height: 1.25;
 }
 /* Speaker placeholder: dark tile, a soft coloured glow, a person silhouette.
    Hidden per client request (they don't want the silhouette placeholder) —
