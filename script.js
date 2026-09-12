@@ -156,6 +156,108 @@
   });
 })();
 
+/* --- Panel speakers: swipeable track with arrows -------------------------
+       The track scrolls natively (trackpad, touch), so this only adds the
+       two things the browser doesn't give for free: arrow buttons that step
+       one speaker at a time, and click-and-drag for mouse users. ---------- */
+(function () {
+  var panels = document.querySelectorAll(".talk__panel");
+  if (!panels.length) return;
+
+  Array.prototype.forEach.call(panels, function (panel) {
+    var track = panel.querySelector(".talk__author--slider");
+    if (!track) return;
+    var prev = panel.querySelector(".talk__panel-nav--prev");
+    var next = panel.querySelector(".talk__panel-nav--next");
+
+    function step() {
+      var first = track.children[0];
+      if (!first) return track.clientWidth;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return first.getBoundingClientRect().width + gap;
+    }
+
+    /* A scrollLeft that never quite reaches the end (sub-pixel widths, zoom)
+       would leave the arrow enabled forever — hence the 2px slack. */
+    function sync() {
+      var max = track.scrollWidth - track.clientWidth;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max - 2;
+    }
+
+    if (prev) {
+      prev.addEventListener("click", function () {
+        track.scrollBy({ left: -step(), behavior: "smooth" });
+      });
+    }
+    if (next) {
+      next.addEventListener("click", function () {
+        track.scrollBy({ left: step(), behavior: "smooth" });
+      });
+    }
+
+    var ticking = false;
+    track.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        sync();
+        ticking = false;
+      });
+    });
+    window.addEventListener("resize", sync);
+
+    /* Drag to scroll. Pointer events cover mouse and pen; touch already
+       scrolls natively, so it is left alone. */
+    var down = false;
+    var startX = 0;
+    var startLeft = 0;
+    var moved = 0;
+
+    track.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;
+      down = true;
+      moved = 0;
+      startX = e.clientX;
+      startLeft = track.scrollLeft;
+      track.classList.add("is-dragging");
+    });
+
+    track.addEventListener("pointermove", function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > moved) moved = Math.abs(dx);
+      track.scrollLeft = startLeft - dx;
+      e.preventDefault();
+    });
+
+    function endDrag() {
+      if (!down) return;
+      down = false;
+      track.classList.remove("is-dragging");
+      sync();
+    }
+    track.addEventListener("pointerup", endDrag);
+    track.addEventListener("pointercancel", endDrag);
+    track.addEventListener("pointerleave", endDrag);
+
+    /* Swallow the click that follows a real drag, so releasing over a
+       caption doesn't feel like a stray tap. */
+    track.addEventListener(
+      "click",
+      function (e) {
+        if (moved > 5) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      },
+      true
+    );
+
+    sync();
+  });
+})();
+
 /* --- FAQ accordion ------------------------------------------------------- */
 (function () {
   var items = document.querySelectorAll(".faq__item");

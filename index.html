@@ -260,25 +260,44 @@
                 <h3 class="talk__title">Как создавать образовательный контент, когда обо&nbsp;всём может рассказать ИИ?</h3>
                 <span class="talk__feature">Дискуссия</span>
               </div>
-              <div class="talk__author talk__author--group">
-                <span class="talk__speaker">
-                  <span class="talk__photo talk__photo--real">
-                    <img class="talk__portrait" loading="lazy" src="assets/speaker-cu.webp" alt="Спикер Центрального университета" />
+              <!-- Six panellists don't fit the row, so they ride a swipeable
+                   track; the arrows make it read as a slider. -->
+              <div class="talk__panel">
+                <button class="talk__panel-nav talk__panel-nav--prev" type="button" aria-label="Предыдущие спикеры">
+                  <img loading="lazy" src="assets/chevron-left.svg" alt="" width="31" height="31" />
+                </button>
+                <div class="talk__author talk__author--group talk__author--slider">
+                  <span class="talk__speaker">
+                    <span class="talk__tba talk__tba--name">Анастасия Сатушева,<br /><span class="talk__tba-role">Group Head методистов направления «Бизнес», Центральный университет</span></span>
                   </span>
-                  <span class="talk__tba talk__tba--name">Тимур Чеплаков,<br /><span class="talk__tba-role">методист направления Гибких навыков, Центральный университет</span></span>
-                </span>
-                <span class="talk__speaker">
-                  <span class="talk__photo talk__photo--real">
-                    <img class="talk__portrait" loading="lazy" src="assets/speaker-rudn.webp" alt="Спикер РУДН" />
+                  <span class="talk__speaker">
+                    <span class="talk__photo talk__photo--real">
+                      <img class="talk__portrait" loading="lazy" src="assets/speaker-cu.webp" alt="Тимур Чеплаков" />
+                    </span>
+                    <span class="talk__tba talk__tba--name">Тимур Чеплаков,<br /><span class="talk__tba-role">методист направления Гибких навыков, Центральный университет</span></span>
                   </span>
-                  <span class="talk__tba talk__tba--name">Павел Баскаков,<br /><span class="talk__tba-role">заместитель директора Центра развития цифровых технологий в&nbsp;образовательных процессах РУДН</span></span>
-                </span>
-                <span class="talk__speaker">
-                  <span class="talk__photo talk__photo--real">
-                    <img class="talk__portrait" loading="lazy" src="assets/speaker-lukmanova.webp" alt="Алина Лукманова" />
+                  <span class="talk__speaker">
+                    <span class="talk__tba talk__tba--name">Софья Коваль,<br /><span class="talk__tba-role">к.ф.н., доцент социально-гуманитарного направления Центрального университета, автор канала «Гуманитарный визг»</span></span>
                   </span>
-                  <span class="talk__tba talk__tba--name">Алина Лукманова,<br /><span class="talk__tba-role">преподаватель онлайн-магистратуры «Прикладные нейросетевые технологии» ФКН НИУ ВШЭ</span></span>
-                </span>
+                  <span class="talk__speaker">
+                    <span class="talk__tba talk__tba--name">Кирилл Кузин,<br /><span class="talk__tba-role">академический лид курса по&nbsp;Go, Go tech lead, ведущий подкаста «Алло, Ада»</span></span>
+                  </span>
+                  <span class="talk__speaker">
+                    <span class="talk__photo talk__photo--real">
+                      <img class="talk__portrait" loading="lazy" src="assets/speaker-rudn.webp" alt="Павел Баскаков" />
+                    </span>
+                    <span class="talk__tba talk__tba--name">Павел Баскаков,<br /><span class="talk__tba-role">заместитель директора Центра развития цифровых технологий в&nbsp;образовательных процессах РУДН</span></span>
+                  </span>
+                  <span class="talk__speaker">
+                    <span class="talk__photo talk__photo--real">
+                      <img class="talk__portrait" loading="lazy" src="assets/speaker-lukmanova.webp" alt="Алина Лукманова" />
+                    </span>
+                    <span class="talk__tba talk__tba--name">Алина Лукманова,<br /><span class="talk__tba-role">преподаватель онлайн-магистратуры «Прикладные нейросетевые технологии» ФКН НИУ ВШЭ</span></span>
+                  </span>
+                </div>
+                <button class="talk__panel-nav talk__panel-nav--next" type="button" aria-label="Следующие спикеры">
+                  <img loading="lazy" src="assets/chevron-right.svg" alt="" width="31" height="31" />
+                </button>
               </div>
             </article>
           </div>
