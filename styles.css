@@ -808,6 +808,78 @@ img {
   flex: 1 1 0;
   min-width: 0;
 }
+
+/* --- Panel with more speakers than fit the row --------------------------
+   The track scrolls natively, so trackpad, touch and the drag handler in
+   script.js all work on it; the arrows flanking it make that legible at a
+   glance. Three speakers are in view at a time on desktop. */
+.talk__panel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+.talk__panel-nav {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--background-transparent);
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+.talk__panel-nav:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+.talk__panel-nav[disabled] {
+  opacity: 0.28;
+  cursor: default;
+}
+.talk__panel-nav img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+.talk__author--slider {
+  --panel-gap: clamp(16px, 2.2vw, 32px);
+  --panel-visible: 3;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-wrap: nowrap;
+  gap: var(--panel-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* the drag handler swaps this out; without it a drag selects the captions */
+  cursor: grab;
+}
+.talk__author--slider::-webkit-scrollbar {
+  display: none;
+}
+.talk__author--slider.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto; /* follow the pointer 1:1, no smoothing lag */
+  scroll-snap-type: none;
+}
+.talk__author--slider .talk__speaker {
+  flex: 0 0 calc(
+    (100% - (var(--panel-visible) - 1) * var(--panel-gap)) / var(--panel-visible)
+  );
+  scroll-snap-align: start;
+}
+@media (prefers-reduced-motion: reduce) {
+  .talk__author--slider {
+    scroll-behavior: auto;
+  }
+}
 /* Speaker placeholder: dark tile, a soft coloured glow, a person silhouette.
    Hidden per client request (they don't want the silhouette placeholder) —
    markup is kept as-is so it can be turned back on (or swapped for real
@@ -2155,15 +2227,36 @@ html.menu-open body {
 @media (max-width: 768px) {
   /* Panel participants: three columns leave ~110px each, far too narrow for
      the full roles. Stack them instead, each portrait beside its caption. */
-  .talk__author--group {
+  .talk__author--group:not(.talk__author--slider) {
     flex-direction: column;
     gap: 20px;
   }
-  .talk__author--group .talk__speaker {
+  .talk__author--group:not(.talk__author--slider) .talk__speaker {
     flex-direction: row;
     align-items: center;
     gap: 16px;
     width: 100%;
+  }
+  /* The slider keeps scrolling sideways — stacking it would defeat the point.
+     One speaker per view, with the next one peeking so the swipe is obvious.
+     Arrows drop below the track: flanking it here would eat a third of the
+     screen and squeeze the card down to ~220px. */
+  .talk__author--slider {
+    --panel-visible: 1.15;
+    flex: 1 0 100%;
+    order: -1;
+  }
+  .talk__panel {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .talk__panel-nav {
+    width: 40px;
+    height: 40px;
+  }
+  .talk__panel-nav img {
+    width: 20px;
+    height: 20px;
   }
   /* topbar: logo + burger (nav moves into the fullscreen menu) */
   .topbar__menu {
