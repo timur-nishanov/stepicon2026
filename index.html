@@ -206,7 +206,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <h3 class="talk__title">Как адаптируется Stepik как платформа? Тренды и&nbsp;прогнозы</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -222,8 +222,15 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <h3 class="talk__title">Как меняются профессии и&nbsp;образовательные программы на&nbsp;примере биоинформатики</h3>
+              <!-- Time + abstract for the pop-up. Hidden in the card; script.js
+                   reads it, and its presence is what makes the title clickable.
+                   Add the same block to any other talk to switch its pop-up on. -->
+              <div class="talk__details" hidden>
+                <span class="talk__time">12:10–12:40</span>
+                <p class="talk__abstract">На&nbsp;примере биоинформатики посмотрим, как развитие технологий меняет требования к&nbsp;специалистам, а&nbsp;вслед за&nbsp;ними и&nbsp;содержание образовательных программ. Обсудим, какие навыки становятся базовыми, как сочетать предметную экспертизу с&nbsp;развитием ИИ и&nbsp;как меняются запросы студентов к&nbsp;дополнительному образованию</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-bondareva.webp" alt="Ольга Бондарева" />
@@ -238,7 +245,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full talk--wide">
+            <article class="talk talk--full talk--wide" data-accent="purple">
               <div class="talk__head">
                 <h3 class="talk__title">Как создавать образовательный контент, когда обо&nbsp;всём может рассказать ИИ?</h3>
                 <span class="talk__feature">Паблик-толк</span>
@@ -249,6 +256,10 @@
                 <button class="talk__panel-nav talk__panel-nav--prev" type="button" aria-label="Предыдущие спикеры">
                   <img loading="lazy" src="assets/chevron-left.svg" alt="" width="31" height="31" />
                 </button>
+                <div class="talk__details" hidden>
+                  <span class="talk__time">12:40–14:00</span>
+                  <p class="talk__abstract">Если ответ на&nbsp;учебный вопрос можно получить за&nbsp;несколько секунд, каким должен быть образовательный контент, чтобы оставаться ценным? Обсудим, что сегодня отличает курс от&nbsp;набора информации, как меняются задания, роль преподавателя и&nbsp;требования к&nbsp;образовательному продукту и&nbsp;чему по-прежнему нельзя научиться одним запросом к&nbsp;нейросети.</p>
+                </div>
                 <div class="talk__author talk__author--group talk__author--slider">
                   <span class="talk__speaker">
                     <span class="talk__photo talk__photo--real">
@@ -266,7 +277,7 @@
                     <span class="talk__photo talk__photo--real">
                       <img class="talk__portrait" loading="lazy" src="assets/speaker-koval.webp" alt="Софья Коваль" />
                     </span>
-                    <span class="talk__tba talk__tba--name">Софья Коваль,<br /><span class="talk__tba-role">к.ф.н., доцент социально-гуманитарного направления Центрального университета, автор канала «Гуманитарный визг»</span></span>
+                    <span class="talk__tba talk__tba--name">Софья Коваль,<br /><span class="talk__tba-role" data-role-short="к.ф.н., доцент социально-гуманитарного направления Центрального университета">к.ф.н., доцент социально-гуманитарного направления Центрального университета, автор канала «Гуманитарный визг»</span></span>
                   </span>
                   <span class="talk__speaker">
                     <span class="talk__photo talk__photo--real">
@@ -297,8 +308,12 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Два подхода к&nbsp;вовлечению студентов: геймификация и&nbsp;ИИ-ассистенты в&nbsp;обучении</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">15:00–15:40</span>
+                <p class="talk__abstract">На&nbsp;докладе Артем расскажет, как начал с&nbsp;внедрения сюжетной арки с&nbsp;персонажем Арти в&nbsp;свои курсы, а&nbsp;в&nbsp;итоге это превратилось в&nbsp;целую платформу для&nbsp;обучения и&nbsp;повышения квалификации тестировщиков. Покажет, помогла ли&nbsp;геймификация в&nbsp;продажах и&nbsp;удержании студентов, а&nbsp;также про&nbsp;свой стек ИИ-инструментов и&nbsp;помощников, которые использую на&nbsp;курсах в&nbsp;качестве дополнительно слоя интерактива.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-rusov.webp" alt="Артём Русов" />
@@ -313,10 +328,14 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <div class="talk__head">
                 <h3 class="talk__title">Как создать креативного ИИ-помощника для&nbsp;своих задач</h3>
                 <span class="talk__feature">Воркшоп</span>
+              </div>
+              <div class="talk__details" hidden>
+                <span class="talk__time">15:40–16:40</span>
+                <p class="talk__abstract">На&nbsp;практике посмотрим, как использовать ИИ-агентов не&nbsp;только для&nbsp;автоматизации рутины, но&nbsp;и&nbsp;для&nbsp;поиска и&nbsp;развития идей. Участники попробуют разложить творческую задачу на&nbsp;этапы, подобрать роли для&nbsp;ИИ и&nbsp;собрать рабочий сценарий, который можно использовать при&nbsp;создании образовательных продуктов.</p>
               </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -332,10 +351,14 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk">
+            <article class="talk" data-accent="green">
               <div class="talk__head">
                 <h3 class="talk__title">Автоматизированное создание тестов и&nbsp;заданий на&nbsp;программирование средствами AI</h3>
                 <span class="talk__feature">Воркшоп</span>
+              </div>
+              <div class="talk__details" hidden>
+                <span class="talk__time">16:40–17:40</span>
+                <p class="talk__abstract">Разберем какие сложности возникают при&nbsp;автоматизированном добавлении тестов и&nbsp;заданий на&nbsp;программирование. Разложим этапы формирования задания агентом. Обсудим особенности написания промптов и&nbsp;стоимость генерации. Поговорим о&nbsp;том, где работу можно переложить на&nbsp;LLM, а&nbsp;где нужно активно подключаться.</p>
               </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -346,10 +369,14 @@
                 </span>
               </div>
             </article>
-            <article class="talk">
+            <article class="talk" data-accent="purple">
               <div class="talk__head">
                 <h3 class="talk__title">Визуал с&nbsp;AI: как наглядно и&nbsp;интересно проиллюстрировать свой курс</h3>
                 <span class="talk__feature">Воркшоп</span>
+              </div>
+              <div class="talk__details" hidden>
+                <span class="talk__time">16:40–17:40</span>
+                <p class="talk__abstract">Начнём не&nbsp;с&nbsp;промпта, а&nbsp;с&nbsp;вопроса, зачем автору картинка вообще. Пройдём один путь от&nbsp;идеи до&nbsp;готового кадра — он одинаковый и&nbsp;для&nbsp;обложки курса, и&nbsp;для&nbsp;промо-ролика. Меняется не&nbsp;путь, а&nbsp;задача.</p>
               </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -365,10 +392,14 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full talk--wide" data-accent="green">
               <div class="talk__head">
                 <h3 class="talk__title">Модерация контента на&nbsp;онлайн-платформах в&nbsp;эпоху AI</h3>
                 <span class="talk__feature">Дискуссия</span>
+              </div>
+              <div class="talk__details" hidden>
+                <span class="talk__time">18:10–19:10</span>
+                <p class="talk__abstract">Разберёмся, что стоит за&nbsp;требованием «регулировать ИИ-контент» и&nbsp;какие критерии делают модерацию адекватной, а&nbsp;не&nbsp;формальной. Обсудим, что именно стоит запрещать — использование ИИ или&nbsp;сокрытие этого факта — и&nbsp;где проходит грань между инструментом и&nbsp;заменой автора. Посмотрим, чем измерять допустимую долю ИИ-участия, и&nbsp;разберём конкретные кейсы модерации, включая спорные практики конкурентов.</p>
               </div>
               <div class="talk__author talk__author--group">
                 <span class="talk__speaker">
@@ -382,6 +413,12 @@
                     <img class="talk__portrait" loading="lazy" src="assets/speaker-shevelev.webp" alt="Алексей Шевелев" />
                   </span>
                   <span class="talk__tba talk__tba--name">Алексей Шевелев,<br /><span class="talk__tba-role">руководитель отдела по&nbsp;работе с&nbsp;пользователями, Хабр</span></span>
+                </span>
+                <span class="talk__speaker">
+                  <span class="talk__photo talk__photo--real">
+                    <img class="talk__portrait" loading="lazy" src="assets/speaker-isaev.webp" alt="Алексей Исаев" />
+                  </span>
+                  <span class="talk__tba talk__tba--name">Алексей Исаев,<br /><span class="talk__tba-role">директор по&nbsp;рекрутменту и&nbsp;спецпроектам, Getmatch</span></span>
                 </span>
               </div>
             </article>
@@ -398,13 +435,17 @@
                 <h3 class="talk__title">Карта будущего онлайн-образования к&nbsp;2027&nbsp;году</h3>
                 <span class="talk__feature">Дискуссия</span>
               </div>
+              <div class="talk__details" hidden>
+                <span class="talk__time">10:00–11:00</span>
+                <p class="talk__abstract">«Карта будущего» — интерактив на&nbsp;60&nbsp;минут. Зал пишет проверяемые прогнозы об&nbsp;онлайн-образовании до&nbsp;2035&nbsp;года, голосует за&nbsp;каждый и&nbsp;собирает карту с&nbsp;коллективными вероятностями. Сверяем её на&nbsp;Stepicon-2027.</p>
+              </div>
             </article>
           </div>
         </div>
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Взгляд изнутри айти-образования: чему и&nbsp;как учить?</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -420,8 +461,12 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <h3 class="talk__title">Высшее образование vs&nbsp;бизнес. Продуктовый подход в&nbsp;вузе</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">11:00–11:40</span>
+                <p class="talk__abstract">На&nbsp;примере Центрального университета разберём, как продуктовый подход помогает проектировать образовательный опыт и&nbsp;чем он отличается от&nbsp;обычной работы с&nbsp;запросами студентов. Обсудим, как сочетать потребности студентов с&nbsp;образовательной ценностью, как меняется роль ИИ в&nbsp;обучении и&nbsp;почему образовательную модель важно постоянно проверять на&nbsp;данных.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-popova.webp" alt="Алёна Попова" />
@@ -436,8 +481,12 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Обзор работающих каналов маркетинга: тренды и&nbsp;прогнозы</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">12:50–13:30</span>
+                <p class="talk__abstract">Разберём, как в&nbsp;2026&nbsp;году меняется продвижение образовательных продуктов: какие каналы продолжают работать, где дорожает привлечение аудитории и&nbsp;какие механики помогают расти без&nbsp;постоянного увеличения бюджета. Поделимся наблюдениями Stepik и&nbsp;посмотрим, как выбирать каналы для&nbsp;разных типов курсов и&nbsp;этапов воронки.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-feofanova.webp" alt="Наталья Феофанова" />
@@ -452,8 +501,12 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <h3 class="talk__title">Как продвигать курс без&nbsp;начального бюджета. Личный опыт</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">13:30–14:10</span>
+                <p class="talk__abstract">Илья расскажет, как из&nbsp;дипломного учебного проекта получился курс «Фигма для&nbsp;редакторов». Тогда его никто не&nbsp;знал, не&nbsp;было аудитории и&nbsp;бюджета на&nbsp;создание и&nbsp;продвижение курса и&nbsp;он просто написал сорока людям в&nbsp;Телеграме и&nbsp;за&nbsp;три недели получил сто восемьдесят продаж. А&nbsp;когда бесплатная помощь кончилась — завёл Телеграм-канал, начал создавать бренд, записывать подкасты и&nbsp;давать пользу сообществу. В&nbsp;докладе узнаем — что сработало на&nbsp;старте, где у&nbsp;этого потолок и&nbsp;как перейти от&nbsp;разовых постов к&nbsp;системе, которую можно повторить.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-polikarpov.webp" alt="Илья Поликарпов" />
@@ -468,8 +521,12 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk" data-accent="purple">
               <h3 class="talk__title">Исповедь о&nbsp;реальной кухне создания курсов на&nbsp;Stepik</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">16:30–17:10</span>
+                <p class="talk__abstract">Реальная кухня создания курсов на&nbsp;Stepik — без&nbsp;воды: только цифры, выписки из&nbsp;Сбера и&nbsp;честный разбор того, что сработало, а&nbsp;что нет. За&nbsp;последний год Иван разберет четыре кейса: как объединили 5&nbsp;звёздных авторов в&nbsp;одном курсе, собрали 400&nbsp;000&nbsp;₽ донатами за&nbsp;10&nbsp;дней на&nbsp;бесплатный курс, сделали 100&nbsp;продаж за&nbsp;сутки в&nbsp;эксперименте «Назови свою цену» и&nbsp;нашли крупного спонсора для&nbsp;бесплатного курса — от&nbsp;холодных писем до&nbsp;подписания договора. В&nbsp;финале — что бы&nbsp;он сделал, если бы&nbsp;начинал на&nbsp;Stepik с&nbsp;нуля сегодня, и&nbsp;какие из&nbsp;этих механик может использовать любой автор.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-starodubtsev.webp" alt="Иван Стародубцев" />
@@ -479,13 +536,32 @@
                 </span>
               </div>
             </article>
+            <article class="talk" data-accent="green">
+              <h3 class="talk__title">От&nbsp;экспертизы к&nbsp;образовательному продукту: как создавать курсы, которые нужны бизнесу</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">16:30–17:10</span>
+                <p class="talk__abstract">На&nbsp;примере ГК «Олимпроект» разберём, какие образовательные продукты нужны компаниям реального сектора и&nbsp;как инженерная компания превращает знания практикующих специалистов в&nbsp;онлайн-курсы и&nbsp;программы корпоративного обучения. Пройдём три этапа: какие знания стоит упаковывать в&nbsp;продукт, как адаптировать экспертизу под&nbsp;онлайн-формат и&nbsp;как делать курсы под&nbsp;реальные задачи работодателей.</p>
+              </div>
+              <div class="talk__author">
+                <span class="talk__photo talk__photo--real">
+                  <img class="talk__portrait" loading="lazy" src="assets/speaker-olimproekt.webp" alt="Анастасия Герасимчук" />
+                </span>
+                <span class="talk__person">
+                  <span class="talk__tba talk__tba--name">Анастасия Герасимчук,<br /><span class="talk__tba-role">директор по&nbsp;персоналу и&nbsp;развитию ГК&nbsp;«Олимпроект»</span></span>
+                </span>
+              </div>
+            </article>
           </div>
         </div>
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk">
+            <article class="talk" data-accent="green">
               <h3 class="talk__title">Вайбкодинг как инструмент создания игр в&nbsp;корпоративном обучении</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">15:50–16:30</span>
+                <p class="talk__abstract">Поговорим про&nbsp;потенциал вайбкодинга для&nbsp;разработки игровых механик в&nbsp;обучении руководителей. Расскажем, как с&nbsp;помощью ИИ ускорять создание SCORM‑пакетов, встраивать игровые механики на&nbsp;лендингах и&nbsp;во&nbsp;внутренней LMS‑системе.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-semibratova.webp" alt="Мария Семибратова" />
@@ -495,8 +571,12 @@
                 </span>
               </div>
             </article>
-            <article class="talk">
+            <article class="talk" data-accent="purple">
               <h3 class="talk__title">Почему GEO становится новым SEO: как получать видимость и&nbsp;трафик из&nbsp;AI-поиска</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">15:50–16:30</span>
+                <p class="talk__abstract">AI-поиск меняет привычный путь пользователя к&nbsp;информации: всё чаще он получает готовый ответ, а&nbsp;не&nbsp;список ссылок. Разберём, как работают ChatGPT, Google AI Overviews и&nbsp;другие AI-поисковики, откуда они берут информацию и&nbsp;что делать, чтобы ваш сайт и&nbsp;контент попадали в&nbsp;эти ответы. Поговорим о&nbsp;GEO — оптимизации контента для&nbsp;генеративного поиска: какие факторы влияют на&nbsp;видимость, как измерять результат и&nbsp;можно ли&nbsp;превращать упоминания в&nbsp;AI-поиске в&nbsp;реальный трафик.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-chvilev.webp" alt="Антон Чвилев" />
@@ -511,8 +591,12 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Зачем создавать курсы вместе? Два кейса от&nbsp;авторов Stepik про&nbsp;создание команд и&nbsp;построение партнёрств</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">17:10–17:50</span>
+                <p class="talk__abstract">Зачем авторам онлайн-курсов объединяться с&nbsp;другими авторами или&nbsp;создавать команду? На&nbsp;примере двух реальных кейсов разберём, как находить партнёров, распределять роли и&nbsp;вместе создавать образовательные продукты. Поговорим о&nbsp;том, что даёт совместная работа и&nbsp;с&nbsp;какими сложностями можно столкнуться.</p>
+              </div>
               <div class="talk__author talk__author--group">
                 <span class="talk__speaker">
                   <span class="talk__photo talk__photo--real">
@@ -533,8 +617,12 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Performance-маркетинг онлайн-школ в&nbsp;2026&nbsp;году</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">13:30–14:10</span>
+                <p class="talk__abstract">Поговорим о&nbsp;том, какие рекламные каналы помогают онлайн-школам привлекать учеников в&nbsp;2026&nbsp;году: от&nbsp;Яндекс Директа и&nbsp;ВК до&nbsp;набирающего обороты Авито. Разберём, какие инструменты и&nbsp;рекламные связки дают лучший результат, с&nbsp;чего начать запуск рекламных кабинетов и&nbsp;на&nbsp;что обратить внимание при&nbsp;выборе подрядчика по&nbsp;перформанс-маркетингу.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-ambartsumyan.webp" alt="Александр Амбарцумян" />
@@ -549,10 +637,14 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk">
+            <article class="talk" data-accent="green">
               <div class="talk__head">
                 <h3 class="talk__title">Яндекс ПромоСтраницы. Запускаем рекламу контента авторов Stepik</h3>
                 <span class="talk__feature">Воркшоп</span>
+              </div>
+              <div class="talk__details" hidden>
+                <span class="talk__time">14:10–14:50</span>
+                <p class="talk__abstract">Разберём, как использовать контентную рекламу для&nbsp;продвижения курсов и&nbsp;других образовательных продуктов: от&nbsp;выбора темы и&nbsp;структуры материала до&nbsp;перехода пользователя на&nbsp;следующий этап воронки. На&nbsp;практике посмотрим, какие сценарии подходят для&nbsp;ПромоСтраниц и&nbsp;как оценивать результаты кампании.</p>
               </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -563,8 +655,12 @@
                 </span>
               </div>
             </article>
-            <article class="talk">
+            <article class="talk" data-accent="purple">
               <h3 class="talk__title">Спецпроекты в&nbsp;образовании: как превратить продвижение курса в&nbsp;пользовательский опыт</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">14:10–14:50</span>
+                <p class="talk__abstract">Как продвигать онлайн-курсы, если обычных скидок и&nbsp;акций уже недостаточно? На&nbsp;примере спецпроектов Stepik разберём, как игровые механики, эмоции, идентичность и&nbsp;партнёрства помогают вовлекать аудиторию. Покажем цифры, удачные решения и&nbsp;ошибки, которые стали видны после запуска, а&nbsp;в&nbsp;конце соберём из&nbsp;кейсов простой конструктор спецпроекта, который можно адаптировать под&nbsp;свой курс.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-artyushina.webp" alt="Елизавета Артюшина" />
@@ -579,10 +675,14 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <div class="talk__head">
                 <h3 class="talk__title">Зачем создавать бесплатный контент и&nbsp;какая в&nbsp;этом мотивация</h3>
                 <span class="talk__feature">Дискуссия</span>
+              </div>
+              <div class="talk__details" hidden>
+                <span class="talk__time">18:20–19:00</span>
+                <p class="talk__abstract">Бесплатный курс бесплатен только для&nbsp;студента. Для&nbsp;автора, вуза или&nbsp;компании это актив: его нужно создать, запустить, поддерживать и&nbsp;однажды обновить или&nbsp;закрыть. Поговорим о&nbsp;реальной цене бесплатных курсов — сколько стоит производство и&nbsp;поддержка, сколько они живут и&nbsp;кто на&nbsp;самом деле их заказчик. Обсудим, что автор получает взамен: охваты, репутацию, новых сотрудников, — и&nbsp;как ИИ меняет и&nbsp;стоимость контента, и&nbsp;скорость его устаревания.</p>
               </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -867,6 +967,26 @@
         </a>
       </div>
     </div>
+  </div>
+
+  <!-- Talk pop-up: one instance for the whole programme. script.js fills it
+       from the clicked card, so adding a talk needs no markup here. -->
+  <div class="talk-modal" id="talk-modal" hidden>
+    <div class="talk-modal__scrim" data-talk-close></div>
+    <aside class="talk-modal__panel" role="dialog" aria-modal="true" aria-labelledby="talk-modal-title">
+      <div class="talk-modal__body">
+        <div class="talk-modal__top">
+          <span class="talk-modal__time"></span>
+          <button class="talk-modal__close" type="button" data-talk-close>Закрыть</button>
+        </div>
+        <h3 class="talk-modal__title" id="talk-modal-title"></h3>
+        <p class="talk-modal__abstract"></p>
+      </div>
+      <!-- Спикеры вне прокручиваемой области: длинная аннотация скроллится,
+           а фото с должностью остаются на виду над цветной полосой. -->
+      <div class="talk-modal__speakers-slot"></div>
+      <div class="talk-modal__strip" aria-hidden="true"></div>
+    </aside>
   </div>
 
   <script src="assets/vendor/gsap.min.js"></script>

@@ -695,11 +695,27 @@ img {
   color: var(--text-primary);
 }
 .program__items {
+  --items-gap: clamp(24px, 5.5vw, 80px);
   flex: 1 1 auto;
   display: flex;
-  gap: clamp(24px, 5.5vw, 80px);
+  gap: var(--items-gap);
+}
+/* Two talks in one row run at the same time, and a hairline down the middle
+   of the gap says so at a glance. Deliberately NOT the white of the rules
+   between rows: at full strength it read louder than the talks themselves.
+   It sits at the same 50% white as the role captions, so it stays background.
+   Only ever drawn between siblings, so a lone card never gets one. */
+.program__items > .talk + .talk::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--items-gap) / -2 - 1px);
+  width: 2px;
+  background-color: var(--text-secondary);
 }
 .talk {
+  position: relative; /* anchors the divider between parallel talks */
   flex: 1 1 0;
   min-width: 0;
   max-width: calc(50% - 40px); /* a lone card stays left-aligned, not full width */
@@ -799,6 +815,13 @@ img {
   flex-wrap: wrap;
   gap: clamp(16px, 2.2vw, 32px);
 }
+/* Speaker whose portrait hasn't arrived yet: no empty tile (the client read
+   one as a broken image), just the caption pushed down by exactly the height
+   of a portrait plus the column gap, so it lines up with the speakers beside
+   it instead of floating at the top of the row. */
+.talk__speaker--no-photo {
+  margin-top: calc(clamp(96px, 9.2vw, 132px) * 154 / 132 + 12px);
+}
 .talk__speaker {
   display: flex;
   flex-direction: column;
@@ -814,13 +837,20 @@ img {
    script.js all work on it; the arrows flanking it make that legible at a
    glance. Three speakers are in view at a time on desktop. */
 .talk__panel {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  /* Arrows float over the track instead of flanking it: in the flow the left
+     one reserved a slot at the start of the row, so the first portrait sat
+     ~64px further right than every other card's portrait. Now the track is
+     flush with the rest of the programme and the left arrow simply appears
+     once there is something to scroll back to. */
+  position: relative;
   min-width: 0;
 }
 .talk__panel-nav {
-  flex: 0 0 auto;
+  position: absolute;
+  z-index: 2;
+  /* level with the middle of the portraits, not of portrait + caption */
+  top: calc(clamp(96px, 9.2vw, 132px) * 154 / 132 / 2);
+  transform: translateY(-50%);
   width: 48px;
   height: 48px;
   padding: 0;
@@ -832,14 +862,20 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, opacity 0.2s ease;
+  transition: background-color 0.2s ease, opacity 0.2s ease,
+    visibility 0.2s ease;
 }
+.talk__panel-nav--prev { left: 0; }
+.talk__panel-nav--next { right: 0; }
 .talk__panel-nav:hover {
   background-color: rgba(255, 255, 255, 0.22);
 }
+/* Nothing to scroll that way — gone entirely, not dimmed, so the default
+   state shows only the "next" arrow. */
 .talk__panel-nav[disabled] {
-  opacity: 0.28;
-  cursor: default;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 .talk__panel-nav img {
   width: 24px;
@@ -1053,6 +1089,291 @@ img {
   width: clamp(28px, 2.5vw, 36px);
   height: clamp(28px, 2.5vw, 36px);
   flex: 0 0 auto;
+}
+
+/* --- Clickable talk + its pop-up ----------------------------------------
+   A talk becomes clickable only when its card carries a .talk__details block
+   (time + abstract). script.js adds .talk--clickable, so cards without one
+   keep the old static behaviour and no hover affordance. ----------------- */
+.talk--clickable {
+  /* the card slides a little on hover; transform doesn't disturb the row */
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.talk--clickable .talk__title {
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+.talk--clickable .talk__photo {
+  transition: border-radius 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+/* .talk--hot is set by script.js while the pointer is over the title (and on
+   keyboard focus), so the whole card can react to hovering just the topic. */
+.talk--hot { transform: translateX(12px); }
+.talk--hot .talk__photo { border-radius: 20px; }
+/* Focus ring for keyboard users. Deliberately NOT :focus-visible — the pop-up
+   hands focus back to the title on close, and the browser's own heuristic for
+   scripted focus lit the ring up after a plain mouse click too, which read as
+   a stray green box. html.kbd-nav is set by script.js on any keypress and
+   dropped on any pointer press, so the ring follows the actual input device. */
+.talk--clickable .talk__title:focus { outline: none; }
+html.kbd-nav .talk--clickable .talk__title:focus {
+  outline: 2px solid var(--border-green);
+  outline-offset: 6px;
+}
+/* The pop-up reads these; they must never show inside the card itself. */
+.talk__details { display: none; }
+
+.talk-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300; /* above the mobile menu (200) and the star layer (100) */
+}
+.talk-modal[hidden] { display: none; }
+.talk-modal__scrim {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.talk-modal__panel {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  bottom: 16px;
+  width: clamp(320px, 33vw, 480px);
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 24px;
+  background-color: #111111;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+  /* starts off-screen to the right and slides in */
+  transform: translateX(calc(100% + 32px));
+  transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.talk-modal.is-open .talk-modal__scrim { opacity: 1; }
+.talk-modal.is-open .talk-modal__panel { transform: translateX(0); }
+
+.talk-modal__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: clamp(20px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.talk-modal__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.talk-modal__time {
+  font-size: var(--t-caption-size);
+  font-weight: var(--t-caption-weight);
+  line-height: var(--t-caption-lh);
+  letter-spacing: var(--t-caption-ls);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+.talk-modal__close {
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--t-caption-size);
+  font-weight: var(--t-caption-weight);
+  line-height: var(--t-caption-lh);
+  letter-spacing: var(--t-caption-ls);
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+.talk-modal__close:hover,
+.talk-modal__close:focus-visible { color: var(--text-primary); }
+.talk-modal__title {
+  margin: 0;
+  font-size: clamp(24px, 2.2vw, 30px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.talk-modal__abstract {
+  margin: 0;
+  font-size: clamp(15px, 1.15vw, 17px);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+.talk-modal__abstract:empty { display: none; }
+/* Smaller repeat of the card portraits, pinned at the foot of the panel.
+   Deliberately a sibling of the scrolling body, not a child of it: a long
+   abstract used to push the speakers past the bottom edge, and a reader had
+   to scroll to find out who was talking. Now only the text scrolls. */
+.talk-modal__speakers-slot {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 4px clamp(20px, 2vw, 28px) clamp(20px, 2vw, 28px);
+}
+.talk-modal__speakers {
+  display: flex;
+  gap: 20px;
+  min-width: 0;
+}
+.talk-modal__speaker {
+  flex: 0 1 auto;
+  width: 112px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* Two speakers split the panel, like the card pair they came from. */
+.talk-modal__speakers[data-count="2"] .talk-modal__speaker {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+}
+/* Three or more: a 112px column shreds a full job title into six slivers, so
+   they ride the programme slider instead — two in view, arrows plus drag,
+   wired up by the same code the programme card uses. */
+.talk-modal__slider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* In the narrow panel the arrows stay in the flow beside the track — floating
+   them over a 156px portrait would cover most of a face. They dim instead of
+   vanishing, so the track doesn't jump when one becomes available. */
+.talk-modal__slider .talk__panel-nav {
+  position: static;
+  transform: none;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+}
+.talk-modal__slider .talk__panel-nav[disabled] {
+  opacity: 0.28;
+  visibility: visible;
+}
+.talk-modal__slider .talk__panel-nav img {
+  width: 18px;
+  height: 18px;
+}
+.talk-modal__speakers--slider {
+  --panel-gap: 16px;
+  --panel-visible: 2;
+  flex: 1 1 0;
+  gap: var(--panel-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+}
+.talk-modal__speakers--slider::-webkit-scrollbar { display: none; }
+.talk-modal__speakers--slider.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+.talk-modal__speakers--slider .talk-modal__speaker {
+  flex: 0 0 calc(
+    (100% - (var(--panel-visible) - 1) * var(--panel-gap)) / var(--panel-visible)
+  );
+  width: auto;
+  scroll-snap-align: start;
+}
+.talk-modal__photo {
+  width: 100%;
+  aspect-ratio: 132 / 154;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: var(--background-transparent-1);
+}
+/* Speaker without a portrait yet, in a pop-up that has others: an empty box
+   holds the slot so the caption lines up, but draws nothing — the client read
+   a visible empty tile as a failed image. */
+.talk-modal__photo--empty {
+  background: none;
+}
+.talk-modal__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.talk-modal__name {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+.talk-modal__role {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+/* Bottom bar in the colour the speaker's backdrop is NOT: green portrait gets
+   a purple bar and the other way round (data-accent on the card). */
+.talk-modal__strip {
+  flex: 0 0 auto;
+  height: 12px;
+  background-color: var(--background-green);
+}
+.talk-modal[data-accent="green"] .talk-modal__strip {
+  background-color: var(--background-purple);
+}
+.talk-modal[data-accent="purple"] .talk-modal__strip {
+  background-color: var(--background-green);
+}
+
+/* lock background scroll while the pop-up is open (same trick as the menu) */
+html.talk-modal-open,
+html.talk-modal-open body { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .talk--clickable,
+  .talk--clickable .talk__photo,
+  .talk-modal__panel,
+  .talk-modal__scrim { transition: none; }
+  .talk-modal__speakers--slider { scroll-behavior: auto; }
+  .talk--hot { transform: none; }
+}
+
+/* Phones: the side panel becomes a near-full-screen sheet — a 33vw column
+   would leave nothing readable. It still slides in from the right. */
+@media (max-width: 768px) {
+  .talk-modal__panel {
+    top: 12px;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    width: auto;
+    max-width: none;
+    border-radius: 20px;
+  }
+  .talk-modal__speakers { gap: 16px; }
+  .talk-modal__speaker { width: 96px; }
+  /* Arrows beside the track would eat a third of a 322px panel, so they drop
+     below it — same move the programme slider makes at this width. */
+  .talk-modal__slider { flex-wrap: wrap; gap: 12px; }
+  .talk-modal__speakers--slider {
+    --panel-visible: 1.6;
+    --panel-gap: 12px;
+    flex: 1 0 100%;
+    order: -1;
+  }
+  /* no hover on touch: the shift would only ever fire mid-tap */
+  .talk--hot { transform: none; }
 }
 
 /* -------------------------------------------------------------------------
@@ -2237,18 +2558,16 @@ html.menu-open body {
     gap: 16px;
     width: 100%;
   }
+  /* столбцов больше нет — выравнивать подпись по высоте портрета не с чем */
+  .talk__speaker--no-photo {
+    margin-top: 0;
+  }
   /* The slider keeps scrolling sideways — stacking it would defeat the point.
      One speaker per view, with the next one peeking so the swipe is obvious.
-     Arrows drop below the track: flanking it here would eat a third of the
-     screen and squeeze the card down to ~220px. */
+     The arrows float over the track (see .talk__panel), so they cost no width
+     here either. */
   .talk__author--slider {
     --panel-visible: 1.15;
-    flex: 1 0 100%;
-    order: -1;
-  }
-  .talk__panel {
-    flex-wrap: wrap;
-    gap: 12px;
   }
   .talk__panel-nav {
     width: 40px;
@@ -2408,6 +2727,10 @@ html.menu-open body {
     flex-direction: column;
     gap: 28px;
     width: 100%;
+  }
+  /* стопка вместо двух колонок — вертикальной палочке между ними нет места */
+  .program__items > .talk + .talk::before {
+    display: none;
   }
   .talk {
     flex: 0 0 auto; /* size to content in the stacked column (don't collapse to 0) */
