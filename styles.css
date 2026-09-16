@@ -814,13 +814,20 @@ img {
    script.js all work on it; the arrows flanking it make that legible at a
    glance. Three speakers are in view at a time on desktop. */
 .talk__panel {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  /* Arrows float over the track instead of flanking it: in the flow the left
+     one reserved a slot at the start of the row, so the first portrait sat
+     ~64px further right than every other card's portrait. Now the track is
+     flush with the rest of the programme and the left arrow simply appears
+     once there is something to scroll back to. */
+  position: relative;
   min-width: 0;
 }
 .talk__panel-nav {
-  flex: 0 0 auto;
+  position: absolute;
+  z-index: 2;
+  /* level with the middle of the portraits, not of portrait + caption */
+  top: calc(clamp(96px, 9.2vw, 132px) * 154 / 132 / 2);
+  transform: translateY(-50%);
   width: 48px;
   height: 48px;
   padding: 0;
@@ -832,14 +839,20 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, opacity 0.2s ease;
+  transition: background-color 0.2s ease, opacity 0.2s ease,
+    visibility 0.2s ease;
 }
+.talk__panel-nav--prev { left: 0; }
+.talk__panel-nav--next { right: 0; }
 .talk__panel-nav:hover {
   background-color: rgba(255, 255, 255, 0.22);
 }
+/* Nothing to scroll that way — gone entirely, not dimmed, so the default
+   state shows only the "next" arrow. */
 .talk__panel-nav[disabled] {
-  opacity: 0.28;
-  cursor: default;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 .talk__panel-nav img {
   width: 24px;
@@ -1074,14 +1087,16 @@ img {
    keyboard focus), so the whole card can react to hovering just the topic. */
 .talk--hot { transform: translateX(12px); }
 .talk--hot .talk__photo { border-radius: 20px; }
-.talk--clickable .talk__title:focus-visible {
+/* Focus ring for keyboard users. Deliberately NOT :focus-visible — the pop-up
+   hands focus back to the title on close, and the browser's own heuristic for
+   scripted focus lit the ring up after a plain mouse click too, which read as
+   a stray green box. html.kbd-nav is set by script.js on any keypress and
+   dropped on any pointer press, so the ring follows the actual input device. */
+.talk--clickable .talk__title:focus { outline: none; }
+html.kbd-nav .talk--clickable .talk__title:focus {
   outline: 2px solid var(--border-green);
   outline-offset: 6px;
 }
-/* Set by script.js when the pop-up hands focus back after a mouse close: the
-   ring is right for keyboard users but reads as a stray green box after a
-   click. Cleared on the next keypress, so the keyboard never loses it. */
-html.talk-focus-quiet .talk--clickable .talk__title:focus-visible { outline: none; }
 /* The pop-up reads these; they must never show inside the card itself. */
 .talk__details { display: none; }
 
@@ -1203,11 +1218,23 @@ html.talk-focus-quiet .talk--clickable .talk__title:focus-visible { outline: non
    they ride the programme slider instead — two in view, arrows plus drag,
    wired up by the same code the programme card uses. */
 .talk-modal__slider {
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
+/* In the narrow panel the arrows stay in the flow beside the track — floating
+   them over a 156px portrait would cover most of a face. They dim instead of
+   vanishing, so the track doesn't jump when one becomes available. */
 .talk-modal__slider .talk__panel-nav {
+  position: static;
+  transform: none;
+  flex: 0 0 auto;
   width: 36px;
   height: 36px;
+}
+.talk-modal__slider .talk__panel-nav[disabled] {
+  opacity: 0.28;
+  visibility: visible;
 }
 .talk-modal__slider .talk__panel-nav img {
   width: 18px;
@@ -2501,16 +2528,10 @@ html.menu-open body {
   }
   /* The slider keeps scrolling sideways — stacking it would defeat the point.
      One speaker per view, with the next one peeking so the swipe is obvious.
-     Arrows drop below the track: flanking it here would eat a third of the
-     screen and squeeze the card down to ~220px. */
+     The arrows float over the track (see .talk__panel), so they cost no width
+     here either. */
   .talk__author--slider {
     --panel-visible: 1.15;
-    flex: 1 0 100%;
-    order: -1;
-  }
-  .talk__panel {
-    flex-wrap: wrap;
-    gap: 12px;
   }
   .talk__panel-nav {
     width: 40px;

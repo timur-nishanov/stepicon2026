@@ -276,7 +276,15 @@
   var slot = modal.querySelector(".talk-modal__speakers-slot");
   var closeBtn = modal.querySelector(".talk-modal__close");
   var lastFocus = null;
-  var openedByKey = false;
+
+  /* Which input device is in use right now. Capture phase so it is already
+     correct by the time any click or keydown handler runs. */
+  document.addEventListener("keydown", function () {
+    document.documentElement.classList.add("kbd-nav");
+  }, true);
+  document.addEventListener("pointerdown", function () {
+    document.documentElement.classList.remove("kbd-nav");
+  }, true);
 
   var hideTimer = null;
 
@@ -303,22 +311,14 @@
   }
 
   /* Focus goes back to the topic that opened the pop-up, so keyboard users
-     don't get dropped at the top of the page. For a mouse user that return
-     trip lit up the focus ring and looked like a stray green box, so the ring
-     is muted unless a keyboard was actually involved — opening with Enter or
-     closing with Escape. It comes back the moment focus moves on. */
-  function close(byKeyboard) {
+     don't get dropped at the top of the page. Whether that shows a ring is
+     decided by html.kbd-nav (see below), not by the browser's :focus-visible
+     heuristic — that one lit the ring after a plain mouse click too. */
+  function close() {
     if (modal.hidden) return;
     setOpen(false);
-    if (lastFocus) {
-      document.documentElement.classList.toggle(
-        "talk-focus-quiet",
-        !byKeyboard && !openedByKey
-      );
-      lastFocus.focus();
-    }
+    if (lastFocus) lastFocus.focus();
     lastFocus = null;
-    openedByKey = false;
   }
 
   function speakerCard(photoImg, nameEl) {
@@ -449,27 +449,20 @@
     title.addEventListener("focus", function () { hot(true); });
     title.addEventListener("blur", function () { hot(false); });
 
-    title.addEventListener("click", function () {
-      openedByKey = false;
-      open(talk, title);
-    });
+    title.addEventListener("click", function () { open(talk, title); });
     title.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
         e.preventDefault();
-        openedByKey = true;
         open(talk, title);
       }
     });
   });
 
   Array.prototype.forEach.call(modal.querySelectorAll("[data-talk-close]"), function (el) {
-    el.addEventListener("click", function () { close(false); });
+    el.addEventListener("click", close);
   });
   document.addEventListener("keydown", function (e) {
-    /* Any keypress means the user is on the keyboard now, so the ring is
-       wanted again — without this the mute would stick until focus moved. */
-    document.documentElement.classList.remove("talk-focus-quiet");
-    if (e.key === "Escape") close(true);
+    if (e.key === "Escape") close();
   });
 })();
 
