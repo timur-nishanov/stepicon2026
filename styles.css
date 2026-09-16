@@ -1106,7 +1106,7 @@ img {
    which script.js sets only where an annotation exists. */
 .talk--clickable .talk__title::after {
   content: "\00a0→";
-  color: var(--background-green);
+  color: var(--text-primary);
   transition: color 0.25s ease;
 }
 .talk--clickable .talk__photo {
@@ -1114,7 +1114,7 @@ img {
 }
 /* .talk--hot is set by script.js while the pointer is over the title (and on
    keyboard focus), so the card can react to hovering just the topic. */
-.talk--hot .talk__title::after { color: var(--background-purple); }
+.talk--hot .talk__title::after { color: var(--background-green); }
 /* Radius scales with the tile, so the corners look equally round at every
    width instead of turning into pills on a phone. */
 .talk--hot .talk__photo { border-radius: calc(clamp(96px, 9.2vw, 132px) / 4); }
