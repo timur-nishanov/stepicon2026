@@ -276,6 +276,7 @@
   var slot = modal.querySelector(".talk-modal__speakers-slot");
   var closeBtn = modal.querySelector(".talk-modal__close");
   var lastFocus = null;
+  var openedByKey = false;
 
   /* Which input device is in use right now. Capture phase so it is already
      correct by the time any click or keydown handler runs. */
@@ -310,15 +311,24 @@
     if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
   }
 
-  /* Focus goes back to the topic that opened the pop-up, so keyboard users
-     don't get dropped at the top of the page. Whether that shows a ring is
-     decided by html.kbd-nav (see below), not by the browser's :focus-visible
-     heuristic — that one lit the ring after a plain mouse click too. */
+  /* Returning focus to the topic matters only for someone navigating by
+     keyboard — it stops them being dropped at the top of the page. For a
+     mouse user there is nothing to return to, and leaving the title focused
+     was what kept resurrecting the green ring: the title held focus after
+     the pop-up closed, so the next keypress of any kind — Escape to close,
+     or just paging down — flipped html.kbd-nav on and lit it up. So focus
+     goes back only when the pop-up was opened from the keyboard; otherwise
+     it is dropped, and the title is left as unfocused as it started. */
   function close() {
     if (modal.hidden) return;
     setOpen(false);
-    if (lastFocus) lastFocus.focus();
+    if (openedByKey && lastFocus) {
+      lastFocus.focus();
+    } else if (document.activeElement && modal.contains(document.activeElement)) {
+      document.activeElement.blur(); // don't strand focus inside a hidden panel
+    }
     lastFocus = null;
+    openedByKey = false;
   }
 
   /* reserveBox: keep the portrait slot even when there is no portrait yet, so
@@ -465,10 +475,14 @@
     title.addEventListener("focus", function () { hot(true); });
     title.addEventListener("blur", function () { hot(false); });
 
-    title.addEventListener("click", function () { open(talk, title); });
+    title.addEventListener("click", function () {
+      openedByKey = false;
+      open(talk, title);
+    });
     title.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
         e.preventDefault();
+        openedByKey = true;
         open(talk, title);
       }
     });
