@@ -206,8 +206,15 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <h3 class="talk__title">Как адаптируется Stepik как платформа? Тренды и&nbsp;прогнозы</h3>
+              <!-- Time + abstract for the pop-up. Hidden in the card; script.js
+                   reads it, and its presence is what makes the title clickable.
+                   Add the same block to any other talk to switch its pop-up on. -->
+              <div class="talk__details" hidden>
+                <span class="talk__time">10:30–11:10</span>
+                <p class="talk__abstract">Год назад на&nbsp;Stepicon мы&nbsp;говорили о&nbsp;главных трендах онлайн-образования с&nbsp;точки зрения Stepik. Теперь посмотрим, что изменилось за&nbsp;это время: какие прогнозы оправдались, как меняются интересы и&nbsp;поведение пользователей и&nbsp;что происходит с&nbsp;рынком курсов. Обсудим, как на&nbsp;эти изменения отвечает сама платформа и&nbsp;куда Stepik движется дальше.</p>
+              </div>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
                   <img class="talk__portrait" loading="lazy" src="assets/speaker-tihohod.webp" alt="Юлия Тихоход" />
@@ -222,7 +229,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <h3 class="talk__title">Как меняются профессии и&nbsp;образовательные программы на&nbsp;примере биоинформатики</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -238,7 +245,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full talk--wide">
+            <article class="talk talk--full talk--wide" data-accent="purple">
               <div class="talk__head">
                 <h3 class="talk__title">Как создавать образовательный контент, когда обо&nbsp;всём может рассказать ИИ?</h3>
                 <span class="talk__feature">Паблик-толк</span>
@@ -297,7 +304,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Два подхода к&nbsp;вовлечению студентов: геймификация и&nbsp;ИИ-ассистенты в&nbsp;обучении</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -313,7 +320,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <div class="talk__head">
                 <h3 class="talk__title">Как создать креативного ИИ-помощника для&nbsp;своих задач</h3>
                 <span class="talk__feature">Воркшоп</span>
@@ -332,7 +339,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk">
+            <article class="talk" data-accent="green">
               <div class="talk__head">
                 <h3 class="talk__title">Автоматизированное создание тестов и&nbsp;заданий на&nbsp;программирование средствами AI</h3>
                 <span class="talk__feature">Воркшоп</span>
@@ -346,7 +353,7 @@
                 </span>
               </div>
             </article>
-            <article class="talk">
+            <article class="talk" data-accent="purple">
               <div class="talk__head">
                 <h3 class="talk__title">Визуал с&nbsp;AI: как наглядно и&nbsp;интересно проиллюстрировать свой курс</h3>
                 <span class="talk__feature">Воркшоп</span>
@@ -365,7 +372,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <div class="talk__head">
                 <h3 class="talk__title">Модерация контента на&nbsp;онлайн-платформах в&nbsp;эпоху AI</h3>
                 <span class="talk__feature">Дискуссия</span>
@@ -404,7 +411,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Взгляд изнутри айти-образования: чему и&nbsp;как учить?</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -420,7 +427,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <h3 class="talk__title">Высшее образование vs&nbsp;бизнес. Продуктовый подход в&nbsp;вузе</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -436,7 +443,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Обзор работающих каналов маркетинга: тренды и&nbsp;прогнозы</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -452,7 +459,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <h3 class="talk__title">Как продвигать курс без&nbsp;начального бюджета. Личный опыт</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -468,7 +475,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Исповедь о&nbsp;реальной кухне создания курсов на&nbsp;Stepik</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -484,7 +491,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk">
+            <article class="talk" data-accent="green">
               <h3 class="talk__title">Вайбкодинг как инструмент создания игр в&nbsp;корпоративном обучении</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -495,7 +502,7 @@
                 </span>
               </div>
             </article>
-            <article class="talk">
+            <article class="talk" data-accent="purple">
               <h3 class="talk__title">Почему GEO становится новым SEO: как получать видимость и&nbsp;трафик из&nbsp;AI-поиска</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -511,7 +518,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Зачем создавать курсы вместе? Два кейса от&nbsp;авторов Stepik про&nbsp;создание команд и&nbsp;построение партнёрств</h3>
               <div class="talk__author talk__author--group">
                 <span class="talk__speaker">
@@ -533,7 +540,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="purple">
               <h3 class="talk__title">Performance-маркетинг онлайн-школ в&nbsp;2026&nbsp;году</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -549,7 +556,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk">
+            <article class="talk" data-accent="green">
               <div class="talk__head">
                 <h3 class="talk__title">Яндекс ПромоСтраницы. Запускаем рекламу контента авторов Stepik</h3>
                 <span class="talk__feature">Воркшоп</span>
@@ -563,7 +570,7 @@
                 </span>
               </div>
             </article>
-            <article class="talk">
+            <article class="talk" data-accent="purple">
               <h3 class="talk__title">Спецпроекты в&nbsp;образовании: как превратить продвижение курса в&nbsp;пользовательский опыт</h3>
               <div class="talk__author">
                 <span class="talk__photo talk__photo--real">
@@ -579,7 +586,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full">
+            <article class="talk talk--full" data-accent="green">
               <div class="talk__head">
                 <h3 class="talk__title">Зачем создавать бесплатный контент и&nbsp;какая в&nbsp;этом мотивация</h3>
                 <span class="talk__feature">Дискуссия</span>
@@ -867,6 +874,24 @@
         </a>
       </div>
     </div>
+  </div>
+
+  <!-- Talk pop-up: one instance for the whole programme. script.js fills it
+       from the clicked card, so adding a talk needs no markup here. -->
+  <div class="talk-modal" id="talk-modal" hidden>
+    <div class="talk-modal__scrim" data-talk-close></div>
+    <aside class="talk-modal__panel" role="dialog" aria-modal="true" aria-labelledby="talk-modal-title">
+      <div class="talk-modal__body">
+        <div class="talk-modal__top">
+          <span class="talk-modal__time"></span>
+          <button class="talk-modal__close" type="button" data-talk-close>Закрыть</button>
+        </div>
+        <h3 class="talk-modal__title" id="talk-modal-title"></h3>
+        <p class="talk-modal__abstract"></p>
+        <div class="talk-modal__speakers-slot"></div>
+      </div>
+      <div class="talk-modal__strip" aria-hidden="true"></div>
+    </aside>
   </div>
 
   <script src="assets/vendor/gsap.min.js"></script>

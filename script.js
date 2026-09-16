@@ -161,11 +161,10 @@
        two things the browser doesn't give for free: arrow buttons that step
        one speaker at a time, and click-and-drag for mouse users. ---------- */
 (function () {
-  var panels = document.querySelectorAll(".talk__panel");
-  if (!panels.length) return;
-
-  Array.prototype.forEach.call(panels, function (panel) {
-    var track = panel.querySelector(".talk__author--slider");
+  /* Exposed so the talk pop-up can wire up the slider it builds on the fly,
+     rather than keeping a second copy of this logic. */
+  window.__initTalkPanel = function (panel, trackSelector) {
+    var track = panel.querySelector(trackSelector || ".talk__author--slider");
     if (!track) return;
     var prev = panel.querySelector(".talk__panel-nav--prev");
     var next = panel.querySelector(".talk__panel-nav--next");
@@ -255,6 +254,202 @@
     );
 
     sync();
+  };
+
+  Array.prototype.forEach.call(document.querySelectorAll(".talk__panel"), function (panel) {
+    window.__initTalkPanel(panel);
+  });
+})();
+
+/* --- Talk pop-up --------------------------------------------------------
+   A talk card opts in by carrying a hidden .talk__details block (time +
+   abstract). This marks those cards clickable, mirrors the hover onto the
+   card (so hovering just the topic moves the card and rounds the portrait),
+   and fills the single #talk-modal from whichever card was clicked. ------ */
+(function () {
+  var modal = document.getElementById("talk-modal");
+  if (!modal) return;
+
+  var elTime = modal.querySelector(".talk-modal__time");
+  var elTitle = modal.querySelector(".talk-modal__title");
+  var elAbstract = modal.querySelector(".talk-modal__abstract");
+  var slot = modal.querySelector(".talk-modal__speakers-slot");
+  var closeBtn = modal.querySelector(".talk-modal__close");
+  var lastFocus = null;
+
+  var hideTimer = null;
+
+  function setOpen(open) {
+    clearTimeout(hideTimer);
+    if (open) {
+      modal.hidden = false;
+      /* Flush layout so the browser sees the off-screen start position before
+         the class lands — otherwise it jumps in with no slide. A forced
+         reflow rather than requestAnimationFrame: rAF is throttled in a
+         background tab, which would leave the panel parked off-screen. */
+      void modal.offsetWidth;
+      modal.classList.add("is-open");
+    } else {
+      modal.classList.remove("is-open");
+      /* Keep it in the DOM until the slide-out has run, then hide it so it
+         stops catching clicks and leaves the tab order. On a timer, not
+         transitionend: under prefers-reduced-motion there is no transition
+         and so no event, which would strand an invisible scrim over the page. */
+      hideTimer = setTimeout(function () { modal.hidden = true; }, 450);
+    }
+    document.documentElement.classList.toggle("talk-modal-open", open);
+    if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
+  }
+
+  function close() {
+    if (modal.hidden) return;
+    setOpen(false);
+    if (lastFocus) lastFocus.focus();
+    lastFocus = null;
+  }
+
+  function speakerCard(photoImg, nameEl) {
+    var card = document.createElement("div");
+    card.className = "talk-modal__speaker";
+    if (photoImg) {
+      var box = document.createElement("div");
+      box.className = "talk-modal__photo";
+      var img = document.createElement("img");
+      img.src = photoImg.getAttribute("src");
+      img.alt = photoImg.getAttribute("alt") || "";
+      box.appendChild(img);
+      card.appendChild(box);
+    }
+    if (nameEl) {
+      var cap = document.createElement("div");
+      cap.className = "talk-modal__name";
+      // the card caption is "Имя Фамилия,<br><span>должность</span>" — reuse it
+      // as-is, only restyling the role line inside the pop-up
+      cap.innerHTML = nameEl.innerHTML;
+      var role = cap.querySelector(".talk__tba-role");
+      if (role) role.className = "talk-modal__role";
+      /* The card writes "Имя Фамилия," because the role follows on the next
+         line; stacked in the pop-up that trailing comma reads as a typo. */
+      cap.childNodes.forEach(function (node) {
+        if (node.nodeType === 3) node.nodeValue = node.nodeValue.replace(/,\s*$/, "");
+      });
+      card.appendChild(cap);
+    }
+    return card;
+  }
+
+  function navButton(dir) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "talk__panel-nav talk__panel-nav--" + dir;
+    b.setAttribute("aria-label", dir === "prev" ? "Предыдущие спикеры" : "Следующие спикеры");
+    var img = document.createElement("img");
+    img.src = "assets/chevron-" + (dir === "prev" ? "left" : "right") + ".svg";
+    img.alt = "";
+    img.width = 31;
+    img.height = 31;
+    b.appendChild(img);
+    return b;
+  }
+
+  function open(talk, trigger) {
+    var details = talk.querySelector(".talk__details");
+    if (!details) return;
+    var time = details.querySelector(".talk__time");
+    var abstract = details.querySelector(".talk__abstract");
+    var title = talk.querySelector(".talk__title");
+
+    elTime.textContent = time ? time.textContent.trim() : "";
+    elTitle.innerHTML = title ? title.innerHTML : "";
+    elAbstract.innerHTML = abstract ? abstract.innerHTML : "";
+
+    /* Rebuilt from scratch every time: the arrows and the track carry their
+       own listeners, so reusing the nodes would stack a new set on each open. */
+    slot.textContent = "";
+    var cards = [];
+    var pendingSlider = null;
+    var groups = talk.querySelectorAll(".talk__speaker");
+    if (groups.length) {
+      Array.prototype.forEach.call(groups, function (sp) {
+        cards.push(speakerCard(sp.querySelector(".talk__portrait"),
+                               sp.querySelector(".talk__tba--name")));
+      });
+    } else {
+      var author = talk.querySelector(".talk__author");
+      if (author) {
+        cards.push(speakerCard(author.querySelector(".talk__portrait"),
+                               author.querySelector(".talk__tba--name")));
+      }
+    }
+
+    var track = document.createElement("div");
+    track.className = "talk-modal__speakers";
+    cards.forEach(function (c) { track.appendChild(c); });
+
+    /* One or two speakers fit side by side. More than that and the columns get
+       too narrow for a full job title, so they ride the same slider the
+       programme card uses — two in view, arrows and drag included. */
+    if (cards.length > 2) {
+      track.classList.add("talk-modal__speakers--slider");
+      var panel = document.createElement("div");
+      panel.className = "talk__panel talk-modal__slider";
+      panel.appendChild(navButton("prev"));
+      panel.appendChild(track);
+      panel.appendChild(navButton("next"));
+      slot.appendChild(panel);
+      pendingSlider = panel;
+    } else {
+      track.setAttribute("data-count", String(cards.length));
+      slot.appendChild(track);
+    }
+
+    // green portrait -> purple strip, and the other way round
+    var accent = talk.getAttribute("data-accent");
+    if (accent) modal.setAttribute("data-accent", accent);
+    else modal.removeAttribute("data-accent");
+
+    /* the title that opened it, not document.activeElement: a mouse click on
+       a tabindex element doesn't always leave focus there, and restoring to
+       <body> would strand focus inside the hidden panel on close */
+    lastFocus = trigger || document.activeElement;
+    setOpen(true);
+    /* after setOpen: while the panel is still hidden the track measures zero,
+       and the arrows would both come up disabled */
+    if (pendingSlider && window.__initTalkPanel) {
+      window.__initTalkPanel(pendingSlider, ".talk-modal__speakers--slider");
+    }
+    if (closeBtn) closeBtn.focus();
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll(".talk"), function (talk) {
+    if (!talk.querySelector(".talk__details")) return;
+    var title = talk.querySelector(".talk__title");
+    if (!title) return;
+
+    talk.classList.add("talk--clickable");
+    title.setAttribute("role", "button");
+    title.setAttribute("tabindex", "0");
+
+    function hot(on) { talk.classList.toggle("talk--hot", on); }
+    title.addEventListener("pointerenter", function () { hot(true); });
+    title.addEventListener("pointerleave", function () { hot(false); });
+    title.addEventListener("focus", function () { hot(true); });
+    title.addEventListener("blur", function () { hot(false); });
+
+    title.addEventListener("click", function () { open(talk, title); });
+    title.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+        e.preventDefault();
+        open(talk, title);
+      }
+    });
+  });
+
+  Array.prototype.forEach.call(modal.querySelectorAll("[data-talk-close]"), function (el) {
+    el.addEventListener("click", close);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") close();
   });
 })();
 
