@@ -1078,6 +1078,10 @@ img {
   outline: 2px solid var(--border-green);
   outline-offset: 6px;
 }
+/* Set by script.js when the pop-up hands focus back after a mouse close: the
+   ring is right for keyboard users but reads as a stray green box after a
+   click. Cleared on the next keypress, so the keyboard never loses it. */
+html.talk-focus-quiet .talk--clickable .talk__title:focus-visible { outline: none; }
 /* The pop-up reads these; they must never show inside the card itself. */
 .talk__details { display: none; }
 
