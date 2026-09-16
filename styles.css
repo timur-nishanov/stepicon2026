@@ -1212,11 +1212,14 @@ html.kbd-nav .talk--clickable .talk__title:focus {
   color: var(--text-secondary);
 }
 .talk-modal__abstract:empty { display: none; }
-/* Smaller repeat of the card portraits, at the foot of the panel. */
+/* Smaller repeat of the card portraits, pinned at the foot of the panel.
+   Deliberately a sibling of the scrolling body, not a child of it: a long
+   abstract used to push the speakers past the bottom edge, and a reader had
+   to scroll to find out who was talking. Now only the text scrolls. */
 .talk-modal__speakers-slot {
-  margin-top: auto;
-  padding-top: 8px;
+  flex: 0 0 auto;
   min-width: 0;
+  padding: 4px clamp(20px, 2vw, 28px) clamp(20px, 2vw, 28px);
 }
 .talk-modal__speakers {
   display: flex;

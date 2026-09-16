@@ -347,7 +347,15 @@
       // as-is, only restyling the role line inside the pop-up
       cap.innerHTML = nameEl.innerHTML;
       var role = cap.querySelector(".talk__tba-role");
-      if (role) role.className = "talk-modal__role";
+      if (role) {
+        role.className = "talk-modal__role";
+        /* The pop-up column is much narrower than the card, so a very long
+           role can be given a trimmed version just for here via
+           data-role-short on the card's role span. */
+        var short = role.getAttribute("data-role-short");
+        if (short) role.textContent = short;
+        role.removeAttribute("data-role-short");
+      }
       /* The card writes "Имя Фамилия," because the role follows on the next
          line; stacked in the pop-up that trailing comma reads as a typo. */
       cap.childNodes.forEach(function (node) {
