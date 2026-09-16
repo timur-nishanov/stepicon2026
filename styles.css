@@ -799,6 +799,13 @@ img {
   flex-wrap: wrap;
   gap: clamp(16px, 2.2vw, 32px);
 }
+/* Speaker whose portrait hasn't arrived yet: no empty tile (the client read
+   one as a broken image), just the caption pushed down by exactly the height
+   of a portrait plus the column gap, so it lines up with the speakers beside
+   it instead of floating at the top of the row. */
+.talk__speaker--no-photo {
+  margin-top: calc(clamp(96px, 9.2vw, 132px) * 154 / 132 + 12px);
+}
 .talk__speaker {
   display: flex;
   flex-direction: column;
@@ -1271,6 +1278,12 @@ html.kbd-nav .talk--clickable .talk__title:focus {
   border-radius: 14px;
   overflow: hidden;
   background-color: var(--background-transparent-1);
+}
+/* Speaker without a portrait yet, in a pop-up that has others: an empty box
+   holds the slot so the caption lines up, but draws nothing — the client read
+   a visible empty tile as a failed image. */
+.talk-modal__photo--empty {
+  background: none;
 }
 .talk-modal__photo img {
   width: 100%;
@@ -2525,6 +2538,10 @@ html.menu-open body {
     align-items: center;
     gap: 16px;
     width: 100%;
+  }
+  /* столбцов больше нет — выравнивать подпись по высоте портрета не с чем */
+  .talk__speaker--no-photo {
+    margin-top: 0;
   }
   /* The slider keeps scrolling sideways — stacking it would defeat the point.
      One speaker per view, with the next one peeking so the swipe is obvious.

@@ -321,16 +321,23 @@
     lastFocus = null;
   }
 
-  function speakerCard(photoImg, nameEl) {
+  /* reserveBox: keep the portrait slot even when there is no portrait yet, so
+     the caption stays level with the speakers beside it. Only worth doing when
+     there ARE speakers beside it — on a solo card it would just leave a hole. */
+  function speakerCard(photoImg, nameEl, reserveBox) {
     var card = document.createElement("div");
     card.className = "talk-modal__speaker";
-    if (photoImg) {
+    if (photoImg || reserveBox) {
       var box = document.createElement("div");
       box.className = "talk-modal__photo";
-      var img = document.createElement("img");
-      img.src = photoImg.getAttribute("src");
-      img.alt = photoImg.getAttribute("alt") || "";
-      box.appendChild(img);
+      if (photoImg) {
+        var img = document.createElement("img");
+        img.src = photoImg.getAttribute("src");
+        img.alt = photoImg.getAttribute("alt") || "";
+        box.appendChild(img);
+      } else {
+        box.className += " talk-modal__photo--empty";
+      }
       card.appendChild(box);
     }
     if (nameEl) {
@@ -385,7 +392,8 @@
     if (groups.length) {
       Array.prototype.forEach.call(groups, function (sp) {
         cards.push(speakerCard(sp.querySelector(".talk__portrait"),
-                               sp.querySelector(".talk__tba--name")));
+                               sp.querySelector(".talk__tba--name"),
+                               groups.length > 1));
       });
     } else {
       var author = talk.querySelector(".talk__author");

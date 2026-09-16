@@ -392,7 +392,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full" data-accent="green">
+            <article class="talk talk--full talk--wide" data-accent="green">
               <div class="talk__head">
                 <h3 class="talk__title">Модерация контента на&nbsp;онлайн-платформах в&nbsp;эпоху AI</h3>
                 <span class="talk__feature">Дискуссия</span>
@@ -413,6 +413,13 @@
                     <img class="talk__portrait" loading="lazy" src="assets/speaker-shevelev.webp" alt="Алексей Шевелев" />
                   </span>
                   <span class="talk__tba talk__tba--name">Алексей Шевелев,<br /><span class="talk__tba-role">руководитель отдела по&nbsp;работе с&nbsp;пользователями, Хабр</span></span>
+                </span>
+                <!-- Портрет ещё не прислали. Модификатор сдвигает подпись вниз
+                     на высоту плитки, чтобы она встала вровень с соседними, —
+                     пустой рамки при этом не видно. Когда фото придёт, блок
+                     станет обычным .talk__speaker с .talk__photo--real. -->
+                <span class="talk__speaker talk__speaker--no-photo">
+                  <span class="talk__tba talk__tba--name">Алексей Исаев,<br /><span class="talk__tba-role">директор по&nbsp;рекрутменту и&nbsp;спецпроектам, Getmatch</span></span>
                 </span>
               </div>
             </article>
@@ -515,7 +522,7 @@
 
         <div class="program__row">
           <div class="program__items">
-            <article class="talk talk--full" data-accent="purple">
+            <article class="talk" data-accent="purple">
               <h3 class="talk__title">Исповедь о&nbsp;реальной кухне создания курсов на&nbsp;Stepik</h3>
               <div class="talk__details" hidden>
                 <span class="talk__time">16:30–17:10</span>
@@ -527,6 +534,21 @@
                 </span>
                 <span class="talk__person">
                   <span class="talk__tba talk__tba--name">Иван Стародубцев,<br /><span class="talk__tba-role">создатель курсов «Лучший по&nbsp;Python»</span></span>
+                </span>
+              </div>
+            </article>
+            <article class="talk" data-accent="green">
+              <h3 class="talk__title">От&nbsp;экспертизы к&nbsp;образовательному продукту: как создавать курсы, которые нужны бизнесу</h3>
+              <div class="talk__details" hidden>
+                <span class="talk__time">16:30–17:10</span>
+                <p class="talk__abstract">На&nbsp;примере опыта ГК «Олимпроект» разберём, какие образовательные продукты и&nbsp;форматы востребованы компаниями реального сектора и&nbsp;как инженерная компания систематизирует знания практикующих специалистов, превращая их в&nbsp;онлайн-курсы и&nbsp;программы корпоративного обучения. Поговорим о&nbsp;трёх ключевых этапах: как определить, какие знания стоит превращать в&nbsp;образовательный продукт, как адаптировать экспертизу и&nbsp;материалы специалистов под&nbsp;формат онлайн-обучения и&nbsp;как создавать курсы, отвечающие реальным задачам работодателей.</p>
+              </div>
+              <div class="talk__author">
+                <span class="talk__photo talk__photo--real">
+                  <img class="talk__portrait" loading="lazy" src="assets/speaker-olimproekt.webp" alt="Спикер ГК «Олимпроект»" />
+                </span>
+                <span class="talk__person">
+                  <span class="talk__tba talk__tba--name">ГК «Олимпроект»</span>
                 </span>
               </div>
             </article>
