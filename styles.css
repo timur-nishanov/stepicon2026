@@ -1321,7 +1321,7 @@ html.kbd-nav .talk--clickable .talk__title:focus {
 /* Keep Rzaeva's portrait closer to a headshot in both programme views. */
 .talk__portrait[src$="speaker-rzaeva-20260916.png"],
 .talk-modal__photo img[src$="speaker-rzaeva-20260916.png"] {
-  transform: scale(1.6);
+  transform: scale(1.3);
   transform-origin: 50% 0%;
 }
 .talk-modal__name {
