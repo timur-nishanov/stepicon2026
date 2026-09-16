@@ -695,11 +695,26 @@ img {
   color: var(--text-primary);
 }
 .program__items {
+  --items-gap: clamp(24px, 5.5vw, 80px);
   flex: 1 1 auto;
   display: flex;
-  gap: clamp(24px, 5.5vw, 80px);
+  gap: var(--items-gap);
+}
+/* Two talks in one row run at the same time. A hairline down the middle of
+   the gap says so at a glance; it matches the 2px white rules that separate
+   the rows, so it reads as part of the same grid rather than decoration.
+   Only ever drawn between siblings, so a lone card never gets one. */
+.program__items > .talk + .talk::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--items-gap) / -2 - 1px);
+  width: 2px;
+  background-color: var(--border-white);
 }
 .talk {
+  position: relative; /* anchors the divider between parallel talks */
   flex: 1 1 0;
   min-width: 0;
   max-width: calc(50% - 40px); /* a lone card stays left-aligned, not full width */
@@ -2708,6 +2723,10 @@ html.menu-open body {
     flex-direction: column;
     gap: 28px;
     width: 100%;
+  }
+  /* стопка вместо двух колонок — вертикальной палочке между ними нет места */
+  .program__items > .talk + .talk::before {
+    display: none;
   }
   .talk {
     flex: 0 0 auto; /* size to content in the stacked column (don't collapse to 0) */
