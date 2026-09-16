@@ -700,9 +700,10 @@ img {
   display: flex;
   gap: var(--items-gap);
 }
-/* Two talks in one row run at the same time. A hairline down the middle of
-   the gap says so at a glance; it matches the 2px white rules that separate
-   the rows, so it reads as part of the same grid rather than decoration.
+/* Two talks in one row run at the same time, and a hairline down the middle
+   of the gap says so at a glance. Deliberately NOT the white of the rules
+   between rows: at full strength it read louder than the talks themselves.
+   It sits at the same 50% white as the role captions, so it stays background.
    Only ever drawn between siblings, so a lone card never gets one. */
 .program__items > .talk + .talk::before {
   content: "";
@@ -711,7 +712,7 @@ img {
   bottom: 0;
   left: calc(var(--items-gap) / -2 - 1px);
   width: 2px;
-  background-color: var(--border-white);
+  background-color: var(--text-secondary);
 }
 .talk {
   position: relative; /* anchors the divider between parallel talks */
