@@ -1095,21 +1095,29 @@ img {
    A talk becomes clickable only when its card carries a .talk__details block
    (time + abstract). script.js adds .talk--clickable, so cards without one
    keep the old static behaviour and no hover affordance. ----------------- */
-.talk--clickable {
-  /* the card slides a little on hover; transform doesn't disturb the row */
-  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
 .talk--clickable .talk__title {
   cursor: pointer;
+}
+/* The arrow is the whole point of this: a hover effect can only ever hint to
+   someone whose cursor is already on the title, and on a phone there is no
+   hover at all — so nothing told a reader the topic opens anything. This
+   marker is always visible. The non-breaking space keeps it glued to the last
+   word, so it can never end up alone on a line. Drawn off .talk--clickable,
+   which script.js sets only where an annotation exists. */
+.talk--clickable .talk__title::after {
+  content: "\00a0→";
+  color: var(--text-primary);
   transition: color 0.25s ease;
 }
 .talk--clickable .talk__photo {
   transition: border-radius 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 /* .talk--hot is set by script.js while the pointer is over the title (and on
-   keyboard focus), so the whole card can react to hovering just the topic. */
-.talk--hot { transform: translateX(12px); }
-.talk--hot .talk__photo { border-radius: 20px; }
+   keyboard focus), so the card can react to hovering just the topic. */
+.talk--hot .talk__title::after { color: var(--background-green); }
+/* Radius scales with the tile, so the corners look equally round at every
+   width instead of turning into pills on a phone. */
+.talk--hot .talk__photo { border-radius: calc(clamp(96px, 9.2vw, 132px) / 4); }
 /* Focus ring for keyboard users. Deliberately NOT :focus-visible — the pop-up
    hands focus back to the title on close, and the browser's own heuristic for
    scripted focus lit the ring up after a plain mouse click too, which read as
@@ -1341,12 +1349,11 @@ html.talk-modal-open,
 html.talk-modal-open body { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
-  .talk--clickable,
+  .talk--clickable .talk__title::after,
   .talk--clickable .talk__photo,
   .talk-modal__panel,
   .talk-modal__scrim { transition: none; }
   .talk-modal__speakers--slider { scroll-behavior: auto; }
-  .talk--hot { transform: none; }
 }
 
 /* Phones: the side panel becomes a near-full-screen sheet — a 33vw column
@@ -1372,8 +1379,6 @@ html.talk-modal-open body { overflow: hidden; }
     flex: 1 0 100%;
     order: -1;
   }
-  /* no hover on touch: the shift would only ever fire mid-tap */
-  .talk--hot { transform: none; }
 }
 
 /* -------------------------------------------------------------------------
