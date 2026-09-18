@@ -991,6 +991,67 @@ img {
 .talk__tba--name {
   color: var(--text-primary);
 }
+/* Кружок «i» у подписи спикера: тот же приём, что у скидки в тарифах, —
+   короткая должность в строке, остальное по наведению. Пузырь привязан к
+   подписи, а не к иконке: иконка гуляет по строке при разной ширине, и
+   повешенный на неё пузырь вылезал бы за карточку. */
+.talk__tba--name {
+  position: relative;
+}
+.talk__tip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: 0.06em;
+  margin-left: 0.4em;
+  width: 1.15em;
+  height: 1.15em;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: 0.85em;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1;
+  cursor: help;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.talk__tip:hover,
+.talk__tip:focus-visible {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+.talk__tip-bubble {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 10px);
+  width: max-content;
+  max-width: min(320px, 100%);
+  padding: 12px 14px;
+  border-radius: 12px;
+  background-color: var(--background-white);
+  color: var(--text-primary-inverse);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  font-size: 15px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.35;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+  z-index: 5; /* выше разделителя параллельных докладов (z-index 2) */
+}
+.talk__tip:hover .talk__tip-bubble,
+.talk__tip:focus-visible .talk__tip-bubble {
+  opacity: 1;
+  visibility: visible;
+}
 .talk__tba-role {
   color: var(--text-secondary);
 }
