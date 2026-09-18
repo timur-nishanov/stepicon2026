@@ -365,6 +365,10 @@
         var short = role.getAttribute("data-role-short");
         if (short) role.textContent = short;
         role.removeAttribute("data-role-short");
+        /* Кружок «i» — приём для карточки: в узкой колонке поп-апа пузырю
+           некуда раскрыться, а место под полный текст там и так есть. */
+        var tip = role.querySelector(".talk__tip");
+        if (tip) tip.remove();
       }
       /* The card writes "Имя Фамилия," because the role follows on the next
          line; stacked in the pop-up that trailing comma reads as a typo. */
