@@ -859,3 +859,111 @@
       "-=0.4"
     );
 })();
+
+/* --- Promo pop-up: the online-stream invite ------------------------------
+   Fires once the visitor has scrolled a quarter of the page, and only once
+   per browser. Mirrors the talk pop-up's mechanics: a forced reflow rather
+   than requestAnimationFrame (rAF is throttled in background tabs and would
+   leave the card parked off-screen), and a timer rather than transitionend
+   (which never fires under prefers-reduced-motion, stranding the scrim). */
+(function () {
+  var promo = document.getElementById("promo");
+  if (!promo) return;
+
+  var card = promo.querySelector(".promo__card");
+  var cta = promo.querySelector(".promo__btn");
+  var DEPTH = 0.25;
+  var SEEN_KEY = "stepicon-promo-stream-2026";
+  var hideTimer = null;
+
+  /* Storage throws in private mode and in sandboxed frames, and comes back
+     empty when site data is cleared — the pop-up must survive all three. */
+  function seen() {
+    try { return window.localStorage.getItem(SEEN_KEY) === "1"; }
+    catch (e) { return false; }
+  }
+  function markSeen() {
+    try { window.localStorage.setItem(SEEN_KEY, "1"); } catch (e) {}
+  }
+
+  function scrolledShare() {
+    var doc = document.documentElement;
+    var max = (doc.scrollHeight || 0) - window.innerHeight;
+    if (max <= 0) return 0;
+    return (window.scrollY || doc.scrollTop || 0) / max;
+  }
+
+  function focusable() {
+    return Array.prototype.filter.call(
+      promo.querySelectorAll("a[href], button:not([disabled])"),
+      function (el) { return el.offsetParent !== null; }
+    );
+  }
+
+  function setOpen(open) {
+    clearTimeout(hideTimer);
+    if (open) {
+      promo.hidden = false;
+      void promo.offsetWidth; // commit the starting styles before animating
+      promo.classList.add("is-open");
+    } else {
+      promo.classList.remove("is-open");
+      hideTimer = setTimeout(function () { promo.hidden = true; }, 450);
+    }
+    document.documentElement.classList.toggle("promo-open", open);
+    if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
+  }
+
+  function close() {
+    if (promo.hidden) return;
+    setOpen(false);
+    /* Nothing to hand focus back to — the pop-up opens on scroll, not from a
+       control the visitor operated — so drop focus instead of restoring it.
+       Leaving it parked on the card is what lights a ring on the next keypress. */
+    if (document.activeElement && promo.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
+    document.removeEventListener("keydown", onKey, true);
+  }
+
+  function onKey(e) {
+    if (e.key === "Escape") { close(); return; }
+    if (e.key !== "Tab") return;
+    var items = focusable();
+    if (!items.length) return;
+    var first = items[0];
+    var last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  }
+
+  function open() {
+    /* Never stack on top of a talk pop-up — wait for the next scroll instead. */
+    if (document.documentElement.classList.contains("talk-modal-open")) return false;
+    markSeen();
+    setOpen(true);
+    if (card) card.focus({ preventScroll: true });
+    document.addEventListener("keydown", onKey, true);
+    return true;
+  }
+
+  function check() {
+    if (seen()) { window.removeEventListener("scroll", check); return; }
+    if (scrolledShare() < DEPTH) return;
+    if (open()) window.removeEventListener("scroll", check);
+  }
+
+  promo.querySelectorAll("[data-promo-close]").forEach(function (el) {
+    el.addEventListener("click", close);
+  });
+  /* The link opens in a new tab; closing behind it means the page is usable
+     again when the visitor comes back to it. */
+  if (cta) cta.addEventListener("click", close);
+
+  if (seen()) return;
+  window.addEventListener("scroll", check, { passive: true });
+  check(); // the page may already be restored mid-scroll
+})();

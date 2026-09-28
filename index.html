@@ -31,7 +31,7 @@
 
   <!-- Inter Display is loaded locally via @font-face (see styles.css / assets/fonts) -->
   <link rel="stylesheet" href="assets/vendor/lenis.css" />
-  <link rel="stylesheet" href="styles.css?v=20260917" />
+  <link rel="stylesheet" href="styles.css?v=20260928" />
 </head>
 <body>
   <noscript><div><img src="https://mc.yandex.ru/watch/30810146" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
@@ -1039,6 +1039,26 @@
       <div class="talk-modal__speakers-slot"></div>
       <div class="talk-modal__strip" aria-hidden="true"></div>
     </aside>
+  </div>
+
+  <!-- Promo pop-up: the online-stream invite, shown once a visitor has read
+       through a quarter of the page (script.js). Lives here, not inside a
+       section, so no ancestor's stacking context can trap it. -->
+  <div class="promo" id="promo" hidden>
+    <div class="promo__scrim" data-promo-close></div>
+    <div class="promo__glow" aria-hidden="true"></div>
+    <div class="promo__card" role="dialog" aria-modal="true" aria-labelledby="promo-title" tabindex="-1">
+      <div class="promo__body">
+        <div class="promo__top">
+          <span class="promo__label">Онлайн-трансляция</span>
+          <button class="promo__close" type="button" data-promo-close>Закрыть</button>
+        </div>
+        <h2 class="promo__title" id="promo-title">Stepicon 2026 уже вот-вот!</h2>
+        <p class="promo__text">Если вы&nbsp;не&nbsp;смогли приехать очно — то&nbsp;подключайтесь к&nbsp;нашей трансляции и&nbsp;смотрите нас онлайн</p>
+        <a class="promo__btn btn-fill" href="https://forms.yandex.ru/cloud/6a4b5e2d6d2d73c127a0e765/" target="_blank" rel="noopener">Смотреть онлайн</a>
+      </div>
+      <div class="promo__strip" aria-hidden="true"></div>
+    </div>
   </div>
 
   <script src="assets/vendor/gsap.min.js"></script>
