@@ -861,8 +861,8 @@
 })();
 
 /* --- Promo pop-up: the online-stream invite ------------------------------
-   Fires once the visitor has scrolled a quarter of the page, and only once
-   per browser. Mirrors the talk pop-up's mechanics: a forced reflow rather
+   Fires once the visitor has scrolled a quarter of the page, and once per
+   visit. Mirrors the talk pop-up's mechanics: a forced reflow rather
    than requestAnimationFrame (rAF is throttled in background tabs and would
    leave the card parked off-screen), and a timer rather than transitionend
    (which never fires under prefers-reduced-motion, stranding the scrim). */
@@ -876,15 +876,21 @@
   var SEEN_KEY = "stepicon-promo-stream-2026";
   var hideTimer = null;
 
-  /* Storage throws in private mode and in sandboxed frames, and comes back
-     empty when site data is cleared — the pop-up must survive all three. */
+  /* Session storage, not local: one show per visit, so someone who comes back
+     tomorrow is reminded again. Storage throws in private mode and in
+     sandboxed frames, and comes back empty when site data is cleared — the
+     pop-up must survive all three, and one show too many beats a dead script. */
   function seen() {
-    try { return window.localStorage.getItem(SEEN_KEY) === "1"; }
+    try { return window.sessionStorage.getItem(SEEN_KEY) === "1"; }
     catch (e) { return false; }
   }
   function markSeen() {
-    try { window.localStorage.setItem(SEEN_KEY, "1"); } catch (e) {}
+    try { window.sessionStorage.setItem(SEEN_KEY, "1"); } catch (e) {}
   }
+  /* The first build kept this flag in localStorage, where it silenced the
+     pop-up for good. Clear it, or everyone who already dismissed it once would
+     never see it again. */
+  try { window.localStorage.removeItem(SEEN_KEY); } catch (e) {}
 
   function scrolledShare() {
     var doc = document.documentElement;
