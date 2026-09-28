@@ -3081,7 +3081,11 @@ html.kbd-nav .promo__card:focus {
 }
 .promo__close {
   flex: 0 0 auto;
-  padding: 0;
+  /* The label itself is only 22px tall — too small to tap. Pad the hit area
+     out to 44px and pull the box back by the same amount, so the target grows
+     without the text moving a pixel. */
+  padding: 12px 8px;
+  margin: -12px -8px;
   border: 0;
   background: none;
   cursor: pointer;
