@@ -861,7 +861,7 @@
 })();
 
 /* --- Promo pop-up: the online-stream invite ------------------------------
-   Fires once the visitor has scrolled a quarter of the page, and once per
+   Fires once the visitor has scrolled 15% of the page, and once per
    visit. Mirrors the talk pop-up's mechanics: a forced reflow rather
    than requestAnimationFrame (rAF is throttled in background tabs and would
    leave the card parked off-screen), and a timer rather than transitionend
@@ -872,7 +872,7 @@
 
   var card = promo.querySelector(".promo__card");
   var cta = promo.querySelector(".promo__btn");
-  var DEPTH = 0.25;
+  var DEPTH = 0.15;
   var SEEN_KEY = "stepicon-promo-stream-2026";
   var hideTimer = null;
 
