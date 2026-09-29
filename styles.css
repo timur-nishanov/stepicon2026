@@ -2161,6 +2161,12 @@ html.talk-modal-open body { overflow: hidden; }
 .footer__partners-logos a:hover img {
   opacity: 1;
 }
+/* A solid wordmark with a filled mark (Cloud.ru) reads much heavier than the
+   thin lockups at the same box: at the shared 130px cap it covered ~30% more
+   area than any other logo. A narrower cap brings its visual weight in line. */
+.footer__partners-logos img.footer__partner-logo--dense {
+  max-width: 112px;
+}
 .footer__main {
   flex: 0 1 758px; /* same right-anchored basis as .hero__subtitle */
   min-width: 0;
