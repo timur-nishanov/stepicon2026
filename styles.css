@@ -1685,7 +1685,9 @@ html.talk-modal-open body { overflow: hidden; }
   /* outline thickness: 24 in the 1440 canvas (NOT 32 like Points) */
   border: calc(100vw * 24 / 1440) solid;
   padding: clamp(20px, 2.2vw, 32px);
-  min-height: clamp(260px, 27vw, 384px); /* taller cards on wide screens */
+  /* was 384px at the top end with a button in each card; sales are closed and
+     the buttons are gone, so the cards give that height back */
+  min-height: clamp(220px, 21vw, 300px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1696,8 +1698,13 @@ html.talk-modal-open body { overflow: hidden; }
 .tariff-card--green { border-color: var(--border-green); }
 .tariff-card--purple { border-color: var(--border-purple); }
 .tariff-card__info {
+  /* With no button under it, the info block fills the card and pins its
+     headline to the top edge and its note to the bottom — the three notes
+     then share one baseline instead of floating at three different heights. */
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 16px;
   min-width: 0; /* let the price shrink instead of blowing out the card */
 }
@@ -3032,7 +3039,7 @@ html.menu-open body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(720px, calc(100vw - 32px));
+  width: min(760px, calc(100vw - 32px));
   max-height: calc(100vh - 32px);
   box-sizing: border-box;
   display: flex;
@@ -3079,6 +3086,32 @@ html.kbd-nav .promo__card:focus {
   letter-spacing: var(--t-caption-ls);
   color: rgba(255, 255, 255, 0.62);
 }
+.promo__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Red "on air" dot with a soft ring pulsing out of it. */
+.promo__live {
+  position: relative;
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff3b30;
+}
+.promo__live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: #ff3b30;
+  animation: promo-live-pulse 1.6s ease-out infinite;
+}
+@keyframes promo-live-pulse {
+  from { transform: scale(1); opacity: 0.7; }
+  to { transform: scale(2.6); opacity: 0; }
+}
 .promo__close {
   flex: 0 0 auto;
   /* The label itself is only 22px tall — too small to tap. Pad the hit area
@@ -3097,8 +3130,9 @@ html.kbd-nav .promo__card:focus {
 
 .promo__title {
   margin: 0;
-  /* 46px is the size the headline was drawn at; it stays on one line down to
-     the 720px card, then scales with the viewport on narrower screens. */
+  /* 46px is the size the headline was drawn at; «Stepicon 2026 в live-формате»
+     measures ~625px there, so the 760px card keeps it on one line with room to
+     spare. Below that it scales with the viewport. */
   font-size: clamp(28px, 3.2vw, 46px);
   font-weight: 600;
   line-height: 1.04;
@@ -3143,6 +3177,7 @@ html.promo-open body { overflow: hidden; }
   .promo__scrim,
   .promo__glow,
   .promo__card { transition: none; }
+  .promo__live::after { animation: none; }
 }
 
 /* Phones: the card gives back its side padding and the button goes full width
